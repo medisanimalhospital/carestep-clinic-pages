@@ -238,7 +238,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
   <section id="loginView" class="login-shell">
     <div class="login-card saas-login-card">
       <div class="brand-mark">CS</div>
-      <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.1</p>
+      <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.2</p>
       <h1>CARESTEP Clinic</h1>
       <p class="login-copy">병원별 계정과 직원 권한으로 CARESTEP을 시작합니다.</p>
 
@@ -286,7 +286,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       <div id="saasAuthStatus" class="saas-auth-status"></div>
       <div class="saas-divider">또는</div>
       <button id="enterDemo" class="btn btn-secondary btn-block" type="button">로컬 데모로 둘러보기</button>
-      <p class="fineprint">v6.3.2.1는 Pilot용 SaaS 기반이며 Published 콘텐츠를 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
+      <p class="fineprint">v6.3.2.2는 Pilot용 SaaS 기반이며 Published 콘텐츠를 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
     </div>
   </section>
 
@@ -319,7 +319,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CARESTEP Clinic MVP · v6.3.2.1 · MEDICATION CHECK · IMAGE GUIDE · D1 AUTH</p>
+          <p class="eyebrow">CARESTEP Clinic MVP · v6.3.2.2 · MEDICATION CHECK · IMAGE GUIDE · D1 AUTH</p>
           <h2 id="viewTitle">대시보드</h2>
         </div>
         <div class="topbar-actions">
@@ -343,7 +343,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <article class="stat-card"><span>등록 자료</span><strong id="templateCount">20</strong><small>20종 전체 활성</small></article>
           <article class="stat-card"><span>이번 달 생성</span><strong id="generatedCount">0</strong><small>이 브라우저 기준</small></article>
           <article class="stat-card"><span>현재 플랜</span><strong>PRO</strong><small>데모 권한</small></article>
-          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Medication Check & Image Guide v6.3.2.1</small></article>
+          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Medication Check & Image Guide v6.3.2.2</small></article>
         </div>
 
         <div id="pilotOnboardingBanner" class="pilot-onboarding-banner"><div><b>Pilot를 시작하기 전에</b><span>목표 건수와 시작일을 한 번 설정하면 실사용 지표를 자동으로 추적합니다.</span></div><button class="btn btn-primary" type="button" data-go="pilot">Pilot 설정하기</button></div>
@@ -374,6 +374,8 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <button class="chip active" data-filter="전체">전체</button>
           <button class="chip" data-filter="수술">수술</button>
           <button class="chip" data-filter="내과">내과</button>
+          <button class="chip" data-filter="안과">안과</button>
+          <button class="chip" data-filter="피부과">피부과</button>
           <button class="chip" data-filter="응급">응급</button>
           <button class="chip" data-filter="치과">치과</button>
           <button class="chip" data-filter="비뇨기">비뇨기</button>
@@ -390,7 +392,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <div class="builder-layout">
           <div class="builder-controls panel">
             <div class="wizard-header">
-              <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.1</p>
+              <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.2</p>
               <h3>2분 퇴원자료 만들기</h3>
               <p class="muted">환자 → 개별지시 → 복약 → 재진 → 출력의 5단계만 따라가세요.</p>
             </div>
@@ -537,7 +539,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
       <section id="contentStudio" class="view">
         <div class="studio-hero">
-          <div><p class="eyebrow">AI CONTENT STUDIO · v6.3.2.1</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
+          <div><p class="eyebrow">AI CONTENT STUDIO · v6.3.2.2</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
           <span class="studio-safe">🔒 OPENAI KEY = SERVER ONLY</span>
         </div>
 
@@ -565,7 +567,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
             <div class="studio-grid">
               <div class="span-2"><label class="field-label" for="studioCondition">질환 / 수술 / 관리주제 *</label><input id="studioCondition" class="input" placeholder="예: 고양이 특발성 방광염(FIC)" /></div>
               <div><label class="field-label" for="studioSpecies">대상</label><select id="studioSpecies" class="input"><option value="강아지">강아지</option><option value="고양이">고양이</option><option value="강아지·고양이">강아지·고양이</option></select></div>
-              <div><label class="field-label" for="studioCategory">카테고리</label><select id="studioCategory" class="input"><option>내과</option><option>수술</option><option>치과</option><option>비뇨기</option><option>신경</option><option>종양</option><option>응급</option><option>예방</option><option>노령</option><option>기타</option></select></div>
+              <div><label class="field-label" for="studioCategory">카테고리</label><select id="studioCategory" class="input"><option>내과</option><option>안과</option><option>피부과</option><option>수술</option><option>치과</option><option>비뇨기</option><option>신경</option><option>종양</option><option>응급</option><option>예방</option><option>노령</option><option>기타</option></select></div>
               <div><label class="field-label" for="studioScenario">사용 상황</label><select id="studioScenario" class="input"><option>진단 후 장기관리</option><option>입원 후 퇴원관리</option><option>수술 후 회복관리</option><option>응급진료 후 관리</option><option>예방·일상관리</option></select></div>
               <div><label class="field-label" for="studioDuration">주요 관리기간</label><input id="studioDuration" class="input" placeholder="예: 14일 / 4주 / 장기" /></div>
               <div class="span-2"><label class="field-label" for="studioCarePoints">꼭 포함할 관리 포인트</label><textarea id="studioCarePoints" class="input" placeholder="예: 배뇨 횟수, 소변량, 음수량, 스트레스 환경, 처방약 준수"></textarea></div>
@@ -714,7 +716,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
         <div class="panel" style="margin-top:14px">
           <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">ACCOUNT SECURITY · v6.3.2.1</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
+            <div><p class="eyebrow">ACCOUNT SECURITY · v6.3.2.2</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
             <span id="saasSecurityBadge" class="ai-conn-badge off">로그인 필요</span>
           </div>
           <div class="saas-security-grid">
@@ -771,7 +773,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
               <div class="voice-form-grid">
                 <div class="span-2"><label id="voiceTitleLabel" class="field-label" for="voiceTitle">요청할 질환 / 관리주제 *</label><input id="voiceTitle" class="input" maxlength="160" placeholder="예: 고양이 천식 장기관리" /></div>
                 <div id="voiceSpeciesWrap"><label class="field-label" for="voiceSpecies">대상</label><select id="voiceSpecies" class="input"><option>강아지</option><option>고양이</option><option>강아지·고양이</option></select></div>
-                <div id="voiceCategoryWrap"><label class="field-label" for="voiceCategory">카테고리</label><select id="voiceCategory" class="input"><option>내과</option><option>수술</option><option>치과</option><option>비뇨기</option><option>신경</option><option>종양</option><option>응급</option><option>예방</option><option>노령</option><option>기타</option></select></div>
+                <div id="voiceCategoryWrap"><label class="field-label" for="voiceCategory">카테고리</label><select id="voiceCategory" class="input"><option>내과</option><option>안과</option><option>피부과</option><option>수술</option><option>치과</option><option>비뇨기</option><option>신경</option><option>종양</option><option>응급</option><option>예방</option><option>노령</option><option>기타</option></select></div>
                 <div id="voiceScenarioWrap"><label class="field-label" for="voiceScenario">희망 사용상황</label><select id="voiceScenario" class="input"><option>진단 후 장기관리</option><option>입원 후 퇴원관리</option><option>수술 후 회복관리</option><option>응급진료 후 관리</option><option>예방·일상관리</option></select></div>
                 <div id="voiceInquiryCategoryWrap" class="voice-hidden"><label class="field-label" for="voiceInquiryCategory">문의 구분</label><select id="voiceInquiryCategory" class="input"><option>기능 사용 문의</option><option>PDF·출력 오류</option><option>콘텐츠 내용 문의</option><option>요금제 문의</option><option>병원정보 변경</option><option>기타</option></select></div>
                 <div class="span-2"><label id="voiceDetailsLabel" class="field-label" for="voiceDetails">요청 이유 / 포함했으면 하는 내용</label><textarea id="voiceDetails" class="input" maxlength="2000" placeholder="예: 흡입기 사용 교육과 휴식 시 호흡수 기록 항목도 포함되면 좋겠습니다."></textarea></div>
@@ -812,7 +814,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       </section>
 
       <section id="pilot" class="view">
-        <div class="section-head"><div><p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.1</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
+        <div class="section-head"><div><p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.2</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
 
         <div class="panel pilot-setup-panel">
           <div class="pilot-setup-head"><div><h4>Pilot 기본설정</h4><p>환자정보는 기록하지 않고 목표 건수·기간·사용통계만 이 브라우저에 저장합니다.</p></div><span class="privacy-badge">🔒 환자정보 없음</span></div>
