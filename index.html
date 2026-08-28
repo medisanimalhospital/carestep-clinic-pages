@@ -305,7 +305,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       <div id="saasAuthStatus" class="saas-auth-status"></div>
       <div class="saas-divider">또는</div>
       <button id="enterDemo" class="btn btn-secondary btn-block" type="button">로컬 데모로 둘러보기</button>
-      <p class="fineprint">v6.5는 병원 가입 승인·요금제·구독 상태·플랜별 기능 제한을 포함한 SaaS 기반입니다. Published 콘텐츠는 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
+      <p class="fineprint">v6.5.3은 30일 PILOT 체험·요금제·구독 사용기한·플랜별 기능 제한을 포함한 SaaS 기반입니다. Published 콘텐츠는 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
     </div>
   </section>
 
@@ -326,7 +326,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <button class="nav-item" data-view="account">계정 · 직원</button>
         <button class="nav-item operator-only hidden" data-view="contentStudio">AI Content Studio</button>
         <button class="nav-item" data-view="voice">고객 요청</button>
-        <button class="nav-item" data-view="pilot">Pilot</button>
+        <button class="nav-item" data-view="pilot">운영 분석</button>
         <button class="nav-item operator-only hidden" data-view="admin">운영자 도구</button>
       </nav>
       <div class="sidebar-foot">
@@ -367,7 +367,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Plan & Subscription · HQ Approval · Dynamic Medication Checklist</small></article>
         </div>
 
-        <div id="pilotOnboardingBanner" class="pilot-onboarding-banner"><div><b>Pilot를 시작하기 전에</b><span>목표 건수와 시작일을 한 번 설정하면 실사용 지표를 자동으로 추적합니다.</span></div><button class="btn btn-primary" type="button" data-go="pilot">Pilot 설정하기</button></div>
+        <div id="pilotOnboardingBanner" class="pilot-onboarding-banner"><div><b>운영 분석을 시작하기 전에</b><span>목표 건수와 시작일을 한 번 설정하면 실사용 지표를 자동으로 추적합니다.</span></div><button class="btn btn-primary" type="button" data-go="pilot">운영 분석 설정하기</button></div>
 
         <div class="panel recent-panel">
           <div class="section-head" style="margin:0"><div><p class="eyebrow">Clinic Workflow</p><h3 style="font-size:15px">최근 사용 · 퇴원 속도</h3></div><button id="dashboardNewCase" class="btn btn-primary" type="button">+ 새 환자 시작</button></div>
@@ -376,7 +376,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         </div>
 
         <div class="panel pilot-glance">
-          <div class="section-head" style="margin:0"><div><p class="eyebrow">Pilot Snapshot</p><h3 style="font-size:15px">실사용 검증 현황</h3></div><button class="btn btn-secondary" type="button" data-go="pilot">Pilot 대시보드</button></div>
+          <div class="section-head" style="margin:0"><div><p class="eyebrow">운영 분석 Snapshot</p><h3 style="font-size:15px">실사용 검증 현황</h3></div><button class="btn btn-secondary" type="button" data-go="pilot">운영 분석 대시보드</button></div>
           <div class="pilot-mini-grid"><div><b id="pilotCaseGlance">0 / 20</b><span>목표 퇴원건수</span></div><div><b id="pilotUnder2Glance">--</b><span>2분 이내</span></div><div><b id="pilotRatingGlance">--</b><span>평균 사용성</span></div><div><b id="pilotTopGlance">--</b><span>최다 사용 자료</span></div></div>
         </div>
 
@@ -512,7 +512,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
                 <button id="downloadPackage" class="package-download" type="button">퇴원·후속관리 패키지 ZIP 생성</button>
                 <div class="package-note">ZIP 안에서 <b>00_퇴원당일</b>과 <b>01_후속관리</b> 폴더로 자동 정리합니다. 약이 없으면 복약자료, 투약일수가 없으면 복약 체크표, 재진일이 없으면 캘린더 파일은 자동 제외됩니다.</div>
                 <div class="followup-folder-preview"><b>ZIP 구조</b><br>00_퇴원당일/ 1P요약 · 보호자PDF · 복약자료 · 직원체크<br>01_후속관리/ D+1·3·7·14 모바일카드 · 재진캘린더.ics</div>
-                <div id="completionPanel" class="completion-panel"><strong>퇴원 패키지 생성 완료</strong><p id="completionText"></p><button id="completionNewCase" class="btn btn-primary" type="button">다음 환자 시작</button><div id="pilotFeedbackPrompt" class="pilot-feedback-prompt"><div class="pilot-feedback-title"><b>10초 Pilot 피드백</b><span>환자정보는 저장하지 않습니다.</span></div><div class="rating-row" id="pilotRatingRow"><button type="button" data-rating="1">1</button><button type="button" data-rating="2">2</button><button type="button" data-rating="3">3</button><button type="button" data-rating="4">4</button><button type="button" data-rating="5">5</button></div><div class="feedback-tags" id="pilotFeedbackTags"><button type="button" data-feedback-tag="입력 오래 걸림">입력 오래 걸림</button><button type="button" data-feedback-tag="복약 입력">복약 입력</button><button type="button" data-feedback-tag="PDF">PDF</button><button type="button" data-feedback-tag="모바일 카드">모바일 카드</button><button type="button" data-feedback-tag="직원 인계">직원 인계</button><button type="button" data-feedback-tag="기타">기타</button></div><textarea id="pilotFeedbackNote" class="input" maxlength="180" placeholder="선택 메모 · 환자 개인정보는 입력하지 마세요"></textarea><button id="savePilotFeedback" class="btn btn-secondary" type="button">피드백 저장</button></div></div>
+                <div id="completionPanel" class="completion-panel"><strong>퇴원 패키지 생성 완료</strong><p id="completionText"></p><button id="completionNewCase" class="btn btn-primary" type="button">다음 환자 시작</button><div id="pilotFeedbackPrompt" class="pilot-feedback-prompt"><div class="pilot-feedback-title"><b>10초 사용성 피드백</b><span>환자정보는 저장하지 않습니다.</span></div><div class="rating-row" id="pilotRatingRow"><button type="button" data-rating="1">1</button><button type="button" data-rating="2">2</button><button type="button" data-rating="3">3</button><button type="button" data-rating="4">4</button><button type="button" data-rating="5">5</button></div><div class="feedback-tags" id="pilotFeedbackTags"><button type="button" data-feedback-tag="입력 오래 걸림">입력 오래 걸림</button><button type="button" data-feedback-tag="복약 입력">복약 입력</button><button type="button" data-feedback-tag="PDF">PDF</button><button type="button" data-feedback-tag="모바일 카드">모바일 카드</button><button type="button" data-feedback-tag="직원 인계">직원 인계</button><button type="button" data-feedback-tag="기타">기타</button></div><textarea id="pilotFeedbackNote" class="input" maxlength="180" placeholder="선택 메모 · 환자 개인정보는 입력하지 마세요"></textarea><button id="savePilotFeedback" class="btn btn-secondary" type="button">피드백 저장</button></div></div>
                 <div class="handoff-panel"><h4>직원 인계 · 완료 확인</h4><p>파일 생성 후 실제 보호자 전달과 다음 담당자 인계까지 체크합니다. 이 체크상태와 메모는 저장하지 않습니다.</p><div class="handoff-checks">
                   <label class="handoff-check"><input id="handoffGenerated" type="checkbox" /><span><b>패키지 생성</b><span>필요한 퇴원자료 생성 완료</span></span></label>
                   <label class="handoff-check"><input id="handoffGuardian" type="checkbox" /><span><b>보호자 자료 전달</b><span>1P 요약/PDF 또는 카톡 전달</span></span></label>
@@ -860,7 +860,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       </section>
 
       <section id="pilot" class="view">
-        <div class="section-head"><div><p class="eyebrow">PLAN ENTITLEMENT · v6.5</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
+        <div class="section-head"><div><p class="eyebrow">PLAN ENTITLEMENT · v6.5</p><h3>실사용 운영 분석 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
 
         <div class="panel pilot-setup-panel">
           <div class="pilot-setup-head"><div><h4>Pilot 기본설정</h4><p>환자정보는 기록하지 않고 목표 건수·기간·사용통계만 이 브라우저에 저장합니다.</p></div><span class="privacy-badge">🔒 환자정보 없음</span></div>
@@ -2210,17 +2210,17 @@ function saasCanView(view){
   if(r==='staff'&&['settings','contentStudio','admin'].includes(view))return false;
   if(r==='vet'&&['settings','admin'].includes(view))return false;
   if(r==='admin'&&view==='admin')return false;
-  const featureByView={library:'library',builder:'builder',contentStudio:'aiContent',voice:'customerVoice',pilot:'pilotAnalytics'};
+  const featureByView={library:'library',builder:'builder',voice:'customerVoice',pilot:'pilotAnalytics'};
   return featureByView[view]?saasHasFeature(featureByView[view]):true;
 }
 function renderSubscriptionAccess(){
   const e=saasEntitlements(),auth=saasMode==='auth'&&saasMe;const banner=$('subscriptionBanner');if(!banner)return;
   if(!auth){banner.classList.add('hidden');if($('dashboardPlan'))$('dashboardPlan').textContent='DEMO';if($('dashboardPlanSub'))$('dashboardPlanSub').textContent='로컬 데모 권한';return;}
-  banner.classList.remove('hidden','blocked','warn');const plan=e?.plan?.displayName||saasMe.clinic.plan||'PILOT',sub=e?.subscription?.status||'active',pkgLimit=Number(e?.plan?.limits?.packagesMonthly)||0,aiLimit=Number(e?.plan?.limits?.aiDraftsMonthly)||0;
+  banner.classList.remove('hidden','blocked','warn');const plan=e?.plan?.displayName||saasMe.clinic.plan||'PILOT',sub=e?.subscription?.status||'active',pkgLimit=Number(e?.plan?.limits?.packagesMonthly)||0;
   if(e?.accessBlocked)banner.classList.add('blocked');else if(sub==='trialing')banner.classList.add('warn');
   if($('subscriptionBannerTitle'))$('subscriptionBannerTitle').textContent=e?.accessBlocked?`${plan} · 구독 사용 제한`:sub==='trialing'?`${plan} · 체험 구독`:`${plan} · ${sub}`;
-  if($('subscriptionBannerText'))$('subscriptionBannerText').textContent=e?.accessBlocked?'구독이 active/trialing 상태가 아닙니다. HQ에서 구독 상태를 확인해야 기능이 다시 활성화됩니다.':`이번 달 패키지 ${Number(e?.usage?.packages)||0}/${pkgLimit||'무제한'} · AI Draft ${Number(e?.usage?.aiDrafts)||0}/${aiLimit||'무제한'} · 직원 ${e?.plan?.limits?.members||'무제한'}명 한도`;
-  if($('dashboardPlan'))$('dashboardPlan').textContent=plan;if($('dashboardPlanSub'))$('dashboardPlanSub').textContent=`${sub} · 월 패키지 ${pkgLimit||'∞'} · AI ${aiLimit||'∞'}`;
+  if($('subscriptionBannerText')){const end=e?.subscription?.trialEndsAt||e?.subscription?.currentPeriodEnd||'';const endText=end?` · 사용기한 ${new Date(end).toLocaleDateString('ko-KR')}`:'';const blocked=e?.accessReason==='trial_expired'?'30일 무료체험이 종료되었습니다. BASIC 또는 PRO 전환이 필요합니다.':e?.accessReason==='period_expired'?'현재 구독 사용기한이 종료되었습니다. 구독 갱신이 필요합니다.':'현재 구독 상태에서는 기능을 사용할 수 없습니다. HQ에서 구독 상태를 확인해주세요.';$('subscriptionBannerText').textContent=e?.accessBlocked?blocked:`이번 달 패키지 ${Number(e?.usage?.packages)||0}/${pkgLimit||'무제한'} · 직원 ${e?.plan?.limits?.members||'무제한'}명 한도${endText}`;}
+  if($('dashboardPlan'))$('dashboardPlan').textContent=plan;if($('dashboardPlanSub')){const end=e?.subscription?.trialEndsAt||e?.subscription?.currentPeriodEnd||'';$('dashboardPlanSub').textContent=`${sub} · 월 패키지 ${pkgLimit||'∞'}${end?' · ~ '+new Date(end).toLocaleDateString('ko-KR'):''}`;}
 }
 function applySaasPermissions(){
   const role=saasMode==='demo'?'owner':saasMe?.role||'staff';
@@ -2237,7 +2237,7 @@ function saasCloudBound(){const k=saasCloudKey();return !!(k&&localStorage.getIt
 function saasStatePayload(){
   return {
     schema:'CARESTEP_CLINIC_STATE',
-    version:'6.5.1',
+    version:'6.5.3',
     hospital:{...hospital},
     workflow:{
       dischargePresets:{...(workflowSettings.dischargePresets||{})},
@@ -2353,7 +2353,7 @@ function renderSaasAccount(){
   if($('saasUserName'))$('saasUserName').textContent=auth?saasMe.user.displayName:'로컬 데모';
   if($('saasUserEmail'))$('saasUserEmail').textContent=auth?saasMe.user.email:'계정 미연결';
   if($('saasPlanKpi'))$('saasPlanKpi').textContent=auth?(saasMe.entitlements?.plan?.displayName||saasMe.clinic.plan):'DEMO';
-  if($('saasSubscriptionDetail')){const e=auth?saasMe.entitlements:null;if(!auth)$('saasSubscriptionDetail').textContent='구독 정보는 로그인 후 표시됩니다.';else{const p=e?.plan||{},sub=e?.subscription||{},pkg=p.limits?.packagesMonthly||'무제한',ai=p.limits?.aiDraftsMonthly||'무제한',members=p.limits?.members||'무제한';$('saasSubscriptionDetail').innerHTML=`<b>${escapeHtml(p.displayName||saasMe.clinic.plan)} · ${escapeHtml(sub.status||'active')}</b><br>결제주기 ${escapeHtml(sub.billingCycle||'monthly')} · 월 패키지 ${escapeHtml(String(pkg))} · 월 AI ${escapeHtml(String(ai))} · 직원 ${escapeHtml(String(members))}명 한도${sub.currentPeriodEnd?`<br>현재 기간 종료 ${escapeHtml(new Date(sub.currentPeriodEnd).toLocaleDateString('ko-KR'))}`:''}`;}}
+  if($('saasSubscriptionDetail')){const e=auth?saasMe.entitlements:null;if(!auth)$('saasSubscriptionDetail').textContent='구독 정보는 로그인 후 표시됩니다.';else{const p=e?.plan||{},sub=e?.subscription||{},pkg=p.limits?.packagesMonthly||'무제한',members=p.limits?.members||'무제한';const end=sub.trialEndsAt||sub.currentPeriodEnd||'';$('saasSubscriptionDetail').innerHTML=`<b>${escapeHtml(p.displayName||saasMe.clinic.plan)} · ${escapeHtml(sub.status||'active')}</b><br>결제주기 ${escapeHtml(sub.billingCycle||'monthly')} · 월 패키지 ${escapeHtml(String(pkg))} · 직원 ${escapeHtml(String(members))}명 한도${end?`<br>${sub.status==='trialing'?'무료체험 종료':'현재 사용기한'} ${escapeHtml(new Date(end).toLocaleDateString('ko-KR'))}`:''}`;}}
   if($('saasRoleKpi'))$('saasRoleKpi').textContent=auth?role.toUpperCase():'LOCAL';
   if($('saasPackageKpi'))$('saasPackageKpi').textContent=auth?String(saasUsageSummary?.packages??'--'):'--';
   const sw=$('saasClinicSwitch');if(sw){const memberships=auth?(saasMe.memberships||[]):[];sw.innerHTML=memberships.length?memberships.map(x=>`<option value="${escapeHtml(x.clinicId)}" ${x.clinicId===saasMe.clinic.id?'selected':''}>${escapeHtml(x.clinicName)} · ${escapeHtml(String(x.role).toUpperCase())}</option>`).join(''):'<option value="">로그인 후 확인</option>';sw.disabled=!auth||memberships.length<2;if($('saasSwitchClinicBtn'))$('saasSwitchClinicBtn').disabled=sw.disabled;}
@@ -2854,12 +2854,12 @@ function showApp(){ $('loginView').classList.add('hidden'); $('appView').classLi
 function showLogin(){ $('appView').classList.add('hidden'); $('loginView').classList.remove('hidden'); }
 
 function go(view){
-  if(!saasCanView(view)){const featureByView={library:'library',builder:'builder',contentStudio:'aiContent',voice:'customerVoice',pilot:'pilotAnalytics'};toast(featureByView[view]?saasFeatureMessage(featureByView[view]):'현재 계정 역할에서 사용할 수 없는 메뉴입니다.');view='dashboard';}
+  if(!saasCanView(view)){const featureByView={library:'library',builder:'builder',voice:'customerVoice',pilot:'pilotAnalytics'};toast(featureByView[view]?saasFeatureMessage(featureByView[view]):'현재 계정 역할에서 사용할 수 없는 메뉴입니다.');view='dashboard';}
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active-view'));
   document.querySelectorAll('.nav-item').forEach(v=>v.classList.remove('active'));
   $(view).classList.add('active-view');
   const nav=document.querySelector(`.nav-item[data-view="${view}"]`); if(nav) nav.classList.add('active');
-  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',account:'계정 · 직원',contentStudio:'AI Content Studio',voice:'고객 요청',pilot:'Pilot 대시보드',admin:'운영자 도구'};
+  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',account:'계정 · 직원',contentStudio:'AI Content Studio',voice:'고객 요청',pilot:'운영 분석 대시보드',admin:'운영자 도구'};
   $('viewTitle').textContent=titles[view]||'';
   if(view==='builder') renderBuilder();
   if(view==='settings'){ hydrateSettings(); hydrateWorkflowSettings(); }
