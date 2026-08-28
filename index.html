@@ -36,6 +36,7 @@ button{cursor:pointer}
 h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--muted);line-height:1.65;margin-bottom:22px}
 .demo-note{background:var(--soft);border:1px solid #dce7ff;border-radius:14px;padding:13px 14px;display:flex;flex-direction:column;gap:3px;margin-bottom:18px;font-size:13px}.demo-note span{color:var(--muted)}
 .field-label{display:block;font-size:13px;font-weight:700;margin:14px 0 7px}.input{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px 13px;outline:none;transition:.2s}.input:focus{border-color:#9db7ff;box-shadow:0 0 0 3px #edf3ff}.search{width:280px}
+.template-search-wrap{position:relative}.template-search-box{display:flex;gap:7px;align-items:center}.template-search-box .input{padding-right:72px}.template-search-clear{margin-left:-70px;min-width:62px;border:0;background:#f1f4f8;color:#627087;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:850;cursor:pointer;z-index:1}.template-search-clear:hover{background:#e8edf4}.template-search-hint{margin-top:7px;color:#7b8799;font-size:10px;line-height:1.5}.template-search-results{display:grid;gap:6px;margin-top:9px;max-height:310px;overflow:auto}.template-search-result{width:100%;border:1px solid #e0e6ef;background:#fff;border-radius:11px;padding:10px 11px;text-align:left;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:4px 8px;align-items:center}.template-search-result:hover,.template-search-result:focus{border-color:#9db7ff;background:#f7faff;outline:none}.template-search-result .category{grid-row:1/3;align-self:start;margin-top:1px}.template-search-result strong{font-size:12px;color:#243147}.template-search-result small{display:block;color:#718096;font-size:9px;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.template-search-empty{margin-top:9px;padding:13px;border:1px dashed #d6dde8;border-radius:11px;background:#fafbfd;color:#7a8698;font-size:10px;line-height:1.55}.template-selected{margin-top:10px;border:1px solid #d9e4fb;border-radius:12px;background:#f6f9ff;padding:10px 11px;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.template-selected b{display:block;font-size:11px;color:#1e2d46}.template-selected span{font-size:9px;color:#6f7c91;line-height:1.45}.template-selected .category{white-space:nowrap}.template-result-count{font-weight:850;color:#4c5c75}
 .btn{border:0;border-radius:12px;padding:11px 15px;font-weight:800;transition:.15s}.btn:hover{transform:translateY(-1px)}.btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:var(--brand-dark)}.btn-secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn-ghost{background:#f4f6fa;color:#4f596b}.btn-block{width:100%;margin-top:10px}.fineprint{font-size:11px;color:#8a93a3;line-height:1.6;margin:14px 0 0}
 .app-shell{min-height:100vh;display:grid;grid-template-columns:230px 1fr}.sidebar{position:sticky;top:0;height:100vh;background:#121a2a;color:#fff;padding:22px 16px;display:flex;flex-direction:column}.sidebar-brand{display:flex;align-items:center;gap:10px;padding:0 6px 24px}.sidebar-brand strong{display:block;font-size:17px}.sidebar-brand span{display:block;color:#9ea8bb;font-size:12px;margin-top:2px}.nav-list{display:flex;flex-direction:column;gap:5px}.nav-item{border:0;background:transparent;color:#b7c0d0;text-align:left;border-radius:10px;padding:11px 12px;font-weight:700}.nav-item:hover,.nav-item.active{background:#202a3d;color:#fff}.sidebar-foot{margin-top:auto;padding:14px 6px 0;border-top:1px solid #273249;display:flex;flex-direction:column;gap:10px}.plan-pill{display:inline-flex;width:max-content;padding:6px 8px;border-radius:999px;background:#1e704f;font-size:11px;font-weight:800}.text-btn{border:0;background:transparent;color:#aeb8ca;text-align:left;padding:0}.main{min-width:0;padding:28px 34px 60px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:26px}.topbar h2{margin:0;font-size:26px;letter-spacing:-.7px}.topbar-actions{display:flex;align-items:center;gap:10px}.hospital-badge{font-size:12px;color:#586174;background:#fff;border:1px solid var(--line);padding:8px 10px;border-radius:999px}
 .view{display:none}.active-view{display:block}.hero-panel{background:linear-gradient(135deg,#143eac,#1f5eff 60%,#4c7aff);color:#fff;border-radius:22px;padding:30px;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:var(--shadow)}.hero-panel .eyebrow{color:#dbe6ff}.hero-panel h3{font-size:27px;margin:0 0 10px}.hero-panel p:not(.eyebrow){margin:0;color:#e4ecff}.hero-panel .btn{background:#fff;color:#184fd8}
@@ -337,7 +338,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CARESTEP Clinic · v6.5.1 · OPERATOR MODE · CATEGORY MANAGER · PLAN & SUBSCRIPTION</p>
+          <p class="eyebrow">CARESTEP Clinic · v6.5.2 · QUICK TOPIC SEARCH · OPERATOR MODE · CATEGORY MANAGER · PLAN & SUBSCRIPTION</p>
           <h2 id="viewTitle">대시보드</h2>
         </div>
         <div class="topbar-actions">
@@ -427,8 +428,17 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
             <div class="wizard-pane active" data-wizard-pane="1">
               <div class="wizard-pane-title"><div><h4>① 환자와 교육자료</h4><p>질환을 고르면 퇴원일/관리 시작일은 오늘로 자동 설정되고 D+ 날짜가 계산됩니다.</p></div><span class="privacy-badge">🔒 저장 안 함</span></div>
-              <label class="field-label" for="templateSelect">교육자료</label>
-              <select id="templateSelect" class="input"></select>
+              <label class="field-label" for="templateSearch">교육자료 검색</label>
+              <div class="template-search-wrap">
+                <div class="template-search-box">
+                  <input id="templateSearch" class="input" type="search" autocomplete="off" placeholder="질환명·증상·카테고리 검색 · 예: 췌장염, 구토, 피부, 방광염" />
+                  <button id="templateSearchClear" class="template-search-clear" type="button">지우기</button>
+                </div>
+                <div id="templateSearchHint" class="template-search-hint">검색어를 입력하면 관련 교육자료만 표시됩니다. 여러 단어를 함께 입력해도 됩니다.</div>
+                <div id="templateSearchResults" class="template-search-results"></div>
+                <div id="templateSelected" class="template-selected"></div>
+                <select id="templateSelect" class="input" style="display:none" tabindex="-1" aria-hidden="true"></select>
+              </div>
               <div class="case-panel">
                 <div class="case-panel-head"><div><strong>이번 환자 정보 <span style="color:#7b8698;font-weight:600">(선택)</span></strong><div class="muted" style="font-size:10px;margin-top:2px">환자명·보호자명은 표시를 선택했을 때만 출력물에 들어갑니다.</div></div><span class="privacy-badge">🔒 서버 저장 안 함</span></div>
                 <div class="case-grid">
@@ -738,7 +748,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
         <div class="panel" style="margin-top:14px">
           <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">ACCOUNT SECURITY · v6.5.1</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
+            <div><p class="eyebrow">ACCOUNT SECURITY · v6.5.2</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
             <span id="saasSecurityBadge" class="ai-conn-badge off">로그인 필요</span>
           </div>
           <div class="saas-security-grid">
@@ -762,7 +772,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
         <div id="operatorUnlockPanel" class="panel operator-unlock-panel hidden" style="margin-top:14px">
           <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">CARESTEP OPERATOR · v6.5.1</p><h3 style="font-size:15px">운영자 모드</h3></div>
+            <div><p class="eyebrow">CARESTEP OPERATOR · v6.5.2</p><h3 style="font-size:15px">운영자 모드</h3></div>
             <span id="operatorStatusBadge" class="ai-conn-badge off">잠김</span>
           </div>
           <p class="muted" style="font-size:11px">AI Content Studio와 운영자 도구는 일반 병원 계정에 표시되지 않습니다. CARESTEP HQ Key를 확인한 현재 브라우저 세션에서만 운영자 메뉴가 열립니다.</p>
@@ -935,7 +945,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
       <section id="admin" class="view">
         <div class="section-head">
-          <div><p class="eyebrow">CARESTEP OPERATOR · v6.5.1</p><h3>운영자 도구 · 콘텐츠 분류 관리</h3><p class="muted" style="font-size:11px;margin-top:5px">내장 자료와 Published 콘텐츠의 분류를 중앙에서 변경합니다. 변경값은 D1에 저장되어 모든 로그인 병원에 동일하게 적용됩니다.</p></div>
+          <div><p class="eyebrow">CARESTEP OPERATOR · v6.5.2</p><h3>운영자 도구 · 콘텐츠 분류 관리</h3><p class="muted" style="font-size:11px;margin-top:5px">내장 자료와 Published 콘텐츠의 분류를 중앙에서 변경합니다. 변경값은 D1에 저장되어 모든 로그인 병원에 동일하게 적용됩니다.</p></div>
           <button id="refreshCategoryManager" class="btn btn-secondary" type="button">분류 새로고침</button>
         </div>
         <div class="panel operator-category-panel">
@@ -2034,7 +2044,7 @@ const templates = [
 ];
 
 
-/* ================= v6.5.1 OPERATOR MODE · CATEGORY MANAGER ================= */
+/* ================= v6.5.2 OPERATOR MODE · CATEGORY MANAGER ================= */
 const CATEGORY_CODES=['수술','내과','안과','피부과','비뇨기','치과','신경','종양','응급','노령','예방','기타'];
 const CATEGORY_LABELS={전체:'전체',수술:'수술·회복',내과:'내과·만성질환',안과:'안과',피부과:'피부·알레르기',비뇨기:'비뇨기·신장',치과:'치과·구강',신경:'신경',종양:'종양·항암',응급:'응급·증상',노령:'노령·삶의질',예방:'예방·건강관리',기타:'기타'};
 const OPERATOR_HQ_KEY_STORAGE='carestep_operator_hq_key_v651';
@@ -2884,7 +2894,82 @@ function renderLibrary(){
   bindBuilderButtons();
 }
 function bindBuilderButtons(){ document.querySelectorAll('.open-builder').forEach(btn=>btn.addEventListener('click',()=>{ currentTemplateId=btn.dataset.id; renderSelect(); markRecentTemplate(currentTemplateId); beginNewCase(false,true); go('builder'); })); }
-function renderSelect(){ $('templateSelect').innerHTML=templates.map(t=>`<option value="${t.id}">${t.short}</option>`).join(''); $('templateSelect').value=currentTemplateId; }
+function templateSearchAliases(category=''){
+  const map={
+    '수술':'수술 회복 수술후 수술 후 퇴원',
+    '내과':'내과 만성질환 만성 질환 관리',
+    '안과':'안과 눈 안구 결막 각막 눈물 시력',
+    '피부과':'피부 피부과 알레르기 알러지 아토피 피부염 가려움 소양증',
+    '비뇨기':'비뇨기 신장 콩팥 방광 요도 소변 배뇨',
+    '치과':'치과 구강 치아 잇몸 발치 스케일링',
+    '신경':'신경 발작 경련 디스크 보행',
+    '종양':'종양 항암 암 종괴',
+    '응급':'응급 증상 구토 설사 호흡',
+    '노령':'노령 노령견 노령묘 인지 삶의질 삶의 질',
+    '예방':'예방 건강관리 건강 관리 검진 예방접종',
+    '기타':'기타'
+  };
+  return map[category]||category;
+}
+function normalizeTemplateQuery(v=''){return String(v||'').normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();}
+function templateSearchText(t){
+  let profile='';
+  try{
+    const p=journeyProfiles?.[t.id];
+    if(p) profile=[p.label,...(p.tracking||[]),...(p.questions||[]),...(p.mistakes||[]).flat()].join(' ');
+  }catch{}
+  return normalizeTemplateQuery([t.title,t.short,t.description,t.category,categoryLabel(t.category),templateSearchAliases(t.category),profile].filter(Boolean).join(' '));
+}
+function templateSearchMatches(raw){
+  const q=normalizeTemplateQuery(raw);
+  if(!q)return [];
+  const terms=q.split(' ').filter(Boolean);
+  return templates.map(t=>{
+    const hay=templateSearchText(t),compact=hay.replace(/\s+/g,''),title=normalizeTemplateQuery(`${t.short} ${t.title}`),cat=normalizeTemplateQuery(`${t.category} ${categoryLabel(t.category)} ${templateSearchAliases(t.category)}`);
+    let score=0;
+    for(const term of terms){
+      const compactTerm=term.replace(/\s+/g,'');
+      if(!hay.includes(term)&&!compact.includes(compactTerm))return null;
+      if(title===term)score+=120;
+      else if(title.startsWith(term))score+=70;
+      else if(title.includes(term))score+=45;
+      else if(cat.includes(term)||cat.replace(/\s+/g,'').includes(compactTerm))score+=25;
+      else score+=10;
+    }
+    if(title.includes(q))score+=35;
+    return {t,score};
+  }).filter(Boolean).sort((a,b)=>b.score-a.score||a.t.short.localeCompare(b.t.short,'ko')).slice(0,12).map(x=>x.t);
+}
+function selectTemplateFromSearch(id){
+  const t=templates.find(x=>x.id===id);if(!t)return;
+  currentTemplateId=t.id;
+  if($('templateSelect'))$('templateSelect').value=t.id;
+  if($('templateSearch'))$('templateSearch').value='';
+  markRecentTemplate(currentTemplateId);
+  renderBuilder();
+  applyPackagePreset(true);
+  updateReadiness();
+  renderTemplateSearch();
+}
+function renderTemplateSearch(){
+  const input=$('templateSearch'),results=$('templateSearchResults'),selected=$('templateSelected'),hint=$('templateSearchHint');
+  if(!input||!results||!selected)return;
+  const current=templates.find(t=>t.id===currentTemplateId)||templates[0];
+  if(current){
+    selected.innerHTML=`<div><b>선택된 교육자료 · ${escapeHtml(current.short)}</b><span>${escapeHtml(categoryLabel(current.category))} · 다른 자료로 바꾸려면 위 검색창에 질환명이나 증상을 입력하세요.</span></div><span class="category">${escapeHtml(categoryLabel(current.category))}</span>`;
+  }else selected.innerHTML='<div><b>교육자료를 선택해주세요.</b><span>위 검색창에서 질환명이나 증상을 검색하세요.</span></div>';
+  const q=input.value.trim();
+  if(!q){results.innerHTML='';if(hint)hint.innerHTML='검색어를 입력하면 관련 교육자료만 표시됩니다. <b>예: 췌장염, 구토, 피부, 방광염</b>';return;}
+  const matches=templateSearchMatches(q);
+  if(hint)hint.innerHTML=`<span class="template-result-count">${matches.length}개 결과</span> · 가장 관련도가 높은 순으로 표시합니다.`;
+  results.innerHTML=matches.length?matches.map(t=>`<button type="button" class="template-search-result" data-template-search-id="${escapeHtml(t.id)}"><span class="category">${escapeHtml(categoryLabel(t.category))}</span><strong>${escapeHtml(t.short)}</strong><small>${escapeHtml(t.description||t.title||'')}</small></button>`).join(''):`<div class="template-search-empty"><b>검색 결과가 없습니다.</b><br>질환명 대신 증상이나 진료과를 입력해보세요. 예: ‘가려움’, ‘눈’, ‘소변’, ‘구토’</div>`;
+  results.querySelectorAll('[data-template-search-id]').forEach(btn=>btn.addEventListener('click',()=>selectTemplateFromSearch(btn.dataset.templateSearchId)));
+}
+function renderSelect(){
+  $('templateSelect').innerHTML=templates.map(t=>`<option value="${t.id}">${t.short}</option>`).join('');
+  $('templateSelect').value=currentTemplateId;
+  renderTemplateSearch();
+}
 function renderAdmin(){ $('adminRows').innerHTML=templates.map(t=>`<tr><td><strong>${escapeHtml(t.short)}</strong>${t._studio?'<br><small style="color:#1f5eff">Content Studio</small>':''}</td><td>${escapeHtml(categoryLabel(t.category))}</td><td>공개</td><td>${t.plan}</td><td>${t._studio?'<button class="mini-btn" data-admin-studio="'+t._studioDocId+'">Studio 편집</button>':'<button class="mini-btn" disabled>기본 자료</button>'}</td></tr>`).join(''); document.querySelectorAll('[data-admin-studio]').forEach(b=>b.addEventListener('click',()=>{go('contentStudio');editStudioItem(b.dataset.adminStudio);})); }
 
 function logoHtml(){ return hospital.logo ? `<img src="${hospital.logo}" alt="병원 로고" />` : `<span>${escapeHtml(hospitalName())}</span>`; }
@@ -5605,6 +5690,10 @@ document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=
 $('searchInput').addEventListener('input',renderLibrary);
 document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active')); b.classList.add('active'); currentFilter=b.dataset.filter; renderLibrary();}));
 $('templateSelect').addEventListener('change',e=>{currentTemplateId=e.target.value;markRecentTemplate(currentTemplateId);renderBuilder();applyPackagePreset(true);updateReadiness();});
+$('templateSearch')?.addEventListener('input',renderTemplateSearch);
+$('templateSearch')?.addEventListener('focus',renderTemplateSearch);
+$('templateSearch')?.addEventListener('keydown',e=>{if(e.key==='Enter'){const first=$('templateSearchResults')?.querySelector('[data-template-search-id]');if(first){e.preventDefault();selectTemplateFromSearch(first.dataset.templateSearchId);}}else if(e.key==='Escape'){$('templateSearch').value='';renderTemplateSearch();}});
+$('templateSearchClear')?.addEventListener('click',()=>{$('templateSearch').value='';renderTemplateSearch();$('templateSearch').focus();});
 document.querySelectorAll('.output-select').forEach(box=>box.addEventListener('change',()=>{if(box.checked){currentOutput=box.value;renderBuilder();}else updateSelectedOutputUi();}));
 document.querySelectorAll('[data-preview-output]').forEach(btn=>btn.addEventListener('click',()=>{currentOutput=btn.dataset.previewOutput;renderBuilder();}));
 document.querySelectorAll('[data-wizard-step]').forEach(btn=>btn.addEventListener('click',()=>setWizardStep(Number(btn.dataset.wizardStep))));
