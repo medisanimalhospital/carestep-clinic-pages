@@ -60,7 +60,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .output-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}.output-actions .btn{width:100%}
 .output-hint{font-size:11px;color:#7f899b;line-height:1.55;margin:10px 0 0}
 
-/* v6.3.2.4 · dynamic medication checklist + multi-select outputs */
+/* v6.4 · dynamic medication checklist + multi-select outputs */
 .output-option{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:9px;align-items:center;text-align:left;min-height:64px;padding:9px 10px;background:#fff}
 .output-option .output-select-wrap{display:contents}
 .output-option .output-select{width:18px;height:18px;margin:0;accent-color:var(--brand);cursor:pointer}
@@ -253,7 +253,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
   <section id="loginView" class="login-shell">
     <div class="login-card saas-login-card">
       <div class="brand-mark">CS</div>
-      <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.4</p>
+      <p class="eyebrow">CONTENT CLOUD SYNC · v6.4</p>
       <h1>CARESTEP Clinic</h1>
       <p class="login-copy">병원별 계정과 직원 권한으로 CARESTEP을 시작합니다.</p>
 
@@ -301,7 +301,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       <div id="saasAuthStatus" class="saas-auth-status"></div>
       <div class="saas-divider">또는</div>
       <button id="enterDemo" class="btn btn-secondary btn-block" type="button">로컬 데모로 둘러보기</button>
-      <p class="fineprint">v6.3.2.4는 Pilot용 SaaS 기반이며 Published 콘텐츠를 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
+      <p class="fineprint">v6.4는 Pilot용 SaaS 기반이며 Published 콘텐츠를 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
     </div>
   </section>
 
@@ -334,7 +334,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CARESTEP Clinic MVP · v6.3.2.4 · DYNAMIC MED CHECK · BUILDER UX · D1 AUTH</p>
+          <p class="eyebrow">CARESTEP Clinic MVP · v6.4 · DYNAMIC MED CHECK · BUILDER UX · HQ READY</p>
           <h2 id="viewTitle">대시보드</h2>
         </div>
         <div class="topbar-actions">
@@ -358,7 +358,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <article class="stat-card"><span>등록 자료</span><strong id="templateCount">20</strong><small>20종 전체 활성</small></article>
           <article class="stat-card"><span>이번 달 생성</span><strong id="generatedCount">0</strong><small>이 브라우저 기준</small></article>
           <article class="stat-card"><span>현재 플랜</span><strong>PRO</strong><small>데모 권한</small></article>
-          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Dynamic Medication Checklist v6.3.2.4</small></article>
+          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>HQ Admin Console · Dynamic Medication Checklist</small></article>
         </div>
 
         <div id="pilotOnboardingBanner" class="pilot-onboarding-banner"><div><b>Pilot를 시작하기 전에</b><span>목표 건수와 시작일을 한 번 설정하면 실사용 지표를 자동으로 추적합니다.</span></div><button class="btn btn-primary" type="button" data-go="pilot">Pilot 설정하기</button></div>
@@ -407,7 +407,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <div class="builder-layout">
           <div class="builder-controls panel">
             <div class="wizard-header">
-              <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.4</p>
+              <p class="eyebrow">CONTENT CLOUD SYNC · v6.4</p>
               <h3>2분 퇴원자료 만들기</h3>
               <p class="muted">환자 → 개별지시 → 복약 → 재진 → 출력의 5단계만 따라가세요.</p>
             </div>
@@ -555,7 +555,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
       <section id="contentStudio" class="view">
         <div class="studio-hero">
-          <div><p class="eyebrow">AI CONTENT STUDIO · v6.3.2.4</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
+          <div><p class="eyebrow">AI CONTENT STUDIO · v6.4</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
           <span class="studio-safe">🔒 OPENAI KEY = SERVER ONLY</span>
         </div>
 
@@ -732,7 +732,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
         <div class="panel" style="margin-top:14px">
           <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">ACCOUNT SECURITY · v6.3.2.4</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
+            <div><p class="eyebrow">ACCOUNT SECURITY · v6.4</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
             <span id="saasSecurityBadge" class="ai-conn-badge off">로그인 필요</span>
           </div>
           <div class="saas-security-grid">
@@ -830,7 +830,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       </section>
 
       <section id="pilot" class="view">
-        <div class="section-head"><div><p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.4</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
+        <div class="section-head"><div><p class="eyebrow">CONTENT CLOUD SYNC · v6.4</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
 
         <div class="panel pilot-setup-panel">
           <div class="pilot-setup-head"><div><h4>Pilot 기본설정</h4><p>환자정보는 기록하지 않고 목표 건수·기간·사용통계만 이 브라우저에 저장합니다.</p></div><span class="privacy-badge">🔒 환자정보 없음</span></div>
