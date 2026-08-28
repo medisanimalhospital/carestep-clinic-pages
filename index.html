@@ -60,7 +60,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .output-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}.output-actions .btn{width:100%}
 .output-hint{font-size:11px;color:#7f899b;line-height:1.55;margin:10px 0 0}
 
-/* v6.3.2.3 · multi-select individual outputs */
+/* v6.3.2.4 · dynamic medication checklist + multi-select outputs */
 .output-option{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:9px;align-items:center;text-align:left;min-height:64px;padding:9px 10px;background:#fff}
 .output-option .output-select-wrap{display:contents}
 .output-option .output-select{width:18px;height:18px;margin:0;accent-color:var(--brand);cursor:pointer}
@@ -212,7 +212,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .calendar-action{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:10px}.calendar-action .btn{padding:8px 10px;font-size:9.5px}.calendar-status{font-size:9px;color:#778399}
 .handoff-panel{margin-top:12px;padding:14px;border:1px solid #d7e3f6;background:linear-gradient(180deg,#f8fbff,#fff);border-radius:14px}.handoff-panel h4{margin:0 0 4px;font-size:13px}.handoff-panel>p{margin:0 0 10px;font-size:9.5px;color:#6c7890;line-height:1.5}.handoff-checks{display:grid;grid-template-columns:1fr 1fr;gap:7px}.handoff-check{display:flex;gap:8px;align-items:flex-start;padding:9px 10px;border:1px solid #e0e7f1;background:#fff;border-radius:10px;font-size:9.5px;color:#4f5d73}.handoff-check input{margin-top:2px}.handoff-check b{display:block;font-size:10px;color:#253148;margin-bottom:2px}.handoff-check span{display:block;color:#7a8699;font-size:8.5px;line-height:1.35}.handoff-progress{height:7px;border-radius:999px;background:#e8edf5;overflow:hidden;margin:10px 0 6px}.handoff-progress>span{display:block;height:100%;width:0;background:#1f5eff;transition:.2s}.handoff-meta{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#718096}.handoff-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.handoff-actions .btn{padding:8px 10px;font-size:9px}.handoff-note-input{margin-top:9px;min-height:58px;resize:vertical;font-size:10px!important;line-height:1.45}
 .summary-page .summary-hero{margin-top:16px;padding:16px;border-radius:14px;background:linear-gradient(135deg,#172033,#29436e);color:#fff}.summary-page .summary-hero strong{font-size:15px}.summary-page .summary-hero p{margin:5px 0 0;color:#dbe6f7;font-size:10.5px;line-height:1.5}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.summary-box{border:1px solid #e1e7ef;border-radius:11px;padding:10px 11px;background:#fff}.summary-box b{display:block;font-size:9px;color:#718096;margin-bottom:4px}.summary-box span,.summary-box li{font-size:9.5px;line-height:1.45;color:#344158}.summary-box ul{margin:0;padding-left:15px}.summary-wide{grid-column:1/-1}.summary-red{border-left:4px solid #d92d20;background:#fff5f5}.summary-contact{margin-top:12px;padding:11px 12px;border-radius:11px;background:#f4f8ff;border:1px solid #dce7f7;display:flex;justify-content:space-between;gap:10px;font-size:9.5px;color:#53627a}
-.med-check-page .pdf-head{margin-bottom:10px}.med-check-table{width:100%;border-collapse:collapse;margin-top:9px;table-layout:fixed}.med-check-table th,.med-check-table td{border:1px solid #dfe5ed;padding:5px 3px;font-size:8px;text-align:center;vertical-align:middle}.med-check-table th{background:#f5f7fb;color:#536078;font-weight:850}.med-check-table th:first-child,.med-check-table td:first-child{text-align:left;width:168px}.med-check-med b{display:block;font-size:8.5px;color:#263247}.med-check-med span{display:block;margin-top:2px;color:#748096;font-size:7px;line-height:1.25}.med-day-checks{display:grid;gap:3px;justify-items:center}.med-time-check{width:100%;display:flex;align-items:center;justify-content:center;gap:3px;white-space:nowrap}.med-check-time-label{font-size:6.4px;font-weight:800;color:#59687e;line-height:1}.med-check-box{display:inline-block;width:11px;height:11px;border:1.2px solid #8490a1;border-radius:2.5px;flex:0 0 auto}.med-check-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.med-check-legend>div{padding:8px 9px;border:1px solid #e2e7ef;border-radius:9px;font-size:8.5px;color:#5b687d;line-height:1.4}
+.med-check-page .pdf-head{margin-bottom:10px}.med-check-table{width:100%;border-collapse:collapse;margin-top:9px;table-layout:fixed}.med-check-table th,.med-check-table td{border:1px solid #dfe5ed;padding:5px 3px;font-size:8px;text-align:center;vertical-align:middle}.med-check-table th{background:#f5f7fb;color:#536078;font-weight:850}.med-check-table th:first-child,.med-check-table td:first-child{text-align:left;width:168px}.med-check-med b{display:block;font-size:8.5px;color:#263247}.med-check-med span{display:block;margin-top:2px;color:#748096;font-size:7px;line-height:1.25}.med-check-med em{display:inline-block;margin-top:4px;padding:2px 5px;border-radius:999px;background:#eef4ff;color:#1f5eff;font-size:6.6px;font-style:normal;font-weight:900}.med-check-inactive{background:#f7f8fa;color:#a3adbb}.med-check-inactive span{font-size:8px;font-weight:800}.med-day-checks{display:grid;gap:3px;justify-items:center}.med-time-check{width:100%;display:flex;align-items:center;justify-content:center;gap:3px;white-space:nowrap}.med-check-time-label{font-size:6.4px;font-weight:800;color:#59687e;line-height:1}.med-check-box{display:inline-block;width:11px;height:11px;border:1.2px solid #8490a1;border-radius:2.5px;flex:0 0 auto}.med-check-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.med-check-legend>div{padding:8px 9px;border:1px solid #e2e7ef;border-radius:9px;font-size:8.5px;color:#5b687d;line-height:1.4}
 .followup-folder-preview{margin-top:9px;padding:10px 12px;border-radius:11px;background:#172033;color:#d8e2f2;font-size:9px;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.followup-folder-preview b{color:#fff}.package-option.followup{border-color:#cfddf5;background:#f9fbff}
 @media(max-width:700px){.handoff-checks,.summary-grid,.med-check-legend{grid-template-columns:1fr}}
 
@@ -253,7 +253,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
   <section id="loginView" class="login-shell">
     <div class="login-card saas-login-card">
       <div class="brand-mark">CS</div>
-      <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.3</p>
+      <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.4</p>
       <h1>CARESTEP Clinic</h1>
       <p class="login-copy">병원별 계정과 직원 권한으로 CARESTEP을 시작합니다.</p>
 
@@ -301,7 +301,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       <div id="saasAuthStatus" class="saas-auth-status"></div>
       <div class="saas-divider">또는</div>
       <button id="enterDemo" class="btn btn-secondary btn-block" type="button">로컬 데모로 둘러보기</button>
-      <p class="fineprint">v6.3.2.3는 Pilot용 SaaS 기반이며 Published 콘텐츠를 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
+      <p class="fineprint">v6.3.2.4는 Pilot용 SaaS 기반이며 Published 콘텐츠를 D1 중앙에서 동기화합니다. 환자명·보호자명·개별 처방정보는 서버 계정·설정 저장 대상이 아닙니다. 로그인 실패 제한·세션 관리·비밀번호 변경·동기화 충돌 방지를 포함합니다. 정식 상용화 전 이메일 인증·비밀번호 재설정·MFA·보안검토를 추가합니다.</p>
     </div>
   </section>
 
@@ -334,7 +334,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CARESTEP Clinic MVP · v6.3.2.3 · MEDICATION CHECK · IMAGE GUIDE · D1 AUTH</p>
+          <p class="eyebrow">CARESTEP Clinic MVP · v6.3.2.4 · DYNAMIC MED CHECK · BUILDER UX · D1 AUTH</p>
           <h2 id="viewTitle">대시보드</h2>
         </div>
         <div class="topbar-actions">
@@ -358,7 +358,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <article class="stat-card"><span>등록 자료</span><strong id="templateCount">20</strong><small>20종 전체 활성</small></article>
           <article class="stat-card"><span>이번 달 생성</span><strong id="generatedCount">0</strong><small>이 브라우저 기준</small></article>
           <article class="stat-card"><span>현재 플랜</span><strong>PRO</strong><small>데모 권한</small></article>
-          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Builder UX Flow v6.3.2.3</small></article>
+          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Dynamic Medication Checklist v6.3.2.4</small></article>
         </div>
 
         <div id="pilotOnboardingBanner" class="pilot-onboarding-banner"><div><b>Pilot를 시작하기 전에</b><span>목표 건수와 시작일을 한 번 설정하면 실사용 지표를 자동으로 추적합니다.</span></div><button class="btn btn-primary" type="button" data-go="pilot">Pilot 설정하기</button></div>
@@ -407,7 +407,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <div class="builder-layout">
           <div class="builder-controls panel">
             <div class="wizard-header">
-              <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.3</p>
+              <p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.4</p>
               <h3>2분 퇴원자료 만들기</h3>
               <p class="muted">환자 → 개별지시 → 복약 → 재진 → 출력의 5단계만 따라가세요.</p>
             </div>
@@ -454,7 +454,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
             </div>
 
             <div class="wizard-pane" data-wizard-pane="3">
-              <div class="wizard-pane-title"><div><h4>③ 복약정보</h4><p>약 이름·용량과 시간만 입력하면 복약표와 하루 타임라인이 자동 생성됩니다.</p></div><span class="privacy-badge">🔒 저장 안 함</span></div>
+              <div class="wizard-pane-title"><div><h4>③ 복약정보</h4><p>약 이름·용량·시간·투약일수를 입력하면 복약표와 투약기간에 맞는 체크표가 자동 생성됩니다.</p></div><span class="privacy-badge">🔒 저장 안 함</span></div>
               <div class="med-preset-bar">
                 <button class="med-preset" type="button" data-med-preset="qd">+ 하루 1회 · 08:00</button>
                 <button class="med-preset" type="button" data-med-preset="bid">+ 하루 2회 · 08/20시</button>
@@ -463,7 +463,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
               </div>
               <div class="medication-panel" style="margin-top:0">
                 <div id="medicationRows" class="medication-rows"></div>
-                <div class="medication-actions"><button id="addMedication" class="btn btn-secondary" type="button">+ 새 약 추가</button><span>최대 8종 · 비슷한 처방은 <b>복제</b> 후 수정하세요.<br>투약시간은 태그로 여러 개 등록할 수 있습니다.</span></div>
+                <div class="medication-actions"><button id="addMedication" class="btn btn-secondary" type="button">+ 새 약 추가</button><span>최대 8종 · 비슷한 처방은 <b>복제</b> 후 수정하세요.<br>투약시간과 <b>투약일수</b>를 입력하면 약별 기간에 맞춰 체크표가 자동 생성됩니다.</span></div>
                 <div id="medSchedulePreview" class="med-schedule-preview"></div>
               </div>
             </div>
@@ -482,12 +482,12 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
               <div class="wizard-pane-title"><div><h4>⑤ 확인하고 한 번에 출력</h4><p>누락정보를 확인한 뒤 필요한 퇴원자료를 ZIP으로 한 번에 받을 수 있습니다.</p></div></div>
               <div id="readinessPanel" class="readiness-panel"></div>
               <div class="package-panel">
-                <h4>퇴원·후속관리 패키지</h4><p>퇴원 당일 자료와 D+1·3·7·14 후속관리 자료를 한 번에 정리합니다. 약·재진 정보가 없으면 관련 파일은 자동 제외됩니다.</p>
+                <h4>퇴원·후속관리 패키지</h4><p>퇴원 당일 자료와 D+1·3·7·14 후속관리 자료를 한 번에 정리합니다. 약·재진 정보가 없거나 투약일수가 미완성인 경우 관련 파일은 자동 제외됩니다.</p>
                 <div class="package-options">
                   <label class="package-option"><input id="packageSummary" type="checkbox" checked /><span><b>퇴원 1P 요약</b><span>보호자가 당일 바로 보는 핵심</span></span></label>
                   <label class="package-option"><input id="packagePdf" type="checkbox" checked /><span><b>보호자 PDF</b><span>8P + 복약표 자동 포함</span></span></label>
                   <label class="package-option" id="packageMedsLabel"><input id="packageMeds" type="checkbox" checked /><span><b>복약 일정표</b><span>약 1–8종 · 시간순</span></span></label>
-                  <label class="package-option" id="packageMedCheckLabel"><input id="packageMedCheck" type="checkbox" checked /><span><b>7일 복약 체크표</b><span>설정한 투약시간별 완료 표시</span></span></label>
+                  <label class="package-option" id="packageMedCheckLabel"><input id="packageMedCheck" type="checkbox" checked /><span><b>복약 체크표</b><span>약별 투약일수 × 설정시간 자동 반영</span></span></label>
                   <label class="package-option"><input id="packageD1" type="checkbox" checked /><span><b>D+1 체크카드</b><span>1페이지 핵심관리</span></span></label>
                   <label class="package-option followup"><input id="packageMobileAll" type="checkbox" checked /><span><b>D+1·3·7·14 모바일 4종</b><span>1080×1920 PNG 일괄 생성</span></span></label>
                   <label class="package-option followup" id="packageCalendarLabel"><input id="packageCalendar" type="checkbox" checked /><span><b>재진 캘린더</b><span>.ics · 휴대폰 캘린더 등록</span></span></label>
@@ -495,7 +495,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
                 </div>
                 <div class="package-preset-bar"><button id="applyPackagePreset" class="btn btn-secondary" type="button">저장된 출력 기본값 적용</button><button id="savePackagePreset" class="btn btn-ghost" type="button">현재 구성을 병원 기본값으로 저장</button></div>
                 <button id="downloadPackage" class="package-download" type="button">퇴원·후속관리 패키지 ZIP 생성</button>
-                <div class="package-note">ZIP 안에서 <b>00_퇴원당일</b>과 <b>01_후속관리</b> 폴더로 자동 정리합니다. 약이 없으면 복약자료, 재진일이 없으면 캘린더 파일은 자동 제외됩니다.</div>
+                <div class="package-note">ZIP 안에서 <b>00_퇴원당일</b>과 <b>01_후속관리</b> 폴더로 자동 정리합니다. 약이 없으면 복약자료, 투약일수가 없으면 복약 체크표, 재진일이 없으면 캘린더 파일은 자동 제외됩니다.</div>
                 <div class="followup-folder-preview"><b>ZIP 구조</b><br>00_퇴원당일/ 1P요약 · 보호자PDF · 복약자료 · 직원체크<br>01_후속관리/ D+1·3·7·14 모바일카드 · 재진캘린더.ics</div>
                 <div id="completionPanel" class="completion-panel"><strong>퇴원 패키지 생성 완료</strong><p id="completionText"></p><button id="completionNewCase" class="btn btn-primary" type="button">다음 환자 시작</button><div id="pilotFeedbackPrompt" class="pilot-feedback-prompt"><div class="pilot-feedback-title"><b>10초 Pilot 피드백</b><span>환자정보는 저장하지 않습니다.</span></div><div class="rating-row" id="pilotRatingRow"><button type="button" data-rating="1">1</button><button type="button" data-rating="2">2</button><button type="button" data-rating="3">3</button><button type="button" data-rating="4">4</button><button type="button" data-rating="5">5</button></div><div class="feedback-tags" id="pilotFeedbackTags"><button type="button" data-feedback-tag="입력 오래 걸림">입력 오래 걸림</button><button type="button" data-feedback-tag="복약 입력">복약 입력</button><button type="button" data-feedback-tag="PDF">PDF</button><button type="button" data-feedback-tag="모바일 카드">모바일 카드</button><button type="button" data-feedback-tag="직원 인계">직원 인계</button><button type="button" data-feedback-tag="기타">기타</button></div><textarea id="pilotFeedbackNote" class="input" maxlength="180" placeholder="선택 메모 · 환자 개인정보는 입력하지 마세요"></textarea><button id="savePilotFeedback" class="btn btn-secondary" type="button">피드백 저장</button></div></div>
                 <div class="handoff-panel"><h4>직원 인계 · 완료 확인</h4><p>파일 생성 후 실제 보호자 전달과 다음 담당자 인계까지 체크합니다. 이 체크상태와 메모는 저장하지 않습니다.</p><div class="handoff-checks">
@@ -513,7 +513,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
                 <div class="output-option active selected" data-output="pdf"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="pdf" checked /><span class="output-copy"><b>고급 보호자 PDF</b><small>8P · 복약 입력 시 9–10P</small></span></label><button class="output-preview-btn" type="button" data-preview-output="pdf">미리보기</button></div>
                 <div class="output-option" data-output="summary"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="summary" /><span class="output-copy"><b>퇴원 1P 요약</b><small>당일 핵심만 한 장</small></span></label><button class="output-preview-btn" type="button" data-preview-output="summary">미리보기</button></div>
                 <div class="output-option" data-output="meds"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="meds" /><span class="output-copy"><b>복약 일정표</b><small>약 이름·용량·횟수·시간</small></span></label><button class="output-preview-btn" type="button" data-preview-output="meds">미리보기</button></div>
-                <div class="output-option" data-output="medcheck"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="medcheck" /><span class="output-copy"><b>7일 복약 체크표</b><small>날짜 × 설정시간별 투약 체크</small></span></label><button class="output-preview-btn" type="button" data-preview-output="medcheck">미리보기</button></div>
+                <div class="output-option" data-output="medcheck"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="medcheck" /><span class="output-copy"><b>복약 체크표</b><small>약별 투약일수 × 날짜 × 설정시간</small></span></label><button class="output-preview-btn" type="button" data-preview-output="medcheck">미리보기</button></div>
                 <div class="output-option" data-output="kakao"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="kakao" /><span class="output-copy"><b>카카오톡</b><small>보호자 발송용 문구</small></span></label><button class="output-preview-btn" type="button" data-preview-output="kakao">미리보기</button></div>
                 <div class="output-option" data-output="sms"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="sms" /><span class="output-copy"><b>문자</b><small>초단문 안내</small></span></label><button class="output-preview-btn" type="button" data-preview-output="sms">미리보기</button></div>
                 <div class="output-option" data-output="d1"><label class="output-select-wrap"><input class="output-select" type="checkbox" value="d1" /><span class="output-copy"><b>D+1 체크카드</b><small>질환별 첫날 핵심</small></span></label><button class="output-preview-btn" type="button" data-preview-output="d1">미리보기</button></div>
@@ -555,7 +555,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
       <section id="contentStudio" class="view">
         <div class="studio-hero">
-          <div><p class="eyebrow">AI CONTENT STUDIO · v6.3.2.3</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
+          <div><p class="eyebrow">AI CONTENT STUDIO · v6.3.2.4</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
           <span class="studio-safe">🔒 OPENAI KEY = SERVER ONLY</span>
         </div>
 
@@ -732,7 +732,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
         <div class="panel" style="margin-top:14px">
           <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">ACCOUNT SECURITY · v6.3.2.3</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
+            <div><p class="eyebrow">ACCOUNT SECURITY · v6.3.2.4</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
             <span id="saasSecurityBadge" class="ai-conn-badge off">로그인 필요</span>
           </div>
           <div class="saas-security-grid">
@@ -830,7 +830,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       </section>
 
       <section id="pilot" class="view">
-        <div class="section-head"><div><p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.3</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
+        <div class="section-head"><div><p class="eyebrow">CONTENT CLOUD SYNC · v6.3.2.4</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
 
         <div class="panel pilot-setup-panel">
           <div class="pilot-setup-head"><div><h4>Pilot 기본설정</h4><p>환자정보는 기록하지 않고 목표 건수·기간·사용통계만 이 브라우저에 저장합니다.</p></div><span class="privacy-badge">🔒 환자정보 없음</span></div>
@@ -2112,7 +2112,7 @@ function saasCloudBound(){const k=saasCloudKey();return !!(k&&localStorage.getIt
 function saasStatePayload(){
   return {
     schema:'CARESTEP_CLINIC_STATE',
-    version:'6.3.2.1',
+    version:'6.3.2.4',
     hospital:{...hospital},
     workflow:{
       dischargePresets:{...(workflowSettings.dischargePresets||{})},
@@ -2384,7 +2384,7 @@ function recordPilotUsage(type,extra={}){
   workflowSettings.usage=[...(workflowSettings.usage||[]),event].slice(-500);saveWorkflowSettings();renderPilotDashboard();saasRecordUsageEvent(event.type,event.templateId,{elapsedMs:event.elapsedMs,fileCount:event.fileCount,outputs:event.outputs});return event.id;
 }
 function templateNameById(id){return (templates.find(t=>t.id===id)||{}).short||id||'--';}
-function outputLabel(k){const m={package:'퇴원 패키지',individual_batch:'개별 출력물 묶음',pdf:'보호자 PDF',summary:'퇴원 1P 요약',meds:'복약 일정표',medcheck:'7일 복약 체크표',kakao:'카카오톡',sms:'문자',d1:'D+1 체크카드',d3:'D+3 체크카드',d7:'D+7 체크카드',d14:'D+14 체크카드',mobile:'모바일 카드',mobileall:'모바일 4종',mobile4:'모바일 4종',calendar:'재진 캘린더',staff:'직원 체크리스트'};return m[k]||k;}
+function outputLabel(k){if(k==='medcheck')return medicationCheckLabel();const m={package:'퇴원 패키지',individual_batch:'개별 출력물 묶음',pdf:'보호자 PDF',summary:'퇴원 1P 요약',meds:'복약 일정표',kakao:'카카오톡',sms:'문자',d1:'D+1 체크카드',d3:'D+3 체크카드',d7:'D+7 체크카드',d14:'D+14 체크카드',mobile:'모바일 카드',mobileall:'모바일 4종',mobile4:'모바일 4종',calendar:'재진 캘린더',staff:'직원 체크리스트'};return m[k]||k;}
 function pilotPackageEvents(){return (workflowSettings.usage||[]).filter(e=>e.type==='package');}
 function pilotStats(){
   const pkg=pilotPackageEvents(); const ms=pkg.map(e=>Number(e.elapsedMs)||0).filter(Boolean).sort((a,b)=>a-b); const avg=ms.length?ms.reduce((a,b)=>a+b,0)/ms.length:0; const med=ms.length?(ms.length%2?ms[(ms.length-1)/2]:(ms[ms.length/2-1]+ms[ms.length/2])/2):0; const best=ms.length?ms[0]:0; const under=ms.length?ms.filter(x=>x<=120000).length/ms.length*100:0; const ratings=(workflowSettings.feedback||[]).map(f=>Number(f.rating)).filter(x=>x>0); const rating=ratings.length?ratings.reduce((a,b)=>a+b,0)/ratings.length:0; return {pkgCount:pkg.length,avg,med,best,under,rating,feedbackCount:ratings.length};
@@ -2407,7 +2407,7 @@ function savePilotFeedback(){if(!pendingPilotEventId){toast('먼저 퇴원 패�
 function csvCell(v){const s=String(v??'');return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;}
 function csvBlob(rows){return new Blob(['\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\n')],{type:'text/csv;charset=utf-8'});}
 function pilotSummaryText(){const p=workflowSettings.pilot||defaultWorkflowSettings.pilot,st=pilotStats(),tr=countBy(workflowSettings.usage||[],e=>e.templateId),outs=[];(workflowSettings.usage||[]).forEach(e=>(e.outputs||[e.type]).forEach(o=>outs.push({o})));const or=countBy(outs,x=>x.o);return `CARESTEP Clinic Pilot Report\nPilot: ${p.label||'-'}\n병원: ${hospitalName()}\n시작일: ${p.start||'-'}\n목표: ${Number(p.target)||20}건\n테스트 직원: ${Number(p.staffCount)||1}명\n\n[핵심 지표]\n완료 패키지: ${st.pkgCount}건\n평균 생성시간: ${st.avg?formatElapsed(st.avg):'-'}\n중앙값: ${st.med?formatElapsed(st.med):'-'}\n최단: ${st.best?formatElapsed(st.best):'-'}\n2분 이내: ${st.pkgCount?Math.round(st.under)+'%':'-'}\n평균 사용성: ${st.feedbackCount?st.rating.toFixed(2)+'/5':'-'} (${st.feedbackCount}건)\n\n[최다 사용 자료]\n${tr.slice(0,10).map(([k,n],i)=>`${i+1}. ${templateNameById(k)} - ${n}회`).join('\n')||'-'}\n\n[출력물 사용]\n${or.slice(0,15).map(([k,n],i)=>`${i+1}. ${outputLabel(k)} - ${n}회`).join('\n')||'-'}\n\n※ 환자명·보호자명·복약정보·퇴원일·개별 퇴원지시는 Pilot 통계에 저장되지 않습니다.`;}
-async function exportPilotReport(){if(typeof JSZip==='undefined'){toast('ZIP 라이브러리를 불러오지 못했습니다.');return;}const zip=new JSZip();zip.file('00_PILOT_SUMMARY.txt',pilotSummaryText());const usageRows=[['event_id','datetime','type','template','elapsed_seconds','file_count','outputs'],...(workflowSettings.usage||[]).map(e=>[e.id,new Date(e.at).toISOString(),e.type,templateNameById(e.templateId),Math.round((Number(e.elapsedMs)||0)/1000),e.fileCount||1,(e.outputs||[]).map(outputLabel).join('|')])];zip.file('01_USAGE.csv',csvBlob(usageRows));const feedbackRows=[['feedback_id','datetime','template','rating','tags','note'],...(workflowSettings.feedback||[]).map(f=>[f.id,new Date(f.at).toISOString(),templateNameById(f.templateId),f.rating,(f.tags||[]).join('|'),f.note||''])];zip.file('02_FEEDBACK.csv',csvBlob(feedbackRows));zip.file('03_NON_PII_SETTINGS.json',JSON.stringify({version:'6.3.2.1',exportedAt:new Date().toISOString(),hospital,workflow:workflowSettings},null,2));const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${safeFileName(hospitalName())}_CARESTEP_Pilot_Report.zip`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200);toast('Pilot Report ZIP을 다운로드했습니다.');}
+async function exportPilotReport(){if(typeof JSZip==='undefined'){toast('ZIP 라이브러리를 불러오지 못했습니다.');return;}const zip=new JSZip();zip.file('00_PILOT_SUMMARY.txt',pilotSummaryText());const usageRows=[['event_id','datetime','type','template','elapsed_seconds','file_count','outputs'],...(workflowSettings.usage||[]).map(e=>[e.id,new Date(e.at).toISOString(),e.type,templateNameById(e.templateId),Math.round((Number(e.elapsedMs)||0)/1000),e.fileCount||1,(e.outputs||[]).map(outputLabel).join('|')])];zip.file('01_USAGE.csv',csvBlob(usageRows));const feedbackRows=[['feedback_id','datetime','template','rating','tags','note'],...(workflowSettings.feedback||[]).map(f=>[f.id,new Date(f.at).toISOString(),templateNameById(f.templateId),f.rating,(f.tags||[]).join('|'),f.note||''])];zip.file('02_FEEDBACK.csv',csvBlob(feedbackRows));zip.file('03_NON_PII_SETTINGS.json',JSON.stringify({version:'6.3.2.4',exportedAt:new Date().toISOString(),hospital,workflow:workflowSettings},null,2));const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${safeFileName(hospitalName())}_CARESTEP_Pilot_Report.zip`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200);toast('Pilot Report ZIP을 다운로드했습니다.');}
 function exportClinicBackup(){const data={schema:'CARESTEP_CLINIC_BACKUP',version:'6.0',exportedAt:new Date().toISOString(),hospital,workflow:workflowSettings};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${safeFileName(hospitalName())}_CARESTEP_settings_v5.9.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('병원 설정 백업을 다운로드했습니다.');}
 async function importClinicBackupFile(file){try{const data=JSON.parse(await file.text());if(data.schema!=='CARESTEP_CLINIC_BACKUP'||!data.hospital||!data.workflow)throw new Error('invalid');hospital={...defaultHospital,...data.hospital};workflowSettings={...defaultWorkflowSettings,...data.workflow,qr:{...defaultWorkflowSettings.qr,...(data.workflow.qr||{})},pilot:{...defaultWorkflowSettings.pilot,...(data.workflow.pilot||{})},usage:Array.isArray(data.workflow.usage)?data.workflow.usage:[],feedback:Array.isArray(data.workflow.feedback)?data.workflow.feedback:[]};saveHospitalData();saveWorkflowSettings();renderAll();toast('병원 설정과 Pilot 통계를 복원했습니다.');}catch(e){console.error(e);toast('CARESTEP 병원 설정 백업 JSON인지 확인해주세요.');}}
 function resetPilotAnalytics(){if(!confirm('Pilot 사용통계와 직원 피드백만 초기화할까요? 병원정보·프리셋은 유지됩니다.'))return;workflowSettings.usage=[];workflowSettings.feedback=[];workflowSettings.timings=[];saveWorkflowSettings();renderWorkflowDashboard();renderPilotDashboard();toast('Pilot 통계를 초기화했습니다.');}
@@ -2474,7 +2474,7 @@ function renderMedicationRows(){
         </div>
       </div>
       <div class="med-field"><label>식사 관계</label><select class="input" data-med-field="meal">${medMealOptions(m.meal||'식사와 무관')}</select></div>
-      <div class="med-field"><label>투약 기간</label><input class="input" data-med-field="duration" autocomplete="off" maxlength="30" placeholder="예: 7일 · 재진까지" value="${escapeHtml(m.duration||'')}" /></div>
+      <div class="med-field"><label>투약 기간 <small>일수</small></label><input class="input" type="number" min="1" max="90" step="1" inputmode="numeric" data-med-field="duration" autocomplete="off" placeholder="예: 3 · 5 · 14" value="${escapeHtml(m.duration||'')}" /><small style="display:block;margin-top:4px;color:#7b8799;font-size:8.5px;line-height:1.35">복약 체크표는 이 일수에 맞춰 자동 생성됩니다.</small></div>
       <div class="med-field span-2"><label>메모 <small>보관법·주의사항 등</small></label><input class="input" data-med-field="note" autocomplete="off" maxlength="70" placeholder="예: 냉장보관 · 흔들어서 급여" value="${escapeHtml(m.note||'')}" /></div>
     </div>
   </div>`).join('');
@@ -2505,6 +2505,55 @@ function parseMedTimes(value=''){
   });
   return out.sort();
 }
+function parseMedicationDurationDays(value=''){
+  const raw=String(value??'').trim();
+  if(!raw) return 0;
+  const direct=raw.match(/^\s*(\d{1,3})\s*(?:일)?\s*$/);
+  const tagged=raw.match(/(\d{1,3})\s*일/);
+  const n=Number((direct||tagged||[])[1]||0);
+  return Number.isInteger(n)&&n>=1&&n<=90?n:0;
+}
+function medicationDurationLabel(value=''){
+  const n=parseMedicationDurationDays(value);
+  return n?`${n}일`:(String(value||'').trim()||'—');
+}
+function medicationCheckMeta(list=validMedications()){
+  const meds=(list||[]).filter(m=>String(m.name||'').trim());
+  const rows=meds.map(m=>({...m,durationDays:parseMedicationDurationDays(m.duration)}));
+  const invalid=rows.filter(m=>!m.durationDays);
+  const maxDays=rows.length&&!invalid.length?Math.max(...rows.map(m=>m.durationDays)):0;
+  return {meds:rows,invalid,maxDays,pageCount:maxDays?Math.ceil(maxDays/7):0,valid:!!rows.length&&!invalid.length};
+}
+function medicationCheckLabel(){
+  const meta=medicationCheckMeta();
+  return meta.maxDays?`${meta.maxDays}일 복약 체크표`:'복약 체크표';
+}
+function medicationCheckFileLabel(){
+  const meta=medicationCheckMeta();
+  return meta.maxDays?`${meta.maxDays}일_복약_체크표_${meta.pageCount}P`:'복약_체크표';
+}
+function updateMedicationCheckUi(){
+  const meta=medicationCheckMeta();
+  const label=medicationCheckLabel();
+  const packageLabel=$('packageMedCheckLabel');
+  const pb=packageLabel?.querySelector('b');
+  const ps=packageLabel?.querySelector('span span');
+  if(pb)pb.textContent=label;
+  if(ps)ps.textContent=meta.valid?`약별 기간 반영 · ${meta.pageCount}P 자동 구성`:(meta.meds.length?'모든 약의 투약일수를 입력해주세요':'약별 투약일수 × 설정시간 자동 반영');
+  const outCard=document.querySelector('.output-option[data-output="medcheck"]');
+  const ob=outCard?.querySelector('.output-copy b');
+  const os=outCard?.querySelector('.output-copy small');
+  const oc=outCard?.querySelector('.output-select');
+  if(ob)ob.textContent=label;
+  if(os)os.textContent=meta.valid?`약별 투약기간 반영 · ${meta.pageCount}페이지`:(meta.meds.length?'투약일수 입력 후 생성 가능':'약별 투약일수 × 날짜 × 설정시간');
+  if(oc){
+    oc.disabled=!meta.valid;
+    if(!meta.valid)oc.checked=false;
+  }
+  outCard?.classList.toggle('disabled',!meta.valid);
+  updateSelectedOutputUi();
+  return meta;
+}
 function medicationTimelineGroups(list=validMedications()){
   const groups={}; const unscheduled=[];
   list.forEach(m=>{
@@ -2524,11 +2573,14 @@ function updateMedicationPreview(){
   const el=$('medSchedulePreview'); if(!el) return;
   readMedicationRowsFromForm();
   const meds=validMedications();
-  if(!meds.length){ el.innerHTML='<strong>복약표 미입력</strong> · 약 이름을 입력하면 하루 투약 타임라인이 자동으로 정리됩니다.'; return; }
+  if(!meds.length){ el.innerHTML='<strong>복약표 미입력</strong> · 약 이름을 입력하면 하루 투약 타임라인이 자동으로 정리됩니다.'; updateMedicationCheckUi(); return; }
   const {groups,unscheduled}=medicationTimelineGroups();
   const chips=Object.entries(groups).map(([time,list])=>`<span class="med-preview-chip"><b>${escapeHtml(time)}</b>${escapeHtml(list.map(m=>m.name).join(' · '))}</span>`).join('');
   const extra=unscheduled.length?`<span class="med-preview-chip"><b>시간 별도</b>${escapeHtml(unscheduled.map(m=>m.name).join(' · '))}</span>`:'';
-  el.innerHTML=`<strong>${meds.length}종 입력됨</strong> · 입력한 시간만 사용해 정리합니다.<div class="med-preview-times">${chips}${extra}</div>`;
+  const meta=medicationCheckMeta(meds);
+  const durationNote=meta.valid?` · 복약 체크표 ${meta.maxDays}일 / ${meta.pageCount}P`:` · 체크표 생성 전 투약일수 ${meta.invalid.length}종 확인 필요`;
+  el.innerHTML=`<strong>${meds.length}종 입력됨</strong> · 입력한 시간만 사용해 정리합니다.${durationNote}<div class="med-preview-times">${chips}${extra}</div>`;
+  updateMedicationCheckUi();
 }
 function medicationTableHtml(list=validMedications()){
   const meds=list;
@@ -2536,7 +2588,7 @@ function medicationTableHtml(list=validMedications()){
   const rows=meds.map(m=>`<tr>
     <td><span class="med-name">${escapeHtml(m.name)}</span>${m.note?`<span class="med-note">${escapeHtml(m.note)}</span>`:''}</td>
     <td>${escapeHtml(m.dose||'—')}</td><td>${escapeHtml(m.frequency||'—')}</td><td>${escapeHtml(m.times||'병원 지시 시간')}</td>
-    <td>${escapeHtml(m.meal||'—')}</td><td>${escapeHtml(m.duration||'—')}</td>
+    <td>${escapeHtml(m.meal||'—')}</td><td>${escapeHtml(medicationDurationLabel(m.duration))}</td>
   </tr>`).join('');
   return `<table class="med-table"><thead><tr><th style="width:22%">약 이름</th><th style="width:13%">1회 용량</th><th style="width:13%">횟수</th><th style="width:19%">투약 시간</th><th style="width:16%">식사 관계</th><th style="width:17%">기간</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
@@ -5132,24 +5184,40 @@ function renderDischargeSummary(){
 }
 function renderMedicationCheckSheet(){
   readCaseInfoFromForm();
-  const meds=validMedications();
+  const meta=medicationCheckMeta();
   const t=templates.find(x=>x.id===currentTemplateId)||templates[0];
-  const days=[0,1,2,3,4,5,6];
-  const heads=days.map(d=>`<th>D+${d}<br><span style="font-size:6.5px;font-weight:600">${escapeHtml(actualDateFor(d)||'')}</span></th>`).join('');
-
-  const dayCellForMedication=m=>{
-    const times=parseMedTimes(m.times);
-    const slots=times.length?times:['완료'];
-    return `<td><div class="med-day-checks">${slots.map(time=>`<span class="med-time-check"><span class="med-check-time-label">${escapeHtml(time)}</span><span class="med-check-box"></span></span>`).join('')}</div></td>`;
-  };
-
-  const rows=meds.map(m=>{
-    const times=parseMedTimes(m.times);
-    const scheduleText=[m.dose,m.frequency,times.length?times.join(' / '):'시간 미설정',m.meal].filter(Boolean).join(' · ');
-    return `<tr><td class="med-check-med"><b>${escapeHtml(compactText(m.name,28))}</b><span>${escapeHtml(scheduleText)}</span></td>${days.map(()=>dayCellForMedication(m)).join('')}</tr>`;
-  }).join('');
-
-  $('pdfDocument').innerHTML=`<div class="pdf-page med-check-page"><div class="pdf-brandline"></div>${pdfHeader('7일 복약 체크표','등록한 투약시간이 있는 약은 날짜별로 각 시간의 투약 완료 여부를 따로 표시합니다.','FOLLOW-UP · MEDICATION CHECK')}<div class="pdf-callout"><strong>처방 라벨과 복약 일정표가 기준입니다.</strong><p>CARESTEP은 병원이 입력한 시간만 체크칸으로 표시하며 투약시간을 임의로 추정하지 않습니다. 용량·시간을 임의로 변경하거나 놓친 약을 두 번 투여하지 마세요.</p></div>${meds.length?`<table class="med-check-table"><thead><tr><th>약 / 투약법</th>${heads}</tr></thead><tbody>${rows}</tbody></table>`:`<div class="med-empty">입력된 복약정보가 없습니다.</div>`}<div class="med-check-legend"><div><b>시간별 투약 후 체크</b><br>08:00 · 20:00처럼 시간이 등록된 약은 매일 각 시간 옆의 □를 따로 표시합니다. 시간이 없는 약은 날짜별 완료 □ 한 칸만 표시합니다.</div><div><b>이상반응 메모</b><br>구토·설사·식욕저하·과도한 졸림 등 변화가 있으면 발생 시간과 마지막 투약 시간을 기록해 병원에 알려주세요.</div></div><div class="pdf-callout warn"><strong>다음 재진</strong><p>${escapeHtml(recheckLabel())} · 체크표와 남은 약, 이상반응 기록을 함께 준비해주세요.</p></div>${pdfFooter()}</div>`;
+  if(!meta.meds.length){
+    $('pdfDocument').innerHTML=`<div class="pdf-page med-check-page"><div class="pdf-brandline"></div>${pdfHeader('복약 체크표','약 이름과 투약 기간을 입력하면 처방 일수에 맞춰 자동 생성됩니다.','FOLLOW-UP · MEDICATION CHECK')}<div class="pdf-callout"><strong>복약정보를 먼저 입력해주세요.</strong><p>약 이름·투약시간·투약 기간(일수)을 입력하면 날짜별 체크칸이 자동 생성됩니다.</p></div>${pdfFooter()}</div>`;
+    $('pdfDocument').classList.remove('hidden');$('messagePreview').classList.add('hidden');$('phonePreview').classList.add('hidden');return;
+  }
+  if(meta.invalid.length){
+    const names=meta.invalid.map(m=>m.name).join(' · ');
+    $('pdfDocument').innerHTML=`<div class="pdf-page med-check-page"><div class="pdf-brandline"></div>${pdfHeader('복약 체크표','투약일수가 확인되어야 정확한 기간의 체크표를 만들 수 있습니다.','FOLLOW-UP · MEDICATION CHECK')}<div class="pdf-callout warn"><strong>투약 기간(일수)을 확인해주세요.</strong><p>${escapeHtml(names)}의 투약일수가 입력되지 않았습니다. 복약정보에서 각 약의 투약 기간을 숫자로 입력해주세요. 예: 3 · 5 · 14</p></div>${pdfFooter()}</div>`;
+    $('pdfDocument').classList.remove('hidden');$('messagePreview').classList.add('hidden');$('phonePreview').classList.add('hidden');return;
+  }
+  const pages=[];
+  for(let pageIndex=0;pageIndex<meta.pageCount;pageIndex++){
+    const startDay=pageIndex*7+1;
+    const endDay=Math.min(meta.maxDays,startDay+6);
+    const days=Array.from({length:endDay-startDay+1},(_,i)=>startDay+i);
+    const heads=days.map(day=>`<th>${day}일차<br><span style="font-size:6.5px;font-weight:600">${escapeHtml(actualDateFor(day-1)||'')}</span></th>`).join('');
+    const pageMeds=meta.meds.filter(m=>m.durationDays>=startDay);
+    const rows=pageMeds.map(m=>{
+      const times=parseMedTimes(m.times);
+      const slots=times.length?times:['완료'];
+      const scheduleText=[m.dose,m.frequency,times.length?times.join(' / '):'시간 미설정',m.meal].filter(Boolean).join(' · ');
+      const cells=days.map(day=>{
+        if(day>m.durationDays)return `<td class="med-check-inactive"><span>—</span></td>`;
+        return `<td><div class="med-day-checks">${slots.map(time=>`<span class="med-time-check"><span class="med-check-time-label">${escapeHtml(time)}</span><span class="med-check-box"></span></span>`).join('')}</div></td>`;
+      }).join('');
+      return `<tr><td class="med-check-med"><b>${escapeHtml(compactText(m.name,28))}</b><span>${escapeHtml(scheduleText)}</span><em>${m.durationDays}일 투약</em></td>${cells}</tr>`;
+    }).join('');
+    const pageTitle=pageIndex===0?`${meta.maxDays}일 복약 체크표`:`${meta.maxDays}일 복약 체크표 · ${pageIndex+1}/${meta.pageCount}`;
+    const rangeText=`${startDay}–${endDay}일차${caseInfo.dischargeDate?` · ${actualDateFor(startDay-1)} ~ ${actualDateFor(endDay-1)}`:''}`;
+    const last=pageIndex===meta.pageCount-1;
+    pages.push(`<div class="pdf-page med-check-page"><div class="pdf-brandline"></div>${pdfHeader(pageTitle,`${rangeText} · 약마다 입력한 투약일수까지만 체크칸을 표시합니다.`,'FOLLOW-UP · MEDICATION CHECK')}<div class="pdf-callout"><strong>처방 라벨과 복약 일정표가 기준입니다.</strong><p>CARESTEP은 병원이 입력한 투약일수와 시간만 사용합니다. 종료일 이후 칸은 — 로 표시하며, 용량·시간을 임의로 변경하거나 놓친 약을 두 번 투여하지 마세요.</p></div><table class="med-check-table"><thead><tr><th>약 / 투약법</th>${heads}</tr></thead><tbody>${rows}</tbody></table>${last?`<div class="med-check-legend"><div><b>약별 기간 자동 반영</b><br>3일 처방은 3일차까지만, 5일 처방은 5일차까지만 체크합니다. 가장 긴 처방기간을 기준으로 전체 표의 길이가 정해집니다.</div><div><b>시간별 투약 후 체크</b><br>08:00 · 20:00처럼 시간이 등록된 약은 각 시간 옆의 □를 따로 표시합니다. 시간이 없는 약은 날짜별 완료 □ 한 칸만 표시합니다.</div></div><div class="pdf-callout warn"><strong>다음 재진</strong><p>${escapeHtml(recheckLabel())} · 체크표와 남은 약, 이상반응 기록을 함께 준비해주세요.</p></div>`:''}${pdfFooter()}</div>`);
+  }
+  $('pdfDocument').innerHTML=pages.join('');
   $('pdfDocument').classList.remove('hidden');$('messagePreview').classList.add('hidden');$('phonePreview').classList.add('hidden');
 }
 async function mobileCardPngBlob(day){
@@ -5179,14 +5247,14 @@ function renderCurrentOutput(){
   readCaseInfoFromForm(); const medPages=medicationPageCount(); const pdfCount=8+medPages;
   const statusMap={pdf:`${pdfCount}P`,summary:'1P',meds:medPages?`${medPages}P`:'MEDS',medcheck:'1P',kakao:'KAKAO',sms:'SMS',d1:'D+1',d3:'D+3',d7:'D+7',d14:'D+14',mobile:'MOBILE',mobile4:'4 PNG',staff:'STAFF'};
   $('selectedStatus').textContent=`${t.category} · ${statusMap[currentOutput]||''}`;
-  const labels={pdf:'고급 보호자 PDF 미리보기',summary:'퇴원 당일 1페이지 요약 미리보기',meds:'복약 일정표 미리보기',medcheck:'7일 복약 체크표 미리보기',kakao:'카카오톡 문구 미리보기',sms:'문자 문구 미리보기',d1:'D+1 체크카드 미리보기',d3:'D+3 체크카드 미리보기',d7:'D+7 체크카드 미리보기',d14:'D+14 체크카드 미리보기',mobile:'휴대폰 이미지 카드 미리보기',mobile4:'D+1·3·7·14 모바일 카드 4종',staff:'직원용 퇴원교육 미리보기'};
+  const labels={pdf:'고급 보호자 PDF 미리보기',summary:'퇴원 당일 1페이지 요약 미리보기',meds:'복약 일정표 미리보기',medcheck:medicationCheckLabel()+' 미리보기',kakao:'카카오톡 문구 미리보기',sms:'문자 문구 미리보기',d1:'D+1 체크카드 미리보기',d3:'D+3 체크카드 미리보기',d7:'D+7 체크카드 미리보기',d14:'D+14 체크카드 미리보기',mobile:'휴대폰 이미지 카드 미리보기',mobile4:'D+1·3·7·14 모바일 카드 4종',staff:'직원용 퇴원교육 미리보기'};
   $('previewLabel').textContent=labels[currentOutput]||'미리보기';
   $('mobileDayControl')?.classList.toggle('hidden',currentOutput!=='mobile');
   const btn=$('generateOutputBtn'), sec=$('secondaryOutputBtn'), hint=$('outputHint');
   if(currentOutput==='pdf'){btn.textContent=`고급 PDF ${pdfCount}P 생성 · 다운로드`;sec.textContent='인쇄 / PDF 저장';hint.textContent=medPages?`복약 일정표 ${medPages}페이지가 포함되어 총 ${pdfCount}페이지로 생성됩니다.`:'복약표 미입력 상태로 8페이지가 생성됩니다.';renderAdvancedPdf();}
   else if(currentOutput==='summary'){btn.textContent='퇴원 1P 요약 PDF 다운로드';sec.textContent='인쇄 / PDF 저장';hint.textContent='보호자가 퇴원 당일 가장 먼저 보는 개별지시·복약·재진·위험신호 한 장 요약입니다.';renderDischargeSummary();}
   else if(currentOutput==='meds'){btn.textContent='복약 일정표 PDF 다운로드';sec.textContent='인쇄 / PDF 저장';hint.textContent=medPages?`입력한 ${validMedications().length}종 약을 ${medPages}페이지 일정표로 생성합니다.`:'약을 입력하면 복약 일정표를 생성할 수 있습니다.';renderMedicationSheet();}
-  else if(currentOutput==='medcheck'){btn.textContent='7일 복약 체크표 PDF 다운로드';sec.textContent='인쇄 / PDF 저장';hint.textContent='복약 일정표에 등록한 시간별로 D+0~D+6 투약 완료 여부를 따로 체크하는 1페이지 표입니다. 시간이 없는 약은 날짜별 한 칸만 표시합니다.';renderMedicationCheckSheet();}
+  else if(currentOutput==='medcheck'){const meta=medicationCheckMeta();btn.textContent=`${medicationCheckLabel()} PDF 다운로드`;sec.textContent='인쇄 / PDF 저장';hint.textContent=meta.valid?`최장 ${meta.maxDays}일 처방 기준 · ${meta.pageCount}페이지 · 각 약은 입력한 투약일수까지만 시간별 체크칸을 표시합니다.`:'각 약의 투약 기간(일수)을 입력하면 처방기간에 맞춰 자동 생성됩니다.';renderMedicationCheckSheet();}
   else if(currentOutput==='kakao'||currentOutput==='sms'){btn.textContent=currentOutput==='sms'?'문자 문구 복사':'카카오톡 문구 복사';sec.textContent='TXT 다운로드';hint.textContent='보호자에게 바로 보낼 수 있는 안내문입니다.';renderMessageOutput(currentOutput);}
   else if(['d1','d3','d7','d14'].includes(currentOutput)){const day=Number(currentOutput.replace('d',''));btn.textContent=`D+${day} 체크카드 PDF 다운로드`;sec.textContent='인쇄 / PDF 저장';hint.textContent=`D+${day}${actualDateFor(day)?` · ${actualDateFor(day)}`:''}에 확인할 내용을 1페이지로 정리합니다.`;renderCheckCard(day);}
   else if(currentOutput==='mobile'){readCaseInfoFromForm();mobileDay=Number($('mobileDaySelect')?.value||1);btn.textContent='1080×1920 PNG 다운로드';sec.textContent='화면 인쇄';hint.textContent=`D+${mobileDay}${actualDateFor(mobileDay)?` · ${actualDateFor(mobileDay)}`:''} 보호자 휴대폰 저장용 세로 이미지입니다.`;renderMobileCard(mobileDay);}
@@ -5244,6 +5312,7 @@ function medicationInputWarnings(){
     if(!hasAny) return;
     if(!m.name) warnings.push(`약 ${i+1}: 약 이름이 비어 있습니다.`);
     if(m.name && !m.dose) warnings.push(`${m.name}: 1회 용량이 비어 있습니다.`);
+    if(m.name && !parseMedicationDurationDays(m.duration)) warnings.push(`${m.name}: 복약 체크표 생성을 위해 투약 기간(일수)을 입력해주세요.`);
     const count=Number((String(m.frequency||'').match(/\d+/)||[])[0]||0);
     const times=parseMedTimes(m.times||'');
     if(count>0 && times.length>0 && count!==times.length) warnings.push(`${m.name||`약 ${i+1}`}: '${m.frequency}'와 등록 시간 ${times.length}개의 개수가 다릅니다.`);
@@ -5260,16 +5329,20 @@ function updateReadiness(){
     [!!currentTemplateId,'교육자료','질환/수술 자료가 선택되어 있습니다.'],
     [!!caseInfo.dischargeDate,'퇴원일','퇴원일을 넣으면 D+ 날짜가 실제 날짜로 표시됩니다.'],
     [!!caseInfo.procedure,'진단·수술명','개별 진단/수술명을 넣으면 보호자 자료가 더 명확해집니다.'],
-    [medWarn.length===0,'복약 입력',meds.length?`${meds.length}종 입력 · ${medWarn.length?'확인 필요':'형식 확인 완료'}`:'약이 없으면 복약자료는 자동 제외됩니다.'],
+    [medWarn.length===0,'복약 입력',meds.length?`${meds.length}종 입력 · ${medWarn.length?'확인 필요':'형식 확인 완료'}${medicationCheckMeta(meds).valid?` · 체크표 ${medicationCheckMeta(meds).maxDays}일`:''}`:'약이 없으면 복약자료는 자동 제외됩니다.'],
     [!!recheckIso,'재진 일정',recheckIso?recheckLabel():'재진 날짜 미정 · 캘린더 파일은 자동 제외']
   ];
   const ok=checks.filter(x=>x[0]).length;
   const score=Math.round(ok/checks.length*100);
   const html=`<div class="readiness-head"><strong>퇴원자료 준비 상태</strong><span class="readiness-score">${score}%</span></div><div class="readiness-list">${checks.map(([good,title,desc])=>`<div class="ready-item ${good?'ok':'warn'}"><span class="ready-dot">${good?'✓':'!'}</span><div><b>${escapeHtml(title)}</b><br>${escapeHtml(desc)}</div></div>`).join('')}${medWarn.slice(0,3).map(w=>`<div class="ready-item warn"><span class="ready-dot">!</span><div><b>입력 확인</b><br>${escapeHtml(w)}</div></div>`).join('')}</div>`;
   if($('readinessPanel')) $('readinessPanel').innerHTML=html;
-  [['packageMeds','packageMedsLabel'],['packageMedCheck','packageMedCheckLabel']].forEach(([bid,lid])=>{
+  const checkMeta=medicationCheckMeta(meds);
+  [['packageMeds','packageMedsLabel']].forEach(([bid,lid])=>{
     const box=$(bid),label=$(lid);if(!box)return;box.disabled=!meds.length;if(!meds.length)box.checked=false;else if(!box.dataset.touched)box.checked=true;label?.classList.toggle('disabled',!meds.length);
   });
+  const medCheckBox=$('packageMedCheck'),medCheckLabel=$('packageMedCheckLabel');
+  if(medCheckBox){medCheckBox.disabled=!checkMeta.valid;if(!checkMeta.valid)medCheckBox.checked=false;else if(!medCheckBox.dataset.touched)medCheckBox.checked=true;medCheckLabel?.classList.toggle('disabled',!checkMeta.valid);}
+  updateMedicationCheckUi();
   const cal=$('packageCalendar'),calLabel=$('packageCalendarLabel');if(cal){cal.disabled=!recheckIso;if(!recheckIso)cal.checked=false;else if(!cal.dataset.touched)cal.checked=true;calLabel?.classList.toggle('disabled',!recheckIso);}
   updateHandoffProgress();
 }
@@ -5289,7 +5362,7 @@ async function downloadDischargePackage(){
     summary:$('packageSummary')?.checked,
     pdf:$('packagePdf')?.checked,
     meds:$('packageMeds')?.checked&&validMedications().length,
-    medcheck:$('packageMedCheck')?.checked&&validMedications().length,
+    medcheck:$('packageMedCheck')?.checked&&medicationCheckMeta().valid,
     d1:$('packageD1')?.checked,
     mobileall:$('packageMobileAll')?.checked,
     calendar:$('packageCalendar')?.checked&&!!recheckIsoDate(),
@@ -5308,7 +5381,7 @@ async function downloadDischargePackage(){
     if(selected.summary){await addRenderedPdfToZip(todayFolder,`${base}_퇴원1P요약.pdf`,renderDischargeSummary);count++;}
     if(selected.pdf){await addRenderedPdfToZip(todayFolder,`${base}_보호자교육_${8+medicationPageCount()}P.pdf`,renderAdvancedPdf);count++;}
     if(selected.meds){await addRenderedPdfToZip(todayFolder,`${base}_복약일정표_${medicationPageCount()}P.pdf`,renderMedicationSheet);count++;}
-    if(selected.medcheck){await addRenderedPdfToZip(todayFolder,`${base}_7일_복약체크표.pdf`,renderMedicationCheckSheet);count++;}
+    if(selected.medcheck){await addRenderedPdfToZip(todayFolder,`${base}_${medicationCheckFileLabel()}.pdf`,renderMedicationCheckSheet);count++;}
     if(selected.staff){await addRenderedPdfToZip(todayFolder,`${base}_직원용_퇴원체크리스트.pdf`,renderStaffSheet);count++;}
     if(selected.d1){await addRenderedPdfToZip(followFolder,`${base}_D+1_체크카드.pdf`,()=>renderCheckCard(1));count++;}
     if(selected.mobileall){for(const day of [1,3,7,14]){const blob=await mobileCardPngBlob(day);if(blob){followFolder.file(`${base}_D+${day}_모바일카드_1080x1920.png`,blob);count++;}}}
@@ -5460,12 +5533,12 @@ $('medicationRows')?.addEventListener('input',e=>{
     if(preview) preview.textContent=e.target.value.trim()||'약 이름을 입력하세요';
   }
   readMedicationRowsFromForm(); updateMedicationPreview(); updateReadiness();
-  if(['pdf','meds','staff'].includes(currentOutput)) renderCurrentOutput();
+  if(['pdf','meds','medcheck','staff'].includes(currentOutput)) renderCurrentOutput();
 });
 $('medicationRows')?.addEventListener('change',e=>{
   if(!e.target.matches('[data-med-field]')) return;
   readMedicationRowsFromForm(); updateMedicationPreview(); updateReadiness();
-  if(['pdf','meds','staff'].includes(currentOutput)) renderCurrentOutput();
+  if(['pdf','meds','medcheck','staff'].includes(currentOutput)) renderCurrentOutput();
 });
 $('medicationRows')?.addEventListener('keydown',e=>{
   if(e.key!=='Enter' || !e.target.matches('[data-med-time-input]')) return;
@@ -5484,18 +5557,18 @@ $('medicationRows')?.addEventListener('click',e=>{
   if(addTimeBtn){
     const input=row.querySelector('[data-med-time-input]'); const time=input?.value||'';
     if(!time){toast('추가할 투약시간을 선택해주세요.');return;}
-    if(addMedicationTimeToRow(row,time)){ if(input) input.value=''; readMedicationRowsFromForm(); updateMedicationPreview(); if(['pdf','meds','staff'].includes(currentOutput)) renderCurrentOutput(); }
+    if(addMedicationTimeToRow(row,time)){ if(input) input.value=''; readMedicationRowsFromForm(); updateMedicationPreview(); if(['pdf','meds','medcheck','staff'].includes(currentOutput)) renderCurrentOutput(); }
     return;
   }
   if(quickTimeBtn){
     const time=quickTimeBtn.dataset.quickTime||'';
-    if(addMedicationTimeToRow(row,time)){ readMedicationRowsFromForm(); updateMedicationPreview(); if(['pdf','meds','staff'].includes(currentOutput)) renderCurrentOutput(); }
+    if(addMedicationTimeToRow(row,time)){ readMedicationRowsFromForm(); updateMedicationPreview(); if(['pdf','meds','medcheck','staff'].includes(currentOutput)) renderCurrentOutput(); }
     return;
   }
   if(removeTimeBtn){
     const hidden=row.querySelector('[data-med-field="times"]');
     const times=parseMedTimes(hidden?.value||'').filter(t=>t!==removeTimeBtn.dataset.removeTime);
-    setMedicationRowTimes(row,times); readMedicationRowsFromForm(); updateMedicationPreview(); if(['pdf','meds','staff'].includes(currentOutput)) renderCurrentOutput();
+    setMedicationRowTimes(row,times); readMedicationRowsFromForm(); updateMedicationPreview(); if(['pdf','meds','medcheck','staff'].includes(currentOutput)) renderCurrentOutput();
     return;
   }
   if(duplicateBtn){
@@ -5691,7 +5764,8 @@ async function generateSingleSelectedOutput(type){
   if(type==='mobile4'){await downloadAllMobileCards();return;}
   readCaseInfoFromForm();
   if((type==='meds'||type==='medcheck')&&!validMedications().length){toast('선택한 복약 출력물을 만들려면 약 이름을 하나 이상 입력해주세요.');currentOutput=original;renderCurrentOutput();return;}
-  const suffix=type==='pdf'?`보호자교육_${8+medicationPageCount()}P`:type==='summary'?'퇴원_1P_요약':type==='meds'?`복약_일정표_${medicationPageCount()}P`:type==='medcheck'?'7일_복약_체크표_1P':type==='staff'?'직원용_퇴원교육_1P':`체크카드_${type.toUpperCase().replace('D','D+')}`;
+  if(type==='medcheck'&&!medicationCheckMeta().valid){toast('복약 체크표를 만들려면 모든 약의 투약 기간(일수)을 입력해주세요.');currentOutput=original;renderCurrentOutput();return;}
+  const suffix=type==='pdf'?`보호자교육_${8+medicationPageCount()}P`:type==='summary'?'퇴원_1P_요약':type==='meds'?`복약_일정표_${medicationPageCount()}P`:type==='medcheck'?medicationCheckFileLabel():type==='staff'?'직원용_퇴원교육_1P':`체크카드_${type.toUpperCase().replace('D','D+')}`;
   const filename=`${hospitalName()}_${t.short}_${suffix}_CARESTEP.pdf`.replace(/[\/:*?"<>|]/g,'_');
   await exportPdfElement(filename);
   recordPilotUsage(type,{fileCount:1});
@@ -5703,7 +5777,8 @@ async function generateSelectedOutputs(){
   let selected=selectedOutputTypes();
   if(!selected.length){toast('생성할 출력물을 하나 이상 선택해주세요.');return;}
   const medSelected=selected.filter(x=>x==='meds'||x==='medcheck');
-  if(medSelected.length&&!validMedications().length){toast('복약 일정표/7일 체크표를 선택했습니다. 약 이름을 하나 이상 입력하거나 해당 항목을 선택 해제해주세요.');return;}
+  if(medSelected.length&&!validMedications().length){toast('복약 일정표/복약 체크표를 선택했습니다. 약 이름을 하나 이상 입력하거나 해당 항목을 선택 해제해주세요.');return;}
+  if(selected.includes('medcheck')&&!medicationCheckMeta().valid){toast('복약 체크표를 만들려면 모든 약의 투약 기간(일수)을 입력해주세요.');return;}
   if(selected.length===1){await generateSingleSelectedOutput(selected[0]);return;}
   if(typeof JSZip==='undefined'){toast('ZIP 라이브러리를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');return;}
   const btn=$('generateOutputBtn'); const old=btn?.textContent; if(btn){btn.disabled=true;btn.textContent=`선택한 ${selected.length}종 생성 중…`;}
@@ -5721,7 +5796,7 @@ async function generateSelectedOutputs(){
       if(type==='pdf'){await addRenderedPdfToZip(pdfFolder,`${base}_보호자교육_${8+medicationPageCount()}P.pdf`,renderAdvancedPdf);count++;}
       else if(type==='summary'){await addRenderedPdfToZip(pdfFolder,`${base}_퇴원1P요약.pdf`,renderDischargeSummary);count++;}
       else if(type==='meds'){await addRenderedPdfToZip(pdfFolder,`${base}_복약일정표_${medicationPageCount()}P.pdf`,renderMedicationSheet);count++;}
-      else if(type==='medcheck'){await addRenderedPdfToZip(pdfFolder,`${base}_7일_복약체크표.pdf`,renderMedicationCheckSheet);count++;}
+      else if(type==='medcheck'){await addRenderedPdfToZip(pdfFolder,`${base}_${medicationCheckFileLabel()}.pdf`,renderMedicationCheckSheet);count++;}
       else if(type==='staff'){await addRenderedPdfToZip(pdfFolder,`${base}_직원용_퇴원교육.pdf`,renderStaffSheet);count++;}
       else if(['d1','d3','d7','d14'].includes(type)){const day=Number(type.replace('d',''));await addRenderedPdfToZip(pdfFolder,`${base}_D+${day}_체크카드.pdf`,()=>renderCheckCard(day));count++;}
       else if(type==='kakao'||type==='sms'){const label=type==='sms'?'문자':'카카오톡';msgFolder.file(`${base}_${label}.txt`,currentMessage());count++;}
