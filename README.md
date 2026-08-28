@@ -1,67 +1,75 @@
-# CARESTEP Clinic v6.2 · DIRECT AI DRAFTING
+# CARESTEP Clinic v6.2.1 · AI COST METER
 
-## 핵심 변경
+v6.2 Direct AI Drafting에 생성별 API 비용 추적 기능을 추가한 업데이트입니다.
 
-v6.1.1의 Content Studio / Quality Gate / 수의사 검수 / 버전관리 / 카테고리 필터를 유지하면서, AI 초안 생성 단계를 직접 연결했습니다.
+## 핵심 추가 기능
 
-새 흐름:
+- AI Draft 성공 시 OpenAI API usage 토큰을 자동 기록
+- 최근 생성 예상비용 표시
+- 최근 생성 Input / Output token 표시
+- 이번 달 AI 생성 건수
+- 이번 달 누적 token
+- 이번 달 예상 API 비용
+- 이번 달 질환당 평균 예상비용
+- 전체 누적 생성 건수 / 누적 예상비용
+- 모델별 단가 표시
+- Cached input token이 Worker 응답에 포함되면 할인 단가 반영
+- 비용 기록 CSV 다운로드
+- 비용 통계만 별도 초기화
 
-1. 질환명, 대상, 카테고리, 사용상황, 관리기간, 관리포인트, 위험신호를 입력
-2. `AI 초안 생성 → Draft` 클릭
-3. GitHub Pages → Cloudflare Worker → OpenAI Responses API
-4. JSON Schema에 맞는 CARESTEP 콘텐츠 생성
-5. CARESTEP 로컬 Schema 재검사
-6. Draft 자동 저장
-7. Quality Gate + 수의사 검수
-8. Published
+## 개인정보 원칙
 
-AI 결과가 바로 Published 되는 경로는 없습니다.
+비용 통계 localStorage에는 다음만 저장됩니다.
 
-## 파일
+- 생성 시각
+- 사용 모델
+- input token
+- cached input token
+- output token
+- total token
+- 예상 USD 비용
+- 계산에 사용한 가격표 snapshot 날짜
 
-- `index.html` : GitHub Pages용 CARESTEP 전체 앱
-- `worker.js` : Cloudflare Worker용 AI Gateway
-- `wrangler.jsonc` : Wrangler 배포 설정 예시
-- `.gitignore` : API 키/로컬 Secret 커밋 방지
-- `SETUP_AI_GATEWAY.md` : Worker 연결 순서
+질환명, 환자명, 보호자명, 복약정보, 퇴원정보는 AI 비용 통계에 저장하지 않습니다.
 
-## 보안 구조
+## GPT-5.6 가격표 snapshot
 
-### 브라우저에 저장하지 않는 것
-- OpenAI API Key
-- 환자명 / 보호자명
-- 환자별 처방 및 복약정보
+v6.2.1의 기본 가격표는 2026-07-30 이후 공개된 OpenAI API 가격을 사용합니다.
 
-### 브라우저에 저장되는 것
-- Worker Endpoint URL: localStorage
-- CARESTEP Access Key: sessionStorage (브라우저 세션 종료 시 삭제)
-- 기존 Content Studio 자료 및 검수정보: 기존과 동일한 localStorage
+| Model | Input / 1M | Cached input / 1M | Output / 1M |
+|---|---:|---:|---:|
+| GPT-5.6 Terra | $2.00 | $0.20 | $12.00 |
+| GPT-5.6 Luna | $0.20 | $0.02 | $1.20 |
+| GPT-5.6 Sol | $5.00 | $0.50 | $30.00 |
 
-### 서버 Secret
-- `OPENAI_API_KEY`
-- `CARESTEP_ACCESS_KEY`
+화면의 금액은 token 기반 추정치입니다. 세금, 환율, 별도 tool 비용, 향후 가격 변경 등은 포함하지 않으므로 실제 비용은 OpenAI Usage/Billing을 확인하십시오.
 
-`CARESTEP_ACCESS_KEY`는 OpenAI API Key가 아닙니다. 공개된 Worker를 임의 호출하는 것을 줄이기 위한 Pilot용 접근키입니다. 정식 SaaS에서는 병원 로그인/JWT 기반 인증으로 교체해야 합니다.
+## 업데이트 방법
 
-## AI 모델
+### 1. GitHub Pages
 
-기본 설정은 `gpt-5.6-terra`입니다. `OPENAI_MODEL` Worker 변수로 변경할 수 있습니다.
+기존 `index.html`을 이 폴더의 `index.html`로 교체하고 Commit 합니다.
 
-## 의료 콘텐츠 안전장치
+### 2. Cloudflare Worker
 
-Direct AI 생성 후에도 기존 v6.1 Quality Gate를 그대로 거칩니다.
+기존 v6.2 Worker도 기본 input/output token을 반환하므로 Cost Meter는 동작합니다.
+하지만 cached input token까지 반영하려면 이 폴더의 `worker.js`로 Worker 코드를 교체하고 Deploy 하는 것을 권장합니다.
 
-Publish 조건:
-- CARESTEP Schema 통과
-- Quality 80점 이상
-- Critical 위험표현 0건
-- 수의사 검수 체크리스트 6개 완료
-- 최종 수의사 승인
+환경변수/Secret은 기존 값을 그대로 사용합니다.
 
-Published 콘텐츠를 수정하면 다시 Review 상태로 내려갑니다.
+- OPENAI_API_KEY = Secret
+- CARESTEP_ACCESS_KEY = Secret
+- ALLOWED_ORIGINS = 기존 GitHub Pages origin
+- OPENAI_MODEL = 기존 모델 (예: gpt-5.6-terra)
 
-## GitHub Pages 업데이트
+추가 환경변수는 없습니다.
 
-기존 Pages 저장소의 루트 `index.html`만 v6.2 파일로 교체하고 Commit 하면 됩니다.
+## 정상 동작 확인
 
-Worker 파일은 GitHub Pages에 실행되는 파일이 아니며 별도 Cloudflare Worker에 배포해야 합니다.
+1. CARESTEP에서 AI Gateway 연결 테스트
+2. 새 질환 기준 입력
+3. `AI 초안 생성 → Draft`
+4. 생성 완료 후 AI COST METER 확인
+5. 최근 생성 비용, input/output token, 이번 달 합계가 증가하면 정상입니다.
+
+기존 v6.2에서 이미 실행한 생성은 당시 브라우저에 토큰별 비용 기록을 저장하지 않았으므로 v6.2.1 설치 이전 사용량을 자동 복구하지는 않습니다.
