@@ -219,6 +219,12 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 @media(max-width:900px){.ai-cost-grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.ai-cost-grid{grid-template-columns:1fr}}
 
 
+
+/* v6.2.2 CUSTOMER VOICE */
+.voice-hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;background:linear-gradient(135deg,#182238,#23344e);color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:16px}.voice-hero h3{margin:3px 0 6px;font-size:19px}.voice-hero p{margin:0;color:#c9d3e3;max-width:760px;font-size:11px;line-height:1.65}.voice-safe{background:#183e33;color:#aef0d3;border:1px solid #2d6958;border-radius:999px;padding:7px 10px;font-size:9px;font-weight:850;white-space:nowrap}.voice-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.voice-tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:10px;font-weight:850;color:#637086}.voice-tab.active{background:#1c7050;border-color:#1c7050;color:#fff}.voice-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(390px,.8fr);gap:16px;align-items:start}.voice-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.voice-panel h4{margin:0;font-size:14px}.voice-panel-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.voice-panel-head p{margin:4px 0 0;font-size:9.5px;color:#7a8598;line-height:1.5}.voice-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.voice-form-grid .span-2{grid-column:1/-1}.voice-form-grid textarea{min-height:96px;resize:vertical}.voice-privacy{margin-top:12px;border:1px solid #d9ece3;background:#f5fbf8;border-radius:12px;padding:11px 12px;color:#456153;font-size:9.5px;line-height:1.55}.voice-privacy strong{color:#1d6048}.voice-submit-row{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}.voice-status{font-size:9.5px;color:#718096}.voice-status.ok{color:#1c7050;font-weight:800}.voice-status.error{color:#b63b3b;font-weight:800}.voice-admin-lock{border:1px dashed #b9c3d2;border-radius:13px;padding:13px;background:#f8fafc}.voice-admin-grid{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:9px}.voice-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.voice-kpi{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fbfcfe}.voice-kpi span{font-size:8.5px;color:#748095;display:block}.voice-kpi strong{font-size:18px;display:block;margin-top:3px}.voice-ranking{display:grid;gap:7px}.voice-rank{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;border-bottom:1px solid #edf0f4;padding:7px 0}.voice-rank:last-child{border-bottom:0}.voice-rank b{font-size:10px}.voice-rank small{font-size:8.5px;color:#7f8998}.voice-count{min-width:34px;text-align:center;background:#edf7f2;color:#176345;border-radius:999px;padding:5px 7px;font-weight:900;font-size:9px}.voice-admin-filters{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin:14px 0}.voice-list{display:grid;gap:9px;max-height:720px;overflow:auto;padding-right:2px}.voice-item{border:1px solid var(--line);border-radius:13px;padding:12px}.voice-item.new{border-left:4px solid #2563eb}.voice-item.reviewing{border-left:4px solid #d49a13}.voice-item.planned,.voice-item.building,.voice-item.review{border-left:4px solid #7257c7}.voice-item.published,.voice-item.answered{border-left:4px solid #1c7050}.voice-item.hold{border-left:4px solid #8c96a8}.voice-item-head{display:flex;justify-content:space-between;gap:12px}.voice-type-badge{display:inline-flex;border-radius:999px;background:#eef2f7;color:#556174;padding:4px 7px;font-size:8px;font-weight:850;margin-right:5px}.voice-item h5{font-size:11px;margin:7px 0 3px}.voice-item-meta{font-size:8.5px;color:#7c8797;line-height:1.5}.voice-item-details{font-size:9.5px;line-height:1.55;color:#4f5b6d;margin:8px 0;white-space:pre-wrap}.voice-item-actions{display:grid;grid-template-columns:140px 1fr auto;gap:7px;align-items:center;margin-top:9px}.voice-item-actions textarea{min-height:38px;height:38px;resize:vertical}.voice-empty{border:1px dashed #cbd3df;border-radius:12px;padding:20px;text-align:center;color:#7f8999;font-size:10px}.voice-sync-note{font-size:8.5px;color:#7d8796;margin-top:8px}.voice-hidden{display:none!important}.voice-honeypot{position:absolute!important;left:-9999px!important;opacity:0!important;pointer-events:none!important}.voice-source-banner{display:flex;gap:8px;align-items:center;background:#f1f7ff;border:1px solid #d7e5f7;border-radius:11px;padding:9px 11px;margin-bottom:10px;font-size:9.5px;color:#4b607a}.voice-source-banner b{color:#224b78}
+@media(max-width:1050px){.voice-layout{grid-template-columns:1fr}.voice-list{max-height:none}.voice-kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.voice-hero{flex-direction:column}.voice-form-grid{grid-template-columns:1fr}.voice-form-grid .span-2{grid-column:auto}.voice-admin-grid,.voice-admin-filters,.voice-item-actions{grid-template-columns:1fr}.voice-kpis{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
@@ -258,6 +264,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <button class="nav-item" data-view="builder">자료 생성</button>
         <button class="nav-item" data-view="settings">병원정보</button>
         <button class="nav-item" data-view="contentStudio">AI Content Studio</button>
+        <button class="nav-item" data-view="voice">고객 요청</button>
         <button class="nav-item" data-view="pilot">Pilot</button>
         <button class="nav-item" data-view="admin">관리자 데모</button>
       </nav>
@@ -270,7 +277,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CARESTEP Clinic MVP · v6.2.1 · AI COST METER · SERVER-SAFE</p>
+          <p class="eyebrow">CARESTEP Clinic MVP · v6.2.2 · CUSTOMER VOICE · D1 READY</p>
           <h2 id="viewTitle">대시보드</h2>
         </div>
         <div class="topbar-actions">
@@ -293,7 +300,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <article class="stat-card"><span>등록 자료</span><strong id="templateCount">20</strong><small>20종 전체 활성</small></article>
           <article class="stat-card"><span>이번 달 생성</span><strong id="generatedCount">0</strong><small>이 브라우저 기준</small></article>
           <article class="stat-card"><span>현재 플랜</span><strong>PRO</strong><small>데모 권한</small></article>
-          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>AI Cost Meter v6.2.1</small></article>
+          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Customer Voice v6.2.2</small></article>
         </div>
 
         <div id="pilotOnboardingBanner" class="pilot-onboarding-banner"><div><b>Pilot를 시작하기 전에</b><span>목표 건수와 시작일을 한 번 설정하면 실사용 지표를 자동으로 추적합니다.</span></div><button class="btn btn-primary" type="button" data-go="pilot">Pilot 설정하기</button></div>
@@ -487,7 +494,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
       <section id="contentStudio" class="view">
         <div class="studio-hero">
-          <div><p class="eyebrow">DIRECT AI DRAFTING · v6.2.1</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
+          <div><p class="eyebrow">DIRECT AI DRAFTING · v6.2.2</p><h3>질환 기준만 입력하면 AI Draft를 바로 생성합니다.</h3><p>GitHub Pages에는 API Key를 두지 않습니다. 별도 AI Gateway(Cloudflare Worker)가 OpenAI Responses API를 호출하고, 생성된 CARESTEP JSON은 자동 Schema 검사 후 Draft로만 저장됩니다. Published까지는 기존 Quality Gate와 수의사 검수를 그대로 통과해야 합니다.</p></div>
           <span class="studio-safe">🔒 OPENAI KEY = SERVER ONLY</span>
         </div>
 
@@ -589,6 +596,65 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <div class="studio-library-head"><div><h4>Content Library</h4><p class="muted" style="font-size:10px">Draft / Review / Published / Archived 상태와 버전을 관리합니다.</p></div><div class="studio-toolbar"><button id="studioExport" class="btn btn-secondary" type="button">콘텐츠 JSON 백업</button><label class="btn btn-ghost file-btn">콘텐츠 JSON 복원<input id="studioImport" type="file" accept="application/json,.json" hidden /></label></div></div>
           <div id="studioCount" class="studio-count"></div><div id="studioList" class="studio-list"></div>
           <div class="studio-export-row"><span>Published 자료만 일반 자료실과 퇴원 Wizard에 자동 등록됩니다. Draft·Review 자료는 Content Studio 안에서만 보입니다.</span><button id="studioNewBlank" class="btn btn-ghost" type="button">입력폼 초기화</button></div>
+        </div>
+      </section>
+
+
+      <section id="voice" class="view">
+        <div class="voice-hero">
+          <div><p class="eyebrow">CUSTOMER VOICE · v6.2.2</p><h3>요청질환 · 기능제안 · 고객문의를 한곳에서 받습니다.</h3><p>고객 병원의 요청을 중앙 D1 데이터베이스에 모아 우선순위를 확인하고, 요청질환은 AI Content Studio로 바로 보내 제작을 시작할 수 있습니다. 환자명·보호자명·전화번호·차트번호·진료기록 등 환자 개인정보는 입력하지 않습니다.</p></div>
+          <span class="voice-safe">🔒 NO PATIENT DATA</span>
+        </div>
+
+        <div class="voice-layout">
+          <div>
+            <div class="voice-panel">
+              <div class="voice-panel-head"><div><h4>고객 요청 접수</h4><p>같은 질환·기능 요청은 관리자 화면에서 자동 집계되어 수요 순위를 확인할 수 있습니다.</p></div><span class="privacy-badge">D1 CENTRAL INBOX</span></div>
+              <div class="voice-tabs" id="voiceTabs">
+                <button class="voice-tab active" type="button" data-voice-type="condition">요청질환</button>
+                <button class="voice-tab" type="button" data-voice-type="feature">기능제안</button>
+                <button class="voice-tab" type="button" data-voice-type="inquiry">고객문의</button>
+              </div>
+              <div class="voice-form-grid">
+                <div class="span-2"><label id="voiceTitleLabel" class="field-label" for="voiceTitle">요청할 질환 / 관리주제 *</label><input id="voiceTitle" class="input" maxlength="160" placeholder="예: 고양이 천식 장기관리" /></div>
+                <div id="voiceSpeciesWrap"><label class="field-label" for="voiceSpecies">대상</label><select id="voiceSpecies" class="input"><option>강아지</option><option>고양이</option><option>강아지·고양이</option></select></div>
+                <div id="voiceCategoryWrap"><label class="field-label" for="voiceCategory">카테고리</label><select id="voiceCategory" class="input"><option>내과</option><option>수술</option><option>치과</option><option>비뇨기</option><option>신경</option><option>종양</option><option>응급</option><option>예방</option><option>노령</option><option>기타</option></select></div>
+                <div id="voiceScenarioWrap"><label class="field-label" for="voiceScenario">희망 사용상황</label><select id="voiceScenario" class="input"><option>진단 후 장기관리</option><option>입원 후 퇴원관리</option><option>수술 후 회복관리</option><option>응급진료 후 관리</option><option>예방·일상관리</option></select></div>
+                <div id="voiceInquiryCategoryWrap" class="voice-hidden"><label class="field-label" for="voiceInquiryCategory">문의 구분</label><select id="voiceInquiryCategory" class="input"><option>기능 사용 문의</option><option>PDF·출력 오류</option><option>콘텐츠 내용 문의</option><option>요금제 문의</option><option>병원정보 변경</option><option>기타</option></select></div>
+                <div class="span-2"><label id="voiceDetailsLabel" class="field-label" for="voiceDetails">요청 이유 / 포함했으면 하는 내용</label><textarea id="voiceDetails" class="input" maxlength="2000" placeholder="예: 흡입기 사용 교육과 휴식 시 호흡수 기록 항목도 포함되면 좋겠습니다."></textarea></div>
+                <div><label class="field-label" for="voiceClinicName">병원명</label><input id="voiceClinicName" class="input" maxlength="120" placeholder="병원명" /></div>
+                <div><label class="field-label" for="voiceContactName">담당자</label><input id="voiceContactName" class="input" maxlength="80" placeholder="예: 김OO 수의사 / 실장" /></div>
+                <div class="span-2"><label class="field-label" for="voiceContactEmail">회신 이메일 (선택)</label><input id="voiceContactEmail" class="input" type="email" maxlength="180" placeholder="clinic@example.com" /></div>
+                <input id="voiceWebsite" class="voice-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              </div>
+              <label class="voice-privacy"><input id="voiceNoPatientInfo" type="checkbox" /> <strong>환자 개인정보를 입력하지 않았음을 확인합니다.</strong><br>환자명, 보호자명, 전화번호, 차트번호, 검사결과 원문 등 특정 환자를 식별할 수 있는 정보는 이 요청함에 입력하지 마세요.</label>
+              <div class="voice-submit-row"><button id="voiceSubmit" class="btn btn-primary" type="button">요청 보내기</button><span id="voiceSubmitStatus" class="voice-status">AI Gateway와 같은 Worker URL을 사용합니다.</span></div>
+            </div>
+          </div>
+
+          <div class="voice-panel">
+            <div class="voice-panel-head"><div><h4>관리자 요청함</h4><p>별도 Admin Key로 보호합니다. 고객용 CARESTEP Access Key와 분리해 운영합니다.</p></div><span id="voiceAdminBadge" class="ai-conn-badge off">잠김</span></div>
+            <div class="voice-admin-lock">
+              <label class="field-label" for="voiceAdminKey">관리자 세션 Key</label>
+              <div class="voice-admin-grid"><input id="voiceAdminKey" class="input" type="password" autocomplete="off" placeholder="Worker의 CARESTEP_ADMIN_KEY" /><button id="voiceAdminLoad" class="btn btn-secondary" type="button">요청함 열기</button></div>
+              <div class="voice-sync-note">Admin Key는 sessionStorage에만 보관되며 브라우저를 닫으면 사라집니다.</div>
+            </div>
+
+            <div id="voiceAdminContent" class="voice-hidden">
+              <div class="voice-kpis">
+                <div class="voice-kpi"><span>신규</span><strong id="voiceKpiNew">0</strong></div>
+                <div class="voice-kpi"><span>요청질환</span><strong id="voiceKpiCondition">0</strong></div>
+                <div class="voice-kpi"><span>기능제안</span><strong id="voiceKpiFeature">0</strong></div>
+                <div class="voice-kpi"><span>미완료 문의</span><strong id="voiceKpiInquiry">0</strong></div>
+              </div>
+              <div class="pilot-grid-2" style="margin-bottom:12px">
+                <div><p class="eyebrow">TOP REQUESTED CONDITIONS</p><div id="voiceConditionRanking" class="voice-ranking"></div></div>
+                <div><p class="eyebrow">TOP FEATURE IDEAS</p><div id="voiceFeatureRanking" class="voice-ranking"></div></div>
+              </div>
+              <div class="voice-admin-filters"><select id="voiceAdminType" class="input"><option value="all">전체 유형</option><option value="condition">요청질환</option><option value="feature">기능제안</option><option value="inquiry">고객문의</option></select><select id="voiceAdminStatus" class="input"><option value="all">전체 상태</option><option value="new">신규</option><option value="reviewing">검토중</option><option value="planned">제작예정</option><option value="building">제작중</option><option value="review">검수중</option><option value="published">공개완료</option><option value="answered">답변완료</option><option value="hold">보류</option></select><button id="voiceAdminRefresh" class="btn btn-ghost" type="button">새로고침</button></div>
+              <div id="voiceAdminList" class="voice-list"><div class="voice-empty">Admin Key를 입력하고 요청함을 열어주세요.</div></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2141,10 +2207,11 @@ function go(view){
   document.querySelectorAll('.nav-item').forEach(v=>v.classList.remove('active'));
   $(view).classList.add('active-view');
   const nav=document.querySelector(`.nav-item[data-view="${view}"]`); if(nav) nav.classList.add('active');
-  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',contentStudio:'AI Content Studio',pilot:'Pilot 대시보드',admin:'관리자 데모'};
+  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',contentStudio:'AI Content Studio',voice:'고객 요청',pilot:'Pilot 대시보드',admin:'관리자 데모'};
   $('viewTitle').textContent=titles[view]||'';
   if(view==='builder') renderBuilder();
   if(view==='settings'){ hydrateSettings(); hydrateWorkflowSettings(); }
+  if(view==='voice'){ voiceHydrateForm(); voiceRenderType(); if(voiceAdminKey()) voiceLoadAdmin(); }
 }
 
 function hospitalName(){ return hospital.name || '우리 병원'; }
@@ -4712,7 +4779,56 @@ function hydrateSettings(){
   $('hospitalName').value=hospital.name||''; $('directorName').value=hospital.director||''; $('hospitalPhone').value=hospital.phone||''; $('hospitalAddress').value=hospital.address||''; $('hospitalWebsite').value=hospital.website||'';
   $('logoPreview').innerHTML=hospital.logo?`<img src="${hospital.logo}" alt="로고 미리보기"/>`:'로고 미등록';
 }
-function renderAll(){ renderHospitalMeta(); renderQuick(); renderLibrary(); renderSelect(); renderAdmin(); renderStudio(); hydrateSettings(); hydrateWorkflowSettings(); renderWorkflowDashboard(); renderPilotDashboard(); renderMedicationRows(); updateMedicationPreview(); renderBuilder(); updateCalendarAction(); updateHandoffProgress(); startWorkflowTimer(true); }
+
+
+/* v6.2.2 CUSTOMER VOICE */
+const VOICE_ADMIN_SESSION_KEY='carestep_voice_admin_key_v622';
+let voiceType='condition';
+let voiceAdminSummary=null;
+let voiceAdminRows=[];
+let voiceStudioSourceId='';
+
+function voiceBaseUrl(){return typeof studioAiBaseUrl==='function'?studioAiBaseUrl():'';}
+function voiceAdminKey(){return String(sessionStorage.getItem(VOICE_ADMIN_SESSION_KEY)||'').trim();}
+function voiceSetStatus(text,kind=''){const el=$('voiceSubmitStatus');if(el){el.textContent=text;el.className='voice-status '+kind;}}
+function voiceTypeLabel(t){return t==='condition'?'요청질환':t==='feature'?'기능제안':'고객문의';}
+function voiceStatusLabel(s){return ({new:'신규',reviewing:'검토중',planned:'제작예정',building:'제작중',review:'검수중',published:'공개완료',answered:'답변완료',hold:'보류'})[s]||s||'-';}
+function voiceEsc(v=''){return escapeHtml(String(v??''));}
+function voiceHydrateForm(){if($('voiceClinicName')&&!$('voiceClinicName').value)$('voiceClinicName').value=hospital.name||'';if($('voiceAdminKey'))$('voiceAdminKey').value=voiceAdminKey();}
+function voiceRenderType(){
+ document.querySelectorAll('#voiceTabs [data-voice-type]').forEach(b=>b.classList.toggle('active',b.dataset.voiceType===voiceType));
+ const cond=voiceType==='condition',inq=voiceType==='inquiry';
+ ['voiceSpeciesWrap','voiceCategoryWrap','voiceScenarioWrap'].forEach(id=>$(id)?.classList.toggle('voice-hidden',!cond));
+ $('voiceInquiryCategoryWrap')?.classList.toggle('voice-hidden',!inq);
+ if($('voiceTitleLabel'))$('voiceTitleLabel').textContent=cond?'요청할 질환 / 관리주제 *':voiceType==='feature'?'기능 제안 제목 *':'문의 제목 *';
+ if($('voiceDetailsLabel'))$('voiceDetailsLabel').textContent=cond?'요청 이유 / 포함했으면 하는 내용':voiceType==='feature'?'어떤 업무가 더 쉬워져야 하나요?':'문의 내용';
+ if($('voiceTitle'))$('voiceTitle').placeholder=cond?'예: 고양이 천식 장기관리':voiceType==='feature'?'예: 카카오톡으로 D+1 카드 자동 발송':'예: PDF 로고가 작게 보여요';
+ if($('voiceDetails'))$('voiceDetails').placeholder=cond?'예: 흡입기 교육과 휴식 시 호흡수 기록 항목도 포함되면 좋겠습니다.':voiceType==='feature'?'예: 퇴원 패키지 생성 후 보호자에게 예약시간에 자동 발송되면 좋겠습니다.':'문의 내용을 적어주세요. 환자 개인정보는 입력하지 마세요.';
+}
+function voiceLooksLikePatientPii(text){return /(?:01[016789][\s.-]?\d{3,4}[\s.-]?\d{4})|(?:환자명|보호자명|차트번호|주민등록번호)\s*[:：]/i.test(String(text||''));}
+async function voiceSubmit(){
+ const base=voiceBaseUrl();if(!base){voiceSetStatus('AI Gateway Worker URL을 먼저 저장해주세요.','error');toast('AI Content Studio에서 Worker URL을 먼저 저장해주세요.');return;}
+ const title=$('voiceTitle')?.value.trim()||'',details=$('voiceDetails')?.value.trim()||'';
+ if(!title){toast('요청 제목을 입력해주세요.');return;}if(!$('voiceNoPatientInfo')?.checked){toast('환자 개인정보 미입력 확인란을 체크해주세요.');return;}
+ if(voiceLooksLikePatientPii(title+' '+details)){voiceSetStatus('환자·보호자 식별정보로 보이는 내용이 있습니다. 삭제 후 다시 보내주세요.','error');return;}
+ const btn=$('voiceSubmit'),old=btn?.textContent;if(btn){btn.disabled=true;btn.textContent='전송 중…';}voiceSetStatus('중앙 요청함으로 전송 중…');
+ const body={type:voiceType,title,details,clinicName:$('voiceClinicName')?.value.trim()||hospital.name||'',contactName:$('voiceContactName')?.value.trim()||'',contactEmail:$('voiceContactEmail')?.value.trim()||'',website:$('voiceWebsite')?.value||''};
+ if(voiceType==='condition')Object.assign(body,{species:$('voiceSpecies')?.value||'',category:$('voiceCategory')?.value||'',scenario:$('voiceScenario')?.value||''});
+ if(voiceType==='inquiry')body.inquiryCategory=$('voiceInquiryCategory')?.value||'';
+ try{const r=await fetch(base+'/voice/request',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body),cache:'no-store'});let data={};try{data=await r.json()}catch{}if(!r.ok||!data.ok)throw new Error(data.error||`HTTP ${r.status}`);voiceSetStatus(`접수 완료 · ${data.requestId||''}${data.sameRequestCount>1?' · 같은 요청 '+data.sameRequestCount+'건':''}`,'ok');toast('고객 요청이 접수되었습니다.');$('voiceTitle').value='';$('voiceDetails').value='';$('voiceNoPatientInfo').checked=false;if(voiceAdminKey())voiceLoadAdmin();}catch(e){voiceSetStatus(e.message||'요청 전송에 실패했습니다.','error');toast('요청을 전송하지 못했습니다.');}finally{if(btn){btn.disabled=false;btn.textContent=old||'요청 보내기';}}
+}
+function voiceAdminHeaders(){return {'X-CARESTEP-ADMIN-KEY':voiceAdminKey(),'Accept':'application/json'};}
+async function voiceLoadAdmin(){
+ const base=voiceBaseUrl();const key=$('voiceAdminKey')?.value.trim()||voiceAdminKey();if(!base){toast('AI Gateway Worker URL을 먼저 저장해주세요.');return;}if(!key){toast('관리자 세션 Key를 입력해주세요.');return;}sessionStorage.setItem(VOICE_ADMIN_SESSION_KEY,key);if($('voiceAdminKey'))$('voiceAdminKey').value=key;
+ const badge=$('voiceAdminBadge');if(badge){badge.className='ai-conn-badge testing';badge.textContent='확인 중';}
+ try{const type=$('voiceAdminType')?.value||'all',status=$('voiceAdminStatus')?.value||'all';const [sr,lr]=await Promise.all([fetch(base+'/voice/admin/summary',{headers:voiceAdminHeaders(),cache:'no-store'}),fetch(base+`/voice/admin/requests?type=${encodeURIComponent(type)}&status=${encodeURIComponent(status)}`,{headers:voiceAdminHeaders(),cache:'no-store'})]);let sd={},ld={};try{sd=await sr.json()}catch{}try{ld=await lr.json()}catch{}if(!sr.ok||!sd.ok)throw new Error(sd.error||`HTTP ${sr.status}`);if(!lr.ok||!ld.ok)throw new Error(ld.error||`HTTP ${lr.status}`);voiceAdminSummary=sd;voiceAdminRows=Array.isArray(ld.requests)?ld.requests:[];voiceRenderAdmin();if(badge){badge.className='ai-conn-badge on';badge.textContent='연결됨';}$('voiceAdminContent')?.classList.remove('voice-hidden');}catch(e){if(badge){badge.className='ai-conn-badge error';badge.textContent='오류';}$('voiceAdminContent')?.classList.add('voice-hidden');toast(e.message||'관리자 요청함을 불러오지 못했습니다.');}
+}
+function voiceRenderRanking(target,items){const el=$(target);if(!el)return;el.innerHTML=(items||[]).length?(items||[]).slice(0,6).map(x=>`<div class="voice-rank"><div><b>${voiceEsc(x.title)}</b><small>${x.lastAt?new Date(x.lastAt).toLocaleDateString('ko-KR'):''}</small></div><span class="voice-count">${Number(x.count)||0}</span></div>`).join(''):'<div class="voice-empty">아직 요청이 없습니다.</div>';}
+function voiceRenderAdmin(){const s=voiceAdminSummary||{};if($('voiceKpiNew'))$('voiceKpiNew').textContent=Number(s.counts?.new)||0;if($('voiceKpiCondition'))$('voiceKpiCondition').textContent=Number(s.counts?.condition)||0;if($('voiceKpiFeature'))$('voiceKpiFeature').textContent=Number(s.counts?.feature)||0;if($('voiceKpiInquiry'))$('voiceKpiInquiry').textContent=Number(s.counts?.openInquiry)||0;voiceRenderRanking('voiceConditionRanking',s.topConditions);voiceRenderRanking('voiceFeatureRanking',s.topFeatures);const list=$('voiceAdminList');if(!list)return;if(!voiceAdminRows.length){list.innerHTML='<div class="voice-empty">조건에 해당하는 요청이 없습니다.</div>';return;}list.innerHTML=voiceAdminRows.map(r=>`<article class="voice-item ${voiceEsc(r.status)}" data-voice-id="${voiceEsc(r.id)}"><div class="voice-item-head"><div><span class="voice-type-badge">${voiceTypeLabel(r.type)}</span><span class="voice-type-badge">${voiceStatusLabel(r.status)}</span><h5>${voiceEsc(r.title)}</h5><div class="voice-item-meta">${voiceEsc(r.clinicName||'병원명 미입력')} · ${new Date(r.createdAt).toLocaleString('ko-KR')}${r.species?' · '+voiceEsc(r.species):''}${r.category?' · '+voiceEsc(r.category):''}${r.inquiryCategory?' · '+voiceEsc(r.inquiryCategory):''}</div></div><span class="voice-count">${Number(r.sameRequestCount)||1}건</span></div><div class="voice-item-details">${voiceEsc(r.details||'세부내용 없음')}</div><div class="voice-item-meta">담당자 ${voiceEsc(r.contactName||'-')}${r.contactEmail?' · '+voiceEsc(r.contactEmail):''}</div><div class="voice-item-actions"><select class="input" data-voice-status><option value="new" ${r.status==='new'?'selected':''}>신규</option><option value="reviewing" ${r.status==='reviewing'?'selected':''}>검토중</option><option value="planned" ${r.status==='planned'?'selected':''}>제작예정</option><option value="building" ${r.status==='building'?'selected':''}>제작중</option><option value="review" ${r.status==='review'?'selected':''}>검수중</option><option value="published" ${r.status==='published'?'selected':''}>공개완료</option><option value="answered" ${r.status==='answered'?'selected':''}>답변완료</option><option value="hold" ${r.status==='hold'?'selected':''}>보류</option></select><textarea class="input" data-voice-note placeholder="관리자 메모">${voiceEsc(r.adminNote||'')}</textarea><div style="display:flex;gap:5px;flex-wrap:wrap"><button class="btn btn-secondary" type="button" data-voice-save>저장</button>${r.type==='condition'?'<button class="btn btn-primary" type="button" data-voice-studio>Content Studio</button>':''}</div></div></article>`).join('');list.querySelectorAll('[data-voice-save]').forEach(b=>b.addEventListener('click',()=>voiceSaveAdminItem(b.closest('[data-voice-id]'))));list.querySelectorAll('[data-voice-studio]').forEach(b=>b.addEventListener('click',()=>voiceSendToStudio(b.closest('[data-voice-id]')?.dataset.voiceId)));}
+async function voiceSaveAdminItem(card){if(!card)return;const id=card.dataset.voiceId,status=card.querySelector('[data-voice-status]')?.value||'new',adminNote=card.querySelector('[data-voice-note]')?.value.trim()||'';try{const r=await fetch(voiceBaseUrl()+'/voice/admin/request/'+encodeURIComponent(id),{method:'PATCH',headers:{...voiceAdminHeaders(),'Content-Type':'application/json'},body:JSON.stringify({status,adminNote}),cache:'no-store'});const d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||`HTTP ${r.status}`);toast('요청 상태를 저장했습니다.');voiceLoadAdmin();}catch(e){toast(e.message||'저장하지 못했습니다.');}}
+async function voiceSendToStudio(id){const r=voiceAdminRows.find(x=>x.id===id);if(!r)return;voiceStudioSourceId=id;if($('studioCondition'))$('studioCondition').value=r.title||'';if($('studioSpecies')&&r.species)$('studioSpecies').value=r.species;if($('studioCategory')&&r.category)$('studioCategory').value=r.category;if($('studioScenario')&&r.scenario)$('studioScenario').value=r.scenario;if($('studioNotes'))$('studioNotes').value=`CUSTOMER VOICE 요청 ${id}\n요청병원: ${r.clinicName||'-'}\n요청 메모: ${r.details||'-'}\n\n※ 환자 개인정보가 아닌 제품 콘텐츠 요청 기준으로만 사용.`;try{await fetch(voiceBaseUrl()+'/voice/admin/request/'+encodeURIComponent(id),{method:'PATCH',headers:{...voiceAdminHeaders(),'Content-Type':'application/json'},body:JSON.stringify({status:'building',adminNote:r.adminNote||''}),cache:'no-store'});}catch{}go('contentStudio');toast('요청질환을 AI Content Studio로 가져왔습니다.');}
+
+function renderAll(){ renderHospitalMeta(); voiceHydrateForm(); voiceRenderType(); renderQuick(); renderLibrary(); renderSelect(); renderAdmin(); renderStudio(); hydrateSettings(); hydrateWorkflowSettings(); renderWorkflowDashboard(); renderPilotDashboard(); renderMedicationRows(); updateMedicationPreview(); renderBuilder(); updateCalendarAction(); updateHandoffProgress(); startWorkflowTimer(true); }
 
 $('enterDemo').addEventListener('click',showApp);
 $('logoutBtn').addEventListener('click',showLogin);
@@ -4839,6 +4955,15 @@ $('hospitalLogo').addEventListener('change',e=>{
   if(file.size>2*1024*1024){toast('로고 파일은 2MB 이하를 권장합니다.');return;}
   const reader=new FileReader(); reader.onload=()=>{hospital.logo=reader.result; $('logoPreview').innerHTML=`<img src="${hospital.logo}" alt="로고 미리보기"/>`;}; reader.readAsDataURL(file);
 });
+
+// CUSTOMER VOICE events
+ document.querySelectorAll('#voiceTabs [data-voice-type]').forEach(b=>b.addEventListener('click',()=>{voiceType=b.dataset.voiceType||'condition';voiceRenderType();}));
+ $('voiceSubmit')?.addEventListener('click',voiceSubmit);
+ $('voiceAdminLoad')?.addEventListener('click',voiceLoadAdmin);
+ $('voiceAdminRefresh')?.addEventListener('click',voiceLoadAdmin);
+ $('voiceAdminType')?.addEventListener('change',()=>{if(voiceAdminKey())voiceLoadAdmin();});
+ $('voiceAdminStatus')?.addEventListener('change',()=>{if(voiceAdminKey())voiceLoadAdmin();});
+
 $('saveHospital').addEventListener('click',()=>{
   hospital.name=$('hospitalName').value.trim(); hospital.director=$('directorName').value.trim(); hospital.phone=$('hospitalPhone').value.trim(); hospital.address=$('hospitalAddress').value.trim(); hospital.website=$('hospitalWebsite').value.trim();
   if(!hospital.name){toast('병원명을 입력해주세요.');return;}
