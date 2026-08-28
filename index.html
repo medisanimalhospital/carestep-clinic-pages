@@ -201,6 +201,9 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .followup-folder-preview{margin-top:9px;padding:10px 12px;border-radius:11px;background:#172033;color:#d8e2f2;font-size:9px;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.followup-folder-preview b{color:#fff}.package-option.followup{border-color:#cfddf5;background:#f9fbff}
 @media(max-width:700px){.handoff-checks,.summary-grid,.med-check-legend{grid-template-columns:1fr}}
 
+
+/* v5.9 PILOT READY */
+.pilot-onboarding-banner{display:flex;justify-content:space-between;gap:14px;align-items:center;margin:16px 0;padding:13px 15px;border:1px solid #cddcf7;background:linear-gradient(135deg,#f4f8ff,#fff);border-radius:14px}.pilot-onboarding-banner.hidden{display:none}.pilot-onboarding-banner b{display:block;font-size:11px;color:#23314a}.pilot-onboarding-banner span{display:block;margin-top:3px;font-size:9px;color:#758198}.pilot-glance{margin-top:16px}.pilot-mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.pilot-mini-grid>div{padding:10px 11px;border:1px solid #e1e7f0;border-radius:11px;background:#fbfcfe}.pilot-mini-grid b{display:block;font-size:14px;color:#23314a}.pilot-mini-grid span{font-size:8.5px;color:#79859a}.pilot-head-actions,.pilot-setup-actions,.pilot-backup-actions{display:flex;gap:8px;flex-wrap:wrap}.pilot-setup-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.pilot-setup-head h4,.pilot-card-head h4,.pilot-backup-panel h4{margin:0 0 4px}.pilot-setup-head p,.pilot-backup-panel p{margin:0;color:#748096;font-size:10px;line-height:1.55}.pilot-setup-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.pilot-setup-actions{margin-top:12px}.pilot-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.pilot-kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(24,39,75,.03)}.pilot-kpi span{display:block;font-size:10px;color:#788499;font-weight:800}.pilot-kpi strong{display:block;font-size:24px;margin:7px 0 3px}.pilot-kpi small{font-size:9px;color:#8490a3}.pilot-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.pilot-ranking{display:grid;gap:7px;margin-top:10px}.pilot-rank-row{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:8px 9px;border:1px solid #e5eaf2;border-radius:10px}.pilot-rank-row .rank{width:24px;height:24px;border-radius:8px;background:#eef4ff;color:#1f5eff;display:grid;place-items:center;font-size:9px;font-weight:900}.pilot-rank-row b{font-size:10px}.pilot-rank-row span{font-size:9px;color:#778398}.pilot-feedback-list{display:grid;gap:8px;margin-top:10px}.pilot-feedback-item{padding:10px 11px;border:1px solid #e4e9f1;border-radius:11px;background:#fbfcfe}.pilot-feedback-item .top{display:flex;justify-content:space-between;gap:8px}.pilot-feedback-item b{font-size:10px}.pilot-feedback-item .stars{color:#f59e0b;font-size:10px}.pilot-feedback-item p{font-size:9px;color:#68758a;line-height:1.45;margin:6px 0 0}.pilot-feedback-item small{display:block;margin-top:5px;color:#94a0b1;font-size:8px}.pilot-privacy-list{display:grid;gap:7px;margin-top:10px;font-size:10px;color:#526078}.pilot-privacy-list>div{padding:8px 9px;border-radius:9px;background:#f7f9fc}.pilot-privacy-list .no{background:#fff3f3;color:#9b3f3f}.pilot-backup-panel{margin-top:14px;display:flex;justify-content:space-between;gap:14px;align-items:center}.file-btn{cursor:pointer}.pilot-feedback-prompt{margin-top:12px;padding:11px;border-radius:11px;background:#fff;border:1px solid #cfe2d8}.pilot-feedback-title{display:flex;justify-content:space-between;gap:8px;align-items:center}.pilot-feedback-title b{font-size:10px;color:#263247}.pilot-feedback-title span{font-size:8px;color:#8290a3}.rating-row{display:flex;gap:6px;margin-top:9px}.rating-row button{width:32px;height:30px;border:1px solid #dbe3ef;background:#fff;border-radius:8px;font-size:10px;font-weight:900;cursor:pointer}.rating-row button.active{background:#1f5eff;color:#fff;border-color:#1f5eff}.feedback-tags{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.feedback-tags button{border:1px solid #dfe5ef;background:#fff;border-radius:999px;padding:5px 7px;font-size:8.5px;color:#58667c;cursor:pointer}.feedback-tags button.active{border-color:#1f5eff;background:#eef4ff;color:#1f5eff}.pilot-feedback-prompt textarea{min-height:52px;font-size:10px;margin:6px 0 8px}@media(max-width:900px){.pilot-mini-grid,.pilot-kpi-grid,.pilot-setup-grid{grid-template-columns:repeat(2,1fr)}.pilot-grid-2{grid-template-columns:1fr}}@media(max-width:600px){.pilot-mini-grid,.pilot-kpi-grid,.pilot-setup-grid{grid-template-columns:1fr}.pilot-backup-panel{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
@@ -239,6 +242,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <button class="nav-item" data-view="library">자료실</button>
         <button class="nav-item" data-view="builder">자료 생성</button>
         <button class="nav-item" data-view="settings">병원정보</button>
+        <button class="nav-item" data-view="pilot">Pilot</button>
         <button class="nav-item" data-view="admin">관리자 데모</button>
       </nav>
       <div class="sidebar-foot">
@@ -250,7 +254,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CARESTEP Clinic MVP · v5.8 · HANDOFF & FOLLOW-UP · 2-MIN TARGET</p>
+          <p class="eyebrow">CARESTEP Clinic MVP · v5.9 · PILOT READY · PRIVACY-SAFE ANALYTICS</p>
           <h2 id="viewTitle">대시보드</h2>
         </div>
         <div class="topbar-actions">
@@ -273,13 +277,20 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
           <article class="stat-card"><span>등록 자료</span><strong id="templateCount">20</strong><small>20종 전체 활성</small></article>
           <article class="stat-card"><span>이번 달 생성</span><strong id="generatedCount">0</strong><small>이 브라우저 기준</small></article>
           <article class="stat-card"><span>현재 플랜</span><strong>PRO</strong><small>데모 권한</small></article>
-          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Medication UX v5.5</small></article>
+          <article class="stat-card"><span>최근 업데이트</span><strong>2026.08</strong><small>Pilot Ready v5.9</small></article>
         </div>
+
+        <div id="pilotOnboardingBanner" class="pilot-onboarding-banner"><div><b>Pilot를 시작하기 전에</b><span>목표 건수와 시작일을 한 번 설정하면 실사용 지표를 자동으로 추적합니다.</span></div><button class="btn btn-primary" type="button" data-go="pilot">Pilot 설정하기</button></div>
 
         <div class="panel recent-panel">
           <div class="section-head" style="margin:0"><div><p class="eyebrow">Clinic Workflow</p><h3 style="font-size:15px">최근 사용 · 퇴원 속도</h3></div><button id="dashboardNewCase" class="btn btn-primary" type="button">+ 새 환자 시작</button></div>
           <div id="recentTemplateList" class="recent-list"></div>
           <div class="workflow-stat"><div><b id="avgWorkflowTime">--</b><span>평균 퇴원자료 생성시간</span></div><div><b id="bestWorkflowTime">--</b><span>가장 빠른 생성시간</span></div><div><b id="workflowCount">0</b><span>측정된 퇴원 건수</span></div></div>
+        </div>
+
+        <div class="panel pilot-glance">
+          <div class="section-head" style="margin:0"><div><p class="eyebrow">Pilot Snapshot</p><h3 style="font-size:15px">실사용 검증 현황</h3></div><button class="btn btn-secondary" type="button" data-go="pilot">Pilot 대시보드</button></div>
+          <div class="pilot-mini-grid"><div><b id="pilotCaseGlance">0 / 20</b><span>목표 퇴원건수</span></div><div><b id="pilotUnder2Glance">--</b><span>2분 이내</span></div><div><b id="pilotRatingGlance">--</b><span>평균 사용성</span></div><div><b id="pilotTopGlance">--</b><span>최다 사용 자료</span></div></div>
         </div>
 
         <div class="section-head">
@@ -309,7 +320,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <div class="builder-layout">
           <div class="builder-controls panel">
             <div class="wizard-header">
-              <p class="eyebrow">HANDOFF & FOLLOW-UP · v5.8</p>
+              <p class="eyebrow">PILOT READY · v5.9</p>
               <h3>2분 퇴원자료 만들기</h3>
               <p class="muted">환자 → 개별지시 → 복약 → 재진 → 출력의 5단계만 따라가세요.</p>
             </div>
@@ -399,7 +410,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
                 <button id="downloadPackage" class="package-download" type="button">퇴원·후속관리 패키지 ZIP 생성</button>
                 <div class="package-note">ZIP 안에서 <b>00_퇴원당일</b>과 <b>01_후속관리</b> 폴더로 자동 정리합니다. 약이 없으면 복약자료, 재진일이 없으면 캘린더 파일은 자동 제외됩니다.</div>
                 <div class="followup-folder-preview"><b>ZIP 구조</b><br>00_퇴원당일/ 1P요약 · 보호자PDF · 복약자료 · 직원체크<br>01_후속관리/ D+1·3·7·14 모바일카드 · 재진캘린더.ics</div>
-                <div id="completionPanel" class="completion-panel"><strong>퇴원 패키지 생성 완료</strong><p id="completionText"></p><button id="completionNewCase" class="btn btn-primary" type="button">다음 환자 시작</button></div>
+                <div id="completionPanel" class="completion-panel"><strong>퇴원 패키지 생성 완료</strong><p id="completionText"></p><button id="completionNewCase" class="btn btn-primary" type="button">다음 환자 시작</button><div id="pilotFeedbackPrompt" class="pilot-feedback-prompt"><div class="pilot-feedback-title"><b>10초 Pilot 피드백</b><span>환자정보는 저장하지 않습니다.</span></div><div class="rating-row" id="pilotRatingRow"><button type="button" data-rating="1">1</button><button type="button" data-rating="2">2</button><button type="button" data-rating="3">3</button><button type="button" data-rating="4">4</button><button type="button" data-rating="5">5</button></div><div class="feedback-tags" id="pilotFeedbackTags"><button type="button" data-feedback-tag="입력 오래 걸림">입력 오래 걸림</button><button type="button" data-feedback-tag="복약 입력">복약 입력</button><button type="button" data-feedback-tag="PDF">PDF</button><button type="button" data-feedback-tag="모바일 카드">모바일 카드</button><button type="button" data-feedback-tag="직원 인계">직원 인계</button><button type="button" data-feedback-tag="기타">기타</button></div><textarea id="pilotFeedbackNote" class="input" maxlength="180" placeholder="선택 메모 · 환자 개인정보는 입력하지 마세요"></textarea><button id="savePilotFeedback" class="btn btn-secondary" type="button">피드백 저장</button></div></div>
                 <div class="handoff-panel"><h4>직원 인계 · 완료 확인</h4><p>파일 생성 후 실제 보호자 전달과 다음 담당자 인계까지 체크합니다. 이 체크상태와 메모는 저장하지 않습니다.</p><div class="handoff-checks">
                   <label class="handoff-check"><input id="handoffGenerated" type="checkbox" /><span><b>패키지 생성</b><span>필요한 퇴원자료 생성 완료</span></span></label>
                   <label class="handoff-check"><input id="handoffGuardian" type="checkbox" /><span><b>보호자 자료 전달</b><span>1P 요약/PDF 또는 카톡 전달</span></span></label>
@@ -451,6 +462,35 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
             <div id="phonePreview" class="phone-preview-shell hidden"></div>
           </div>
         </div>
+      </section>
+
+      <section id="pilot" class="view">
+        <div class="section-head"><div><p class="eyebrow">PILOT READY · v5.9</p><h3>실사용 Pilot 대시보드</h3></div><div class="pilot-head-actions"><button id="exportPilotReport" class="btn btn-primary" type="button">Pilot Report ZIP</button><button id="exportClinicBackup" class="btn btn-secondary" type="button">병원 설정 백업</button></div></div>
+
+        <div class="panel pilot-setup-panel">
+          <div class="pilot-setup-head"><div><h4>Pilot 기본설정</h4><p>환자정보는 기록하지 않고 목표 건수·기간·사용통계만 이 브라우저에 저장합니다.</p></div><span class="privacy-badge">🔒 환자정보 없음</span></div>
+          <div class="pilot-setup-grid"><div><label class="field-label" for="pilotLabel">Pilot 이름</label><input id="pilotLabel" class="input" placeholder="예: 메디스 1차 Pilot" /></div><div><label class="field-label" for="pilotTarget">목표 퇴원건수</label><input id="pilotTarget" class="input" type="number" min="1" max="500" value="20" /></div><div><label class="field-label" for="pilotStart">시작일</label><input id="pilotStart" class="input" type="date" /></div><div><label class="field-label" for="pilotStaffCount">테스트 직원 수</label><input id="pilotStaffCount" class="input" type="number" min="1" max="100" value="1" /></div></div>
+          <div class="pilot-setup-actions"><button id="savePilotSetup" class="btn btn-primary" type="button">Pilot 설정 저장</button><button id="resetPilotAnalytics" class="btn btn-ghost" type="button">통계만 초기화</button></div>
+        </div>
+
+        <div class="pilot-kpi-grid">
+          <article class="pilot-kpi"><span>완료 패키지</span><strong id="pilotPackageCount">0</strong><small id="pilotTargetText">목표 20건</small></article>
+          <article class="pilot-kpi"><span>평균 생성시간</span><strong id="pilotAvgTime">--</strong><small id="pilotMedianTime">중앙값 --</small></article>
+          <article class="pilot-kpi"><span>2분 이내</span><strong id="pilotUnder2">--</strong><small id="pilotBestTime">최단 --</small></article>
+          <article class="pilot-kpi"><span>사용성 평가</span><strong id="pilotAvgRating">--</strong><small id="pilotFeedbackCount">피드백 0건</small></article>
+        </div>
+
+        <div class="pilot-grid-2">
+          <div class="panel"><div class="pilot-card-head"><div><p class="eyebrow">Usage</p><h4>많이 사용한 교육자료</h4></div></div><div id="pilotTemplateRanking" class="pilot-ranking"></div></div>
+          <div class="panel"><div class="pilot-card-head"><div><p class="eyebrow">Outputs</p><h4>출력물 사용순위</h4></div></div><div id="pilotOutputRanking" class="pilot-ranking"></div></div>
+        </div>
+
+        <div class="pilot-grid-2">
+          <div class="panel"><div class="pilot-card-head"><div><p class="eyebrow">Feedback</p><h4>최근 직원 피드백</h4></div></div><div id="pilotFeedbackList" class="pilot-feedback-list"></div></div>
+          <div class="panel"><div class="pilot-card-head"><div><p class="eyebrow">Privacy</p><h4>Pilot에 저장되는 정보</h4></div></div><div class="pilot-privacy-list"><div>✓ 템플릿 ID·출력물 종류</div><div>✓ 패키지 생성 소요시간·파일 수</div><div>✓ 직원 평가점수·불편 태그·메모</div><div>✓ 병원용 프리셋·QR·설정</div><div class="no">✕ 환자명·보호자명</div><div class="no">✕ 약 이름·용량·투약시간</div><div class="no">✕ 퇴원일·환자별 개별지시</div></div></div>
+        </div>
+
+        <div class="panel pilot-backup-panel"><div><h4>병원 설정 백업 / 복원</h4><p>브라우저를 바꾸기 전 병원 프로필·프리셋·QR·Pilot 통계를 JSON으로 백업할 수 있습니다. 환자정보는 포함되지 않습니다.</p></div><div class="pilot-backup-actions"><button id="exportClinicBackup2" class="btn btn-secondary" type="button">JSON 백업 다운로드</button><label class="btn btn-ghost file-btn">JSON 복원<input id="importClinicBackup" type="file" accept="application/json,.json" hidden /></label></div></div>
       </section>
 
       <section id="settings" class="view">
@@ -1598,7 +1638,7 @@ let caseInfo = { patientName:'', guardianName:'', dischargeDate:'', includeNames
 let medications = [{name:'',dose:'',frequency:'',times:'',meal:'식사와 무관',duration:'',note:''}]; // 복약정보도 메모리에만 유지합니다.
 let mobileDay = 1;
 let currentWizardStep = 1;
-const defaultWorkflowSettings={dischargePresets:{},packagePresets:{},qr:{enabled:false,mode:'website',customUrl:''},recent:[],timings:[]};
+const defaultWorkflowSettings={dischargePresets:{},packagePresets:{},qr:{enabled:false,mode:'website',customUrl:''},recent:[],timings:[],usage:[],feedback:[],pilot:{label:'',target:20,start:'',staffCount:1}};
 let workflowSettings=loadWorkflowSettings();
 let workflowStartAt=Date.now();
 let workflowTimerHandle=null;
@@ -1612,7 +1652,7 @@ function loadHospital(){
 }
 function saveHospitalData(){ localStorage.setItem('carestep_hospital', JSON.stringify(hospital)); }
 function loadWorkflowSettings(){
-  try{const raw=JSON.parse(localStorage.getItem('carestep_workflow')||'{}');return {...defaultWorkflowSettings,...raw,qr:{...defaultWorkflowSettings.qr,...(raw.qr||{})},dischargePresets:{...(raw.dischargePresets||{})},packagePresets:{...(raw.packagePresets||{})},recent:Array.isArray(raw.recent)?raw.recent:[],timings:Array.isArray(raw.timings)?raw.timings:[]};}catch{return JSON.parse(JSON.stringify(defaultWorkflowSettings));}
+  try{const raw=JSON.parse(localStorage.getItem('carestep_workflow')||'{}');return {...defaultWorkflowSettings,...raw,qr:{...defaultWorkflowSettings.qr,...(raw.qr||{})},dischargePresets:{...(raw.dischargePresets||{})},packagePresets:{...(raw.packagePresets||{})},recent:Array.isArray(raw.recent)?raw.recent:[],timings:Array.isArray(raw.timings)?raw.timings:[],usage:Array.isArray(raw.usage)?raw.usage:[],feedback:Array.isArray(raw.feedback)?raw.feedback:[],pilot:{...defaultWorkflowSettings.pilot,...(raw.pilot||{})}};}catch{return JSON.parse(JSON.stringify(defaultWorkflowSettings));}
 }
 function saveWorkflowSettings(){localStorage.setItem('carestep_workflow',JSON.stringify(workflowSettings));}
 function formatElapsed(ms){const sec=Math.max(0,Math.round(ms/1000));const m=Math.floor(sec/60);const s=sec%60;return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
@@ -1666,6 +1706,45 @@ function beginNewCase(confirmFirst=false){
   if($('completionPanel'))$('completionPanel').classList.remove('show');
   toast('새 환자 입력을 시작합니다. 병원 설정은 유지됩니다.');
 }
+
+
+let pendingPilotEventId='';
+let pendingPilotRating=0;
+let pendingPilotTags=[];
+function pilotUid(){return `PU-${Date.now()}-${Math.random().toString(36).slice(2,7)}`;}
+function recordPilotUsage(type,extra={}){
+  const t=templates.find(x=>x.id===currentTemplateId)||templates[0];
+  const event={id:pilotUid(),at:Date.now(),type:String(type||'output'),templateId:t.id,elapsedMs:Number(extra.elapsedMs)||0,fileCount:Number(extra.fileCount)||1,outputs:Array.isArray(extra.outputs)?extra.outputs.map(String):[String(type||'output')]};
+  workflowSettings.usage=[...(workflowSettings.usage||[]),event].slice(-500);saveWorkflowSettings();renderPilotDashboard();return event.id;
+}
+function templateNameById(id){return (templates.find(t=>t.id===id)||{}).short||id||'--';}
+function outputLabel(k){const m={package:'퇴원 패키지',pdf:'보호자 PDF',summary:'퇴원 1P 요약',meds:'복약 일정표',medcheck:'7일 복약 체크표',kakao:'카카오톡',sms:'문자',d1:'D+1 체크카드',d3:'D+3 체크카드',d7:'D+7 체크카드',d14:'D+14 체크카드',mobile:'모바일 카드',mobileall:'모바일 4종',mobile4:'모바일 4종',calendar:'재진 캘린더',staff:'직원 체크리스트'};return m[k]||k;}
+function pilotPackageEvents(){return (workflowSettings.usage||[]).filter(e=>e.type==='package');}
+function pilotStats(){
+  const pkg=pilotPackageEvents(); const ms=pkg.map(e=>Number(e.elapsedMs)||0).filter(Boolean).sort((a,b)=>a-b); const avg=ms.length?ms.reduce((a,b)=>a+b,0)/ms.length:0; const med=ms.length?(ms.length%2?ms[(ms.length-1)/2]:(ms[ms.length/2-1]+ms[ms.length/2])/2):0; const best=ms.length?ms[0]:0; const under=ms.length?ms.filter(x=>x<=120000).length/ms.length*100:0; const ratings=(workflowSettings.feedback||[]).map(f=>Number(f.rating)).filter(x=>x>0); const rating=ratings.length?ratings.reduce((a,b)=>a+b,0)/ratings.length:0; return {pkgCount:pkg.length,avg,med,best,under,rating,feedbackCount:ratings.length};
+}
+function countBy(arr,keyFn){const m={};arr.forEach(x=>{const k=keyFn(x);if(!k)return;m[k]=(m[k]||0)+1;});return Object.entries(m).sort((a,b)=>b[1]-a[1]);}
+function renderRanking(elId,rows,labelFn){const el=$(elId);if(!el)return;el.innerHTML=rows.length?rows.slice(0,6).map(([k,n],i)=>`<div class="pilot-rank-row"><span class="rank">${i+1}</span><b>${escapeHtml(labelFn(k))}</b><span>${n}회</span></div>`).join(''):'<span class="muted" style="font-size:10px">아직 기록이 없습니다.</span>';}
+function renderPilotDashboard(){
+  const p=workflowSettings.pilot||defaultWorkflowSettings.pilot; const st=pilotStats(); const target=Math.max(1,Number(p.target)||20); if($('pilotOnboardingBanner'))$('pilotOnboardingBanner').classList.toggle('hidden',!!(p.label&&p.start));
+  if($('pilotLabel'))$('pilotLabel').value=p.label||'';if($('pilotTarget'))$('pilotTarget').value=target;if($('pilotStart'))$('pilotStart').value=p.start||'';if($('pilotStaffCount'))$('pilotStaffCount').value=Math.max(1,Number(p.staffCount)||1);
+  if($('pilotPackageCount'))$('pilotPackageCount').textContent=st.pkgCount;if($('pilotTargetText'))$('pilotTargetText').textContent=`목표 ${target}건 · ${Math.min(100,Math.round(st.pkgCount/target*100))}%`;
+  if($('pilotAvgTime'))$('pilotAvgTime').textContent=st.avg?formatElapsed(st.avg):'--';if($('pilotMedianTime'))$('pilotMedianTime').textContent=`중앙값 ${st.med?formatElapsed(st.med):'--'}`;if($('pilotUnder2'))$('pilotUnder2').textContent=st.pkgCount?`${Math.round(st.under)}%`:'--';if($('pilotBestTime'))$('pilotBestTime').textContent=`최단 ${st.best?formatElapsed(st.best):'--'}`;if($('pilotAvgRating'))$('pilotAvgRating').textContent=st.feedbackCount?`${st.rating.toFixed(1)} / 5`:'--';if($('pilotFeedbackCount'))$('pilotFeedbackCount').textContent=`피드백 ${st.feedbackCount}건`;
+  if($('pilotCaseGlance'))$('pilotCaseGlance').textContent=`${st.pkgCount} / ${target}`;if($('pilotUnder2Glance'))$('pilotUnder2Glance').textContent=st.pkgCount?`${Math.round(st.under)}%`:'--';if($('pilotRatingGlance'))$('pilotRatingGlance').textContent=st.feedbackCount?st.rating.toFixed(1):'--';
+  const templateRanks=countBy(workflowSettings.usage||[],e=>e.templateId);renderRanking('pilotTemplateRanking',templateRanks,templateNameById);if($('pilotTopGlance'))$('pilotTopGlance').textContent=templateRanks.length?templateNameById(templateRanks[0][0]):'--';
+  const outputFlat=[];(workflowSettings.usage||[]).forEach(e=>(e.outputs||[e.type]).forEach(o=>outputFlat.push({o})));renderRanking('pilotOutputRanking',countBy(outputFlat,x=>x.o),outputLabel);
+  const fb=$('pilotFeedbackList');if(fb){const recent=[...(workflowSettings.feedback||[])].sort((a,b)=>b.at-a.at).slice(0,8);fb.innerHTML=recent.length?recent.map(f=>`<div class="pilot-feedback-item"><div class="top"><b>${escapeHtml(templateNameById(f.templateId))}</b><span class="stars">${'★'.repeat(Math.max(0,Math.min(5,Number(f.rating)||0)))}${'☆'.repeat(Math.max(0,5-(Number(f.rating)||0)))}</span></div>${f.tags?.length?`<p>${escapeHtml(f.tags.join(' · '))}</p>`:''}${f.note?`<p>${escapeHtml(f.note)}</p>`:''}<small>${new Date(f.at).toLocaleString('ko-KR')}</small></div>`).join(''):'<span class="muted" style="font-size:10px">패키지 생성 후 10초 피드백을 남기면 여기에 표시됩니다.</span>';}
+}
+function savePilotSetup(){workflowSettings.pilot={label:$('pilotLabel')?.value?.trim()||'',target:Math.max(1,Number($('pilotTarget')?.value)||20),start:$('pilotStart')?.value||'',staffCount:Math.max(1,Number($('pilotStaffCount')?.value)||1)};saveWorkflowSettings();renderPilotDashboard();toast('Pilot 설정을 저장했습니다.');}
+function showPilotFeedback(eventId){pendingPilotEventId=eventId||'';pendingPilotRating=0;pendingPilotTags=[];document.querySelectorAll('#pilotRatingRow button,#pilotFeedbackTags button').forEach(b=>b.classList.remove('active'));if($('pilotFeedbackNote'))$('pilotFeedbackNote').value='';}
+function savePilotFeedback(){if(!pendingPilotEventId){toast('먼저 퇴원 패키지를 생성해주세요.');return;}if(!pendingPilotRating){toast('사용성 점수 1~5를 선택해주세요.');return;}const ev=(workflowSettings.usage||[]).find(e=>e.id===pendingPilotEventId);workflowSettings.feedback=[...(workflowSettings.feedback||[]),{id:pilotUid(),eventId:pendingPilotEventId,templateId:ev?.templateId||currentTemplateId,rating:pendingPilotRating,tags:[...pendingPilotTags],note:$('pilotFeedbackNote')?.value?.trim()||'',at:Date.now()}].slice(-300);saveWorkflowSettings();renderPilotDashboard();toast('Pilot 피드백을 저장했습니다.');pendingPilotEventId='';}
+function csvCell(v){const s=String(v??'');return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;}
+function csvBlob(rows){return new Blob(['\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\n')],{type:'text/csv;charset=utf-8'});}
+function pilotSummaryText(){const p=workflowSettings.pilot||defaultWorkflowSettings.pilot,st=pilotStats(),tr=countBy(workflowSettings.usage||[],e=>e.templateId),outs=[];(workflowSettings.usage||[]).forEach(e=>(e.outputs||[e.type]).forEach(o=>outs.push({o})));const or=countBy(outs,x=>x.o);return `CARESTEP Clinic Pilot Report\nPilot: ${p.label||'-'}\n병원: ${hospitalName()}\n시작일: ${p.start||'-'}\n목표: ${Number(p.target)||20}건\n테스트 직원: ${Number(p.staffCount)||1}명\n\n[핵심 지표]\n완료 패키지: ${st.pkgCount}건\n평균 생성시간: ${st.avg?formatElapsed(st.avg):'-'}\n중앙값: ${st.med?formatElapsed(st.med):'-'}\n최단: ${st.best?formatElapsed(st.best):'-'}\n2분 이내: ${st.pkgCount?Math.round(st.under)+'%':'-'}\n평균 사용성: ${st.feedbackCount?st.rating.toFixed(2)+'/5':'-'} (${st.feedbackCount}건)\n\n[최다 사용 자료]\n${tr.slice(0,10).map(([k,n],i)=>`${i+1}. ${templateNameById(k)} - ${n}회`).join('\n')||'-'}\n\n[출력물 사용]\n${or.slice(0,15).map(([k,n],i)=>`${i+1}. ${outputLabel(k)} - ${n}회`).join('\n')||'-'}\n\n※ 환자명·보호자명·복약정보·퇴원일·개별 퇴원지시는 Pilot 통계에 저장되지 않습니다.`;}
+async function exportPilotReport(){if(typeof JSZip==='undefined'){toast('ZIP 라이브러리를 불러오지 못했습니다.');return;}const zip=new JSZip();zip.file('00_PILOT_SUMMARY.txt',pilotSummaryText());const usageRows=[['event_id','datetime','type','template','elapsed_seconds','file_count','outputs'],...(workflowSettings.usage||[]).map(e=>[e.id,new Date(e.at).toISOString(),e.type,templateNameById(e.templateId),Math.round((Number(e.elapsedMs)||0)/1000),e.fileCount||1,(e.outputs||[]).map(outputLabel).join('|')])];zip.file('01_USAGE.csv',csvBlob(usageRows));const feedbackRows=[['feedback_id','datetime','template','rating','tags','note'],...(workflowSettings.feedback||[]).map(f=>[f.id,new Date(f.at).toISOString(),templateNameById(f.templateId),f.rating,(f.tags||[]).join('|'),f.note||''])];zip.file('02_FEEDBACK.csv',csvBlob(feedbackRows));zip.file('03_NON_PII_SETTINGS.json',JSON.stringify({version:'5.9',exportedAt:new Date().toISOString(),hospital,workflow:workflowSettings},null,2));const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${safeFileName(hospitalName())}_CARESTEP_Pilot_Report.zip`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200);toast('Pilot Report ZIP을 다운로드했습니다.');}
+function exportClinicBackup(){const data={schema:'CARESTEP_CLINIC_BACKUP',version:'5.9',exportedAt:new Date().toISOString(),hospital,workflow:workflowSettings};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${safeFileName(hospitalName())}_CARESTEP_settings_v5.9.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('병원 설정 백업을 다운로드했습니다.');}
+async function importClinicBackupFile(file){try{const data=JSON.parse(await file.text());if(data.schema!=='CARESTEP_CLINIC_BACKUP'||!data.hospital||!data.workflow)throw new Error('invalid');hospital={...defaultHospital,...data.hospital};workflowSettings={...defaultWorkflowSettings,...data.workflow,qr:{...defaultWorkflowSettings.qr,...(data.workflow.qr||{})},pilot:{...defaultWorkflowSettings.pilot,...(data.workflow.pilot||{})},usage:Array.isArray(data.workflow.usage)?data.workflow.usage:[],feedback:Array.isArray(data.workflow.feedback)?data.workflow.feedback:[]};saveHospitalData();saveWorkflowSettings();renderAll();toast('병원 설정과 Pilot 통계를 복원했습니다.');}catch(e){console.error(e);toast('CARESTEP v5.9 백업 JSON인지 확인해주세요.');}}
+function resetPilotAnalytics(){if(!confirm('Pilot 사용통계와 직원 피드백만 초기화할까요? 병원정보·프리셋은 유지됩니다.'))return;workflowSettings.usage=[];workflowSettings.feedback=[];workflowSettings.timings=[];saveWorkflowSettings();renderWorkflowDashboard();renderPilotDashboard();toast('Pilot 통계를 초기화했습니다.');}
 
 function readCaseInfoFromForm(){
   caseInfo.patientName = $('patientName')?.value?.trim() || '';
@@ -1934,7 +2013,7 @@ function go(view){
   document.querySelectorAll('.nav-item').forEach(v=>v.classList.remove('active'));
   $(view).classList.add('active-view');
   const nav=document.querySelector(`.nav-item[data-view="${view}"]`); if(nav) nav.classList.add('active');
-  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',admin:'관리자 데모'};
+  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',pilot:'Pilot 대시보드',admin:'관리자 데모'};
   $('viewTitle').textContent=titles[view]||'';
   if(view==='builder') renderBuilder();
   if(view==='settings'){ hydrateSettings(); hydrateWorkflowSettings(); }
@@ -4110,7 +4189,7 @@ async function downloadMobileCard(){
     const worker=html2pdf().set({margin:0,image:{type:'png',quality:1},html2canvas:{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',logging:false,scrollX:0,scrollY:0},jsPDF:{unit:'pt',format:'a4',orientation:'portrait'},pagebreak:{mode:[]}}).from(clone).toCanvas();
     const canvas=await worker.get('canvas'); const a=document.createElement('a'); const t=templates.find(x=>x.id===currentTemplateId)||templates[0];
     a.href=canvas.toDataURL('image/png'); a.download=`${hospitalName()}_${t.short}_D+${mobileDay}_모바일카드_1080x1920.png`.replace(/[\\/:*?"<>|]/g,'_'); a.click();
-    canvas.width=1;canvas.height=1; setGeneratedCount(getGeneratedCount()+1);renderHospitalMeta();toast('1080×1920 휴대폰 이미지 카드를 다운로드했습니다.');
+    canvas.width=1;canvas.height=1; setGeneratedCount(getGeneratedCount()+1);recordPilotUsage('mobile',{fileCount:1});renderHospitalMeta();toast('1080×1920 휴대폰 이미지 카드를 다운로드했습니다.');
   }catch(e){console.error(e);toast('이미지 생성 중 오류가 발생했습니다.');}finally{if(host?.isConnected)host.remove();}
 }
 
@@ -4163,7 +4242,7 @@ async function mobileCardPngBlob(day){
   try{host=document.createElement('div');host.style.cssText='position:fixed;left:-10000px;top:0;width:540px;height:960px;background:#fff;z-index:-1;';const clone=el.cloneNode(true);clone.style.margin='0';host.appendChild(clone);document.body.appendChild(host);await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const worker=html2pdf().set({margin:0,image:{type:'png',quality:1},html2canvas:{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',logging:false,scrollX:0,scrollY:0},jsPDF:{unit:'pt',format:'a4',orientation:'portrait'},pagebreak:{mode:[]}}).from(clone).toCanvas();const canvas=await worker.get('canvas');const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png',1));canvas.width=1;canvas.height=1;return blob;}finally{if(host?.isConnected)host.remove();}
 }
 async function downloadAllMobileCards(){
-  if(typeof JSZip==='undefined'){toast('ZIP 라이브러리를 불러오지 못했습니다.');return;}readCaseInfoFromForm();const t=templates.find(x=>x.id===currentTemplateId)||templates[0];const zip=new JSZip();const base=safeFileName(`${hospitalName()}_${caseInfo.patientName||t.short}_${t.short}`);let n=0;for(const d of [1,3,7,14]){const blob=await mobileCardPngBlob(d);if(blob){zip.file(`${base}_D+${d}_모바일카드_1080x1920.png`,blob);n++;}}const out=await zip.generateAsync({type:'blob',compression:'DEFLATE'});const a=document.createElement('a');a.href=URL.createObjectURL(out);a.download=`${base}_D+1_3_7_14_모바일카드.zip`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200);setGeneratedCount(getGeneratedCount()+n);renderHospitalMeta();renderCurrentOutput();toast(`모바일 카드 ${n}종을 ZIP으로 다운로드했습니다.`);
+  if(typeof JSZip==='undefined'){toast('ZIP 라이브러리를 불러오지 못했습니다.');return;}readCaseInfoFromForm();const t=templates.find(x=>x.id===currentTemplateId)||templates[0];const zip=new JSZip();const base=safeFileName(`${hospitalName()}_${caseInfo.patientName||t.short}_${t.short}`);let n=0;for(const d of [1,3,7,14]){const blob=await mobileCardPngBlob(d);if(blob){zip.file(`${base}_D+${d}_모바일카드_1080x1920.png`,blob);n++;}}const out=await zip.generateAsync({type:'blob',compression:'DEFLATE'});const a=document.createElement('a');a.href=URL.createObjectURL(out);a.download=`${base}_D+1_3_7_14_모바일카드.zip`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200);setGeneratedCount(getGeneratedCount()+n);recordPilotUsage('mobile4',{fileCount:n,outputs:['mobileall']});renderHospitalMeta();renderCurrentOutput();toast(`모바일 카드 ${n}종을 ZIP으로 다운로드했습니다.`);
 }
 function makeHandoffText(){
   readCaseInfoFromForm();const t=templates.find(x=>x.id===currentTemplateId)||templates[0];const meds=validMedications();const note=$('handoffNote')?.value?.trim()||'';
@@ -4322,7 +4401,7 @@ async function downloadDischargePackage(){
     zip.file('00_README.txt',info);
     const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${base}_퇴원_후속관리패키지_CARESTEP.zip`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
-    setGeneratedCount(getGeneratedCount()+count);renderHospitalMeta();markRecentTemplate(currentTemplateId);const elapsed=stopWorkflowTimer();recordWorkflowTiming(elapsed);
+    setGeneratedCount(getGeneratedCount()+count);renderHospitalMeta();markRecentTemplate(currentTemplateId);const elapsed=stopWorkflowTimer();recordWorkflowTiming(elapsed);const pilotEventId=recordPilotUsage('package',{elapsedMs:elapsed,fileCount:count,outputs:Object.keys(selected).filter(k=>selected[k])});showPilotFeedback(pilotEventId);
     if($('handoffGenerated'))$('handoffGenerated').checked=true;if(selected.mobileall&&$('handoffD1'))$('handoffD1').checked=true;updateHandoffProgress();
     if($('completionPanel'))$('completionPanel').classList.add('show');if($('completionText'))$('completionText').textContent=`${count}개 파일 · ${formatElapsed(elapsed)} 만에 생성했습니다. 보호자 전달과 직원 인계 체크까지 완료하면 퇴원 workflow가 끝납니다.`;
     toast(`퇴원·후속관리 패키지 ${count}종을 ${formatElapsed(elapsed)} 만에 생성했습니다.`);
@@ -4334,7 +4413,7 @@ function hydrateSettings(){
   $('hospitalName').value=hospital.name||''; $('directorName').value=hospital.director||''; $('hospitalPhone').value=hospital.phone||''; $('hospitalAddress').value=hospital.address||''; $('hospitalWebsite').value=hospital.website||'';
   $('logoPreview').innerHTML=hospital.logo?`<img src="${hospital.logo}" alt="로고 미리보기"/>`:'로고 미등록';
 }
-function renderAll(){ renderHospitalMeta(); renderQuick(); renderLibrary(); renderSelect(); renderAdmin(); hydrateSettings(); hydrateWorkflowSettings(); renderWorkflowDashboard(); renderMedicationRows(); updateMedicationPreview(); renderBuilder(); updateCalendarAction(); updateHandoffProgress(); startWorkflowTimer(true); }
+function renderAll(){ renderHospitalMeta(); renderQuick(); renderLibrary(); renderSelect(); renderAdmin(); hydrateSettings(); hydrateWorkflowSettings(); renderWorkflowDashboard(); renderPilotDashboard(); renderMedicationRows(); updateMedicationPreview(); renderBuilder(); updateCalendarAction(); updateHandoffProgress(); startWorkflowTimer(true); }
 
 $('enterDemo').addEventListener('click',showApp);
 $('logoutBtn').addEventListener('click',showLogin);
@@ -4370,6 +4449,17 @@ $('packageMedCheck')?.addEventListener('change',e=>{e.target.dataset.touched='1'
 ['packageSummary','packagePdf','packageD1','packageMobileAll','packageStaff'].forEach(id=>$(id)?.addEventListener('change',updateReadiness));
 $('packageCalendar')?.addEventListener('change',e=>{e.target.dataset.touched='1';updateReadiness();});
 
+
+
+$('savePilotSetup')?.addEventListener('click',savePilotSetup);
+$('resetPilotAnalytics')?.addEventListener('click',resetPilotAnalytics);
+$('exportPilotReport')?.addEventListener('click',exportPilotReport);
+$('exportClinicBackup')?.addEventListener('click',exportClinicBackup);
+$('exportClinicBackup2')?.addEventListener('click',exportClinicBackup);
+$('importClinicBackup')?.addEventListener('change',e=>{const f=e.target.files?.[0];if(f)importClinicBackupFile(f);e.target.value='';});
+document.querySelectorAll('#pilotRatingRow [data-rating]').forEach(b=>b.addEventListener('click',()=>{pendingPilotRating=Number(b.dataset.rating)||0;document.querySelectorAll('#pilotRatingRow [data-rating]').forEach(x=>x.classList.toggle('active',x===b));}));
+document.querySelectorAll('#pilotFeedbackTags [data-feedback-tag]').forEach(b=>b.addEventListener('click',()=>{const tag=b.dataset.feedbackTag;b.classList.toggle('active');pendingPilotTags=b.classList.contains('active')?[...new Set([...pendingPilotTags,tag])]:pendingPilotTags.filter(x=>x!==tag);}));
+$('savePilotFeedback')?.addEventListener('click',savePilotFeedback);
 
 ['patientName','guardianName'].forEach(id=>$(id)?.addEventListener('input',()=>{ readCaseInfoFromForm(); renderCurrentOutput(); updateReadiness(); }));
 $('dischargeDate')?.addEventListener('change',()=>{ readCaseInfoFromForm(); updateCaseDatePreview(); updateRecheckPreview(); renderCurrentOutput(); updateReadiness(); });
@@ -4571,7 +4661,7 @@ function currentMessage(){
 }
 async function copyCurrentMessage(){
   const text=currentMessage();
-  try{await navigator.clipboard.writeText(text);toast(currentOutput==='sms'?'문자 문구를 복사했습니다.':'카카오톡 문구를 복사했습니다.');}
+  try{await navigator.clipboard.writeText(text);recordPilotUsage(currentOutput,{fileCount:1});toast(currentOutput==='sms'?'문자 문구를 복사했습니다.':'카카오톡 문구를 복사했습니다.');}
   catch{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('문구를 복사했습니다.');}
 }
 function downloadText(){
@@ -4614,6 +4704,7 @@ $('generateOutputBtn').addEventListener('click',async()=>{
   const suffix=currentOutput==='pdf'?`보호자교육_${8+medicationPageCount()}P`:currentOutput==='summary'?'퇴원_1P_요약':currentOutput==='meds'?`복약_일정표_${medicationPageCount()}P`:currentOutput==='medcheck'?'7일_복약_체크표_1P':currentOutput==='staff'?'직원용_퇴원교육_1P':`체크카드_${currentOutput.toUpperCase().replace('D','D+')}`;
   const filename=`${hospitalName()}_${t.short}_${suffix}_CARESTEP.pdf`.replace(/[\/:*?"<>|]/g,'_');
   await exportPdfElement(filename);
+  recordPilotUsage(currentOutput,{fileCount:1});
 });
 $('secondaryOutputBtn').addEventListener('click',()=>{
   if(currentOutput==='kakao'||currentOutput==='sms') downloadText(); else printCurrent();
