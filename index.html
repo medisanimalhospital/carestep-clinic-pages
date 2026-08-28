@@ -323,10 +323,10 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         <button class="nav-item" data-view="builder">자료 생성</button>
         <button class="nav-item" data-view="settings">병원정보</button>
         <button class="nav-item" data-view="account">계정 · 직원</button>
-        <button class="nav-item" data-view="contentStudio">AI Content Studio</button>
+        <button class="nav-item operator-only hidden" data-view="contentStudio">AI Content Studio</button>
         <button class="nav-item" data-view="voice">고객 요청</button>
         <button class="nav-item" data-view="pilot">Pilot</button>
-        <button class="nav-item" data-view="admin">관리자 데모</button>
+        <button class="nav-item operator-only hidden" data-view="admin">운영자 도구</button>
       </nav>
       <div class="sidebar-foot">
         <span id="saasPlanPill" class="plan-pill">PILOT · SAAS</span>
@@ -337,7 +337,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CARESTEP Clinic · v6.5 · PLAN & SUBSCRIPTION · APPROVAL · ENTITLEMENTS</p>
+          <p class="eyebrow">CARESTEP Clinic · v6.5.1 · OPERATOR MODE · CATEGORY MANAGER · PLAN & SUBSCRIPTION</p>
           <h2 id="viewTitle">대시보드</h2>
         </div>
         <div class="topbar-actions">
@@ -392,17 +392,17 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         </div>
         <div class="filter-row">
           <button class="chip active" data-filter="전체">전체</button>
-          <button class="chip" data-filter="수술">수술</button>
-          <button class="chip" data-filter="내과">내과</button>
+          <button class="chip" data-filter="수술">수술·회복</button>
+          <button class="chip" data-filter="내과">내과·만성질환</button>
           <button class="chip" data-filter="안과">안과</button>
-          <button class="chip" data-filter="피부과">피부과</button>
-          <button class="chip" data-filter="응급">응급</button>
-          <button class="chip" data-filter="치과">치과</button>
-          <button class="chip" data-filter="비뇨기">비뇨기</button>
+          <button class="chip" data-filter="피부과">피부·알레르기</button>
+          <button class="chip" data-filter="비뇨기">비뇨기·신장</button>
+          <button class="chip" data-filter="치과">치과·구강</button>
           <button class="chip" data-filter="신경">신경</button>
-          <button class="chip" data-filter="종양">종양</button>
-          <button class="chip" data-filter="노령">노령</button>
-          <button class="chip" data-filter="예방">예방</button>
+          <button class="chip" data-filter="종양">종양·항암</button>
+          <button class="chip" data-filter="응급">응급·증상</button>
+          <button class="chip" data-filter="노령">노령·삶의질</button>
+          <button class="chip" data-filter="예방">예방·건강관리</button>
           <button class="chip" data-filter="기타">기타</button>
         </div>
         <div id="libraryGrid" class="cards-grid"></div>
@@ -588,7 +588,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
             <div class="studio-grid">
               <div class="span-2"><label class="field-label" for="studioCondition">질환 / 수술 / 관리주제 *</label><input id="studioCondition" class="input" placeholder="예: 고양이 특발성 방광염(FIC)" /></div>
               <div><label class="field-label" for="studioSpecies">대상</label><select id="studioSpecies" class="input"><option value="강아지">강아지</option><option value="고양이">고양이</option><option value="강아지·고양이">강아지·고양이</option></select></div>
-              <div><label class="field-label" for="studioCategory">카테고리</label><select id="studioCategory" class="input"><option>내과</option><option>안과</option><option>피부과</option><option>수술</option><option>치과</option><option>비뇨기</option><option>신경</option><option>종양</option><option>응급</option><option>예방</option><option>노령</option><option>기타</option></select></div>
+              <div><label class="field-label" for="studioCategory">카테고리</label><select id="studioCategory" class="input"><option value="내과">내과·만성질환</option><option value="안과">안과</option><option value="피부과">피부·알레르기</option><option value="수술">수술·회복</option><option value="비뇨기">비뇨기·신장</option><option value="치과">치과·구강</option><option value="신경">신경</option><option value="종양">종양·항암</option><option value="응급">응급·증상</option><option value="노령">노령·삶의질</option><option value="예방">예방·건강관리</option><option value="기타">기타</option></select></div>
               <div><label class="field-label" for="studioScenario">사용 상황</label><select id="studioScenario" class="input"><option>진단 후 장기관리</option><option>입원 후 퇴원관리</option><option>수술 후 회복관리</option><option>응급진료 후 관리</option><option>예방·일상관리</option></select></div>
               <div><label class="field-label" for="studioDuration">주요 관리기간</label><input id="studioDuration" class="input" placeholder="예: 14일 / 4주 / 장기" /></div>
               <div class="span-2"><label class="field-label" for="studioCarePoints">꼭 포함할 관리 포인트</label><textarea id="studioCarePoints" class="input" placeholder="예: 배뇨 횟수, 소변량, 음수량, 스트레스 환경, 처방약 준수"></textarea></div>
@@ -738,7 +738,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
         <div class="panel" style="margin-top:14px">
           <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">ACCOUNT SECURITY · v6.5</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
+            <div><p class="eyebrow">ACCOUNT SECURITY · v6.5.1</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
             <span id="saasSecurityBadge" class="ai-conn-badge off">로그인 필요</span>
           </div>
           <div class="saas-security-grid">
@@ -758,6 +758,20 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
               <div class="saas-diag"><b style="font-size:9px">최근 시스템 진단</b><div id="saasDiagnostics"><div class="saas-diag-row">Owner/Admin 계정에서 최근 동기화·서버 오류를 확인합니다.</div></div></div>
             </div>
           </div>
+        </div>
+
+        <div id="operatorUnlockPanel" class="panel operator-unlock-panel hidden" style="margin-top:14px">
+          <div class="section-head" style="margin:0">
+            <div><p class="eyebrow">CARESTEP OPERATOR · v6.5.1</p><h3 style="font-size:15px">운영자 모드</h3></div>
+            <span id="operatorStatusBadge" class="ai-conn-badge off">잠김</span>
+          </div>
+          <p class="muted" style="font-size:11px">AI Content Studio와 운영자 도구는 일반 병원 계정에 표시되지 않습니다. CARESTEP HQ Key를 확인한 현재 브라우저 세션에서만 운영자 메뉴가 열립니다.</p>
+          <div class="operator-unlock-row">
+            <input id="operatorHqKey" class="input" type="password" autocomplete="off" placeholder="CARESTEP_HQ_KEY" />
+            <button id="operatorUnlockBtn" class="btn btn-primary" type="button">운영자 잠금해제</button>
+            <button id="operatorLockBtn" class="btn btn-ghost hidden" type="button">운영자 잠금</button>
+          </div>
+          <div id="operatorStatusText" class="saas-cloud-note">운영자 전용 URL에서 HQ Key를 입력하면 메뉴가 표시됩니다.</div>
         </div>
 
         <div class="panel" style="margin-top:14px">
@@ -795,7 +809,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
               <div class="voice-form-grid">
                 <div class="span-2"><label id="voiceTitleLabel" class="field-label" for="voiceTitle">요청할 질환 / 관리주제 *</label><input id="voiceTitle" class="input" maxlength="160" placeholder="예: 고양이 천식 장기관리" /></div>
                 <div id="voiceSpeciesWrap"><label class="field-label" for="voiceSpecies">대상</label><select id="voiceSpecies" class="input"><option>강아지</option><option>고양이</option><option>강아지·고양이</option></select></div>
-                <div id="voiceCategoryWrap"><label class="field-label" for="voiceCategory">카테고리</label><select id="voiceCategory" class="input"><option>내과</option><option>안과</option><option>피부과</option><option>수술</option><option>치과</option><option>비뇨기</option><option>신경</option><option>종양</option><option>응급</option><option>예방</option><option>노령</option><option>기타</option></select></div>
+                <div id="voiceCategoryWrap"><label class="field-label" for="voiceCategory">카테고리</label><select id="voiceCategory" class="input"><option value="내과">내과·만성질환</option><option value="안과">안과</option><option value="피부과">피부·알레르기</option><option value="수술">수술·회복</option><option value="비뇨기">비뇨기·신장</option><option value="치과">치과·구강</option><option value="신경">신경</option><option value="종양">종양·항암</option><option value="응급">응급·증상</option><option value="노령">노령·삶의질</option><option value="예방">예방·건강관리</option><option value="기타">기타</option></select></div>
                 <div id="voiceScenarioWrap"><label class="field-label" for="voiceScenario">희망 사용상황</label><select id="voiceScenario" class="input"><option>진단 후 장기관리</option><option>입원 후 퇴원관리</option><option>수술 후 회복관리</option><option>응급진료 후 관리</option><option>예방·일상관리</option></select></div>
                 <div id="voiceInquiryCategoryWrap" class="voice-hidden"><label class="field-label" for="voiceInquiryCategory">문의 구분</label><select id="voiceInquiryCategory" class="input"><option>기능 사용 문의</option><option>PDF·출력 오류</option><option>콘텐츠 내용 문의</option><option>요금제 문의</option><option>병원정보 변경</option><option>기타</option></select></div>
                 <div class="span-2"><label id="voiceDetailsLabel" class="field-label" for="voiceDetails">요청 이유 / 포함했으면 하는 내용</label><textarea id="voiceDetails" class="input" maxlength="2000" placeholder="예: 흡입기 사용 교육과 휴식 시 호흡수 기록 항목도 포함되면 좋겠습니다."></textarea></div>
@@ -921,23 +935,39 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
       <section id="admin" class="view">
         <div class="section-head">
-          <div><p class="eyebrow">Admin Prototype</p><h3>콘텐츠 관리 화면 예시</h3></div>
-          <button class="btn btn-secondary" disabled>+ 신규 자료</button>
+          <div><p class="eyebrow">CARESTEP OPERATOR · v6.5.1</p><h3>운영자 도구 · 콘텐츠 분류 관리</h3><p class="muted" style="font-size:11px;margin-top:5px">내장 자료와 Published 콘텐츠의 분류를 중앙에서 변경합니다. 변경값은 D1에 저장되어 모든 로그인 병원에 동일하게 적용됩니다.</p></div>
+          <button id="refreshCategoryManager" class="btn btn-secondary" type="button">분류 새로고침</button>
         </div>
-        <div class="admin-table-wrap panel">
-          <table class="admin-table">
-            <thead><tr><th>자료명</th><th>카테고리</th><th>상태</th><th>요금제</th><th>관리</th></tr></thead>
-            <tbody id="adminRows"></tbody>
-          </table>
+        <div class="panel operator-category-panel">
+          <div class="category-manager-toolbar">
+            <input id="categoryManagerSearch" class="input" placeholder="자료명 검색 · 예: 알레르기, 아토피" />
+            <select id="categoryManagerFilter" class="input"><option value="전체">전체 분류</option><option value="수술">수술·회복</option><option value="내과">내과·만성질환</option><option value="안과">안과</option><option value="피부과">피부·알레르기</option><option value="비뇨기">비뇨기·신장</option><option value="치과">치과·구강</option><option value="신경">신경</option><option value="종양">종양·항암</option><option value="응급">응급·증상</option><option value="노령">노령·삶의질</option><option value="예방">예방·건강관리</option><option value="기타">기타</option></select>
+          </div>
+          <div id="categoryManagerNote" class="category-manager-note">예: 알레르기·아토피 자료를 찾아 <b>피부·알레르기</b>로 변경 후 저장할 수 있습니다.</div>
+          <div class="admin-table-wrap">
+            <table class="admin-table category-manager-table">
+              <thead><tr><th>자료명</th><th>출처</th><th>현재 분류</th><th>새 분류</th><th>관리</th></tr></thead>
+              <tbody id="categoryManagerRows"></tbody>
+            </table>
+          </div>
         </div>
-        <div class="notice-panel">
-          <strong>2차 개발에서 연결할 기능</strong>
-          <p>Supabase Auth/DB · 실제 관리자 CRUD · 정기결제 · 구독권한 · 비공개 Storage · 다운로드 로그 · 병원별 라이선스 관리 · 자료 버전관리</p>
+        <div class="panel" style="margin-top:14px">
+          <div class="section-head" style="margin:0 0 10px"><div><p class="eyebrow">CONTENT INVENTORY</p><h3 style="font-size:15px">현재 콘텐츠 목록</h3></div></div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>자료명</th><th>카테고리</th><th>상태</th><th>요금제</th><th>관리</th></tr></thead>
+              <tbody id="adminRows"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
   </div>
 
+
+<style>
+.operator-unlock-panel{border:1px solid #cddcff;background:#f8faff}.operator-unlock-row{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:8px;align-items:center;margin-top:10px}.operator-category-panel{border-color:#d9e2f2}.category-manager-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 220px;gap:8px;margin-bottom:9px}.category-manager-note{font-size:10px;line-height:1.55;color:#627089;background:#f6f8fb;border:1px solid #e2e7ef;border-radius:10px;padding:9px 10px;margin-bottom:10px}.category-manager-table select{min-width:150px}.category-source{display:inline-flex;padding:4px 7px;border-radius:999px;background:#f0f3f8;color:#5b687d;font-size:9px;font-weight:850}.category-override-mark{display:inline-flex;margin-left:4px;padding:3px 6px;border-radius:999px;background:#edf4ff;color:#1f5eff;font-size:8px;font-weight:900}.operator-only.hidden{display:none!important}@media(max-width:760px){.operator-unlock-row,.category-manager-toolbar{grid-template-columns:1fr}.category-manager-table{min-width:760px}}
+</style>
   <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>/* JSZip 3.10.1 bundled for CARESTEP package export */
@@ -2004,6 +2034,68 @@ const templates = [
 ];
 
 
+/* ================= v6.5.1 OPERATOR MODE · CATEGORY MANAGER ================= */
+const CATEGORY_CODES=['수술','내과','안과','피부과','비뇨기','치과','신경','종양','응급','노령','예방','기타'];
+const CATEGORY_LABELS={전체:'전체',수술:'수술·회복',내과:'내과·만성질환',안과:'안과',피부과:'피부·알레르기',비뇨기:'비뇨기·신장',치과:'치과·구강',신경:'신경',종양:'종양·항암',응급:'응급·증상',노령:'노령·삶의질',예방:'예방·건강관리',기타:'기타'};
+const OPERATOR_HQ_KEY_STORAGE='carestep_operator_hq_key_v651';
+const OPERATOR_QUERY=new URLSearchParams(location.search).get('operator')==='1';
+const templateBaseCategories=new Map(templates.map(t=>[t.id,t.category]));
+let categoryOverrides={};
+let operatorUnlocked=false;
+function categoryLabel(code='기타'){return CATEGORY_LABELS[code]||code||'기타';}
+function categoryOptions(selected=''){return CATEGORY_CODES.map(c=>`<option value="${c}" ${c===selected?'selected':''}>${categoryLabel(c)}</option>`).join('');}
+function operatorHqKey(){return String(sessionStorage.getItem(OPERATOR_HQ_KEY_STORAGE)||'').trim();}
+function applyCategoryOverrides(){
+  templates.forEach(t=>{
+    if(!templateBaseCategories.has(t.id))templateBaseCategories.set(t.id,t.category||'기타');
+    t.category=categoryOverrides[t.id]||templateBaseCategories.get(t.id)||t.category||'기타';
+  });
+}
+function applyOperatorUi(){
+  document.querySelectorAll('.operator-only').forEach(el=>el.classList.toggle('hidden',!operatorUnlocked));
+  const panel=$('operatorUnlockPanel');if(panel)panel.classList.toggle('hidden',!(OPERATOR_QUERY||operatorUnlocked));
+  const badge=$('operatorStatusBadge');if(badge){badge.className='ai-conn-badge '+(operatorUnlocked?'on':'off');badge.textContent=operatorUnlocked?'운영자 인증됨':'잠김';}
+  if($('operatorUnlockBtn'))$('operatorUnlockBtn').classList.toggle('hidden',operatorUnlocked);
+  if($('operatorLockBtn'))$('operatorLockBtn').classList.toggle('hidden',!operatorUnlocked);
+  if($('operatorStatusText'))$('operatorStatusText').textContent=operatorUnlocked?'AI Content Studio · 운영자 도구가 현재 브라우저 세션에만 열렸습니다.':'CARESTEP HQ Key 인증 전에는 운영자 전용 메뉴가 일반 사용자에게 표시되지 않습니다.';
+}
+async function operatorUnlock(silent=false){
+  try{
+    const base=saasEndpoint();if(!base)throw new Error('Worker API URL을 먼저 저장해주세요.');
+    const key=($('operatorHqKey')?.value||operatorHqKey()).trim();if(!key)throw new Error('CARESTEP_HQ_KEY를 입력해주세요.');
+    const r=await fetch(base+'/hq/health',{method:'GET',headers:{'X-CARESTEP-HQ-KEY':key,'Accept':'application/json'},cache:'no-store'});let d={};try{d=await r.json()}catch{};if(!r.ok||d.ok===false)throw new Error(d.error||`HTTP ${r.status}`);
+    sessionStorage.setItem(OPERATOR_HQ_KEY_STORAGE,key);operatorUnlocked=true;applyOperatorUi();await loadCategoryOverrides(true);renderCategoryManager();if(!silent)toast('운영자 모드가 열렸습니다.');
+  }catch(e){operatorUnlocked=false;applyOperatorUi();if(!silent)toast(e.message||'운영자 인증에 실패했습니다.');}
+}
+function operatorLock(){sessionStorage.removeItem(OPERATOR_HQ_KEY_STORAGE);operatorUnlocked=false;if($('operatorHqKey'))$('operatorHqKey').value='';applyOperatorUi();if(document.querySelector('.view.active-view')?.id==='contentStudio'||document.querySelector('.view.active-view')?.id==='admin')go('dashboard');toast('운영자 모드를 잠갔습니다.');}
+async function operatorBootstrap(){applyOperatorUi();if(operatorHqKey())await operatorUnlock(true);}
+async function loadCategoryOverrides(silent=true){
+  try{
+    let d=null;
+    if(operatorUnlocked){const base=saasEndpoint();const r=await fetch(base+'/hq/category-overrides',{headers:{'X-CARESTEP-HQ-KEY':operatorHqKey(),'Accept':'application/json'},cache:'no-store'});d=await r.json();if(!r.ok||d.ok===false)throw new Error(d.error||`HTTP ${r.status}`);}
+    else if(saasMode==='auth'&&saasToken){d=await saasRequest('/saas/content/category-overrides',{method:'GET'});}
+    else{categoryOverrides={};applyCategoryOverrides();return;}
+    categoryOverrides=Object.fromEntries((d.overrides||[]).map(x=>[x.contentId,x.category]));applyCategoryOverrides();renderLibrary();renderQuick();renderSelect();renderAdmin();if(operatorUnlocked)renderCategoryManager();
+  }catch(e){if(!silent)toast(e.message||'분류 설정을 불러오지 못했습니다.');}
+}
+function renderCategoryManager(){
+  const tbody=$('categoryManagerRows');if(!tbody)return;if(!operatorUnlocked){tbody.innerHTML='<tr><td colspan="5">운영자 인증이 필요합니다.</td></tr>';return;}
+  const q=($('categoryManagerSearch')?.value||'').trim().toLowerCase(),f=$('categoryManagerFilter')?.value||'전체';
+  const rows=templates.filter(t=>(f==='전체'||t.category===f)&&(!q||`${t.short} ${t.title} ${t.description}`.toLowerCase().includes(q))).sort((a,b)=>categoryLabel(a.category).localeCompare(categoryLabel(b.category),'ko')||a.short.localeCompare(b.short,'ko'));
+  tbody.innerHTML=rows.length?rows.map(t=>{const source=t._studioCentral?'중앙 Published':t._studio?'Studio 로컬':'기본 내장';const overridden=!!categoryOverrides[t.id];return `<tr data-category-id="${escapeHtml(t.id)}"><td><strong>${escapeHtml(t.short)}</strong><br><small class="muted">${escapeHtml(t.id)}</small></td><td><span class="category-source">${source}</span></td><td>${escapeHtml(categoryLabel(t.category))}${overridden?'<span class="category-override-mark">중앙 이동</span>':''}</td><td><select class="input" data-category-select>${categoryOptions(t.category)}</select></td><td><button class="mini-btn" data-category-save>저장</button>${overridden?' <button class="mini-btn" data-category-reset>원래 분류</button>':''}</td></tr>`}).join(''):'<tr><td colspan="5">조건에 맞는 자료가 없습니다.</td></tr>';
+  tbody.querySelectorAll('[data-category-save]').forEach(b=>b.onclick=()=>saveCategoryOverride(b.closest('[data-category-id]')));
+  tbody.querySelectorAll('[data-category-reset]').forEach(b=>b.onclick=()=>resetCategoryOverride(b.closest('[data-category-id]')));
+}
+async function saveCategoryOverride(row){
+  if(!operatorUnlocked)return;const id=row?.dataset.categoryId,category=row?.querySelector('[data-category-select]')?.value;if(!id||!CATEGORY_CODES.includes(category))return;
+  try{const base=saasEndpoint();const r=await fetch(base+'/hq/category-overrides/'+encodeURIComponent(id),{method:'PATCH',headers:{'X-CARESTEP-HQ-KEY':operatorHqKey(),'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({category}),cache:'no-store'});let d={};try{d=await r.json()}catch{};if(!r.ok||d.ok===false)throw new Error(d.error||`HTTP ${r.status}`);categoryOverrides[id]=category;applyCategoryOverrides();renderAll();renderCategoryManager();toast(`${templates.find(t=>t.id===id)?.short||id} → ${categoryLabel(category)} 이동 완료`);}catch(e){toast(e.message||'분류 변경에 실패했습니다.');}
+}
+async function resetCategoryOverride(row){
+  if(!operatorUnlocked)return;const id=row?.dataset.categoryId;if(!id)return;
+  try{const base=saasEndpoint();const r=await fetch(base+'/hq/category-overrides/'+encodeURIComponent(id),{method:'DELETE',headers:{'X-CARESTEP-HQ-KEY':operatorHqKey(),'Accept':'application/json'},cache:'no-store'});let d={};try{d=await r.json()}catch{};if(!r.ok||d.ok===false)throw new Error(d.error||`HTTP ${r.status}`);delete categoryOverrides[id];templates.forEach(t=>{if(t.id===id)t.category=templateBaseCategories.get(id)||t.category;});renderAll();renderCategoryManager();toast('원래 분류로 되돌렸습니다.');}catch(e){toast(e.message||'분류 초기화에 실패했습니다.');}
+}
+
+
 
 /* ========================= v6.3 MULTI-CLINIC FRONTEND ========================= */
 const SAAS_SESSION_STORAGE_KEY='carestep_saas_session_v63';
@@ -2055,7 +2147,7 @@ async function saasFinishAuth(data){
   saasToken=data.token;saasMe=data.me;saasMode='auth';saasSessionMeta=data.session||{id:data.sessionId||'',expiresAt:data.expiresAt||'',createdAt:'',lastSeenAt:''};
   localStorage.setItem(SAAS_SESSION_STORAGE_KEY,saasToken);saasSaveEndpoint();
   if(!hospital.name&&saasMe.clinic?.name){hospital.name=saasMe.clinic.name;localStorage.setItem('carestep_hospital',JSON.stringify(hospital));}
-  showApp();applySaasPermissions();await saasRefreshAccount(false);await saasLoadCentralContent(true);voiceHydrateForm();
+  showApp();applySaasPermissions();await saasRefreshAccount(false);await saasLoadCentralContent(true);await loadCategoryOverrides(true);voiceHydrateForm();
 }
 async function saasLogin(){
   try{
@@ -2086,22 +2178,23 @@ async function saasBootstrap(){
   try{
     const d=await saasRequest('/saas/me',{method:'GET'});saasMe=d.me;saasSessionMeta=d.session||null;saasMode='auth';
     if(!hospital.name&&saasMe?.clinic?.name){hospital.name=saasMe.clinic.name;localStorage.setItem('carestep_hospital',JSON.stringify(hospital));}
-    showApp();applySaasPermissions();await saasRefreshAccount(false);await saasLoadCentralContent(true);voiceHydrateForm();
+    showApp();applySaasPermissions();await saasRefreshAccount(false);await saasLoadCentralContent(true);await loadCategoryOverrides(true);voiceHydrateForm();
   }catch{
     saasToken='';saasMe=null;localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();
   }
 }
 async function saasLogout(){
   if(saasMode==='auth'&&saasToken){try{await saasRequest('/saas/logout',{method:'POST'});}catch{}}
-  saasToken='';saasMe=null;saasSessionMeta=null;saasSessions=[];saasDiagnostics=[];saasMode='auth';centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};syncPublishedStudioItems();localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();saasSetAuthStatus('로그아웃되었습니다.','ok');
+  saasToken='';saasMe=null;saasSessionMeta=null;saasSessions=[];saasDiagnostics=[];saasMode='auth';centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};categoryOverrides={};syncPublishedStudioItems();applyCategoryOverrides();localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();saasSetAuthStatus('로그아웃되었습니다.','ok');
 }
 function saasEnterDemo(){
-  saasMode='demo';saasMe=null;saasSessionMeta=null;saasSessions=[];saasDiagnostics=[];centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};syncPublishedStudioItems();showApp();applySaasPermissions();renderSaasAccount();toast('로컬 데모로 입장했습니다.');
+  saasMode='demo';saasMe=null;saasSessionMeta=null;saasSessions=[];saasDiagnostics=[];centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};categoryOverrides={};syncPublishedStudioItems();applyCategoryOverrides();showApp();applySaasPermissions();renderSaasAccount();toast('로컬 데모로 입장했습니다.');
 }
 function saasEntitlements(){return saasMe?.entitlements||null;}
 function saasHasFeature(feature){if(saasMode==='demo'||!saasMe)return true;const e=saasEntitlements();return !e?.accessBlocked&&e?.plan?.features?.[feature]!==false;}
 function saasFeatureMessage(feature){const e=saasEntitlements();if(e?.accessBlocked)return '현재 구독 상태에서는 이 기능을 사용할 수 없습니다. 계정 화면에서 구독 상태를 확인해주세요.';return `${e?.plan?.displayName||saasMe?.clinic?.plan||'현재'} 플랜에서는 이 기능을 사용할 수 없습니다.`;}
 function saasCanView(view){
+  if(['contentStudio','admin'].includes(view))return operatorUnlocked;
   if(saasMode==='demo'||!saasMe)return true;
   const r=saasMe.role;
   if(r==='staff'&&['settings','contentStudio','admin'].includes(view))return false;
@@ -2127,13 +2220,14 @@ function applySaasPermissions(){
   const canManage=saasMode==='auth'&&['owner','admin'].includes(role)&&saasHasFeature('teamManagement');
   $('saasInviteControls')?.classList.toggle('saas-hidden',!canManage);
   renderSubscriptionAccess();
+  applyOperatorUi();
 }
 function saasCloudKey(){return saasMe?.clinic?.id?`carestep_cloud_bound_${saasMe.clinic.id}`:'';}
 function saasCloudBound(){const k=saasCloudKey();return !!(k&&localStorage.getItem(k)==='1');}
 function saasStatePayload(){
   return {
     schema:'CARESTEP_CLINIC_STATE',
-    version:'6.5',
+    version:'6.5.1',
     hospital:{...hospital},
     workflow:{
       dischargePresets:{...(workflowSettings.dischargePresets||{})},
@@ -2755,7 +2849,7 @@ function go(view){
   document.querySelectorAll('.nav-item').forEach(v=>v.classList.remove('active'));
   $(view).classList.add('active-view');
   const nav=document.querySelector(`.nav-item[data-view="${view}"]`); if(nav) nav.classList.add('active');
-  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',account:'계정 · 직원',contentStudio:'AI Content Studio',voice:'고객 요청',pilot:'Pilot 대시보드',admin:'관리자 데모'};
+  const titles={dashboard:'대시보드',library:'자료실',builder:'자료 생성',settings:'병원정보',account:'계정 · 직원',contentStudio:'AI Content Studio',voice:'고객 요청',pilot:'Pilot 대시보드',admin:'운영자 도구'};
   $('viewTitle').textContent=titles[view]||'';
   if(view==='builder') renderBuilder();
   if(view==='settings'){ hydrateSettings(); hydrateWorkflowSettings(); }
@@ -2774,7 +2868,7 @@ function renderHospitalMeta(){
 
 function cardTemplate(t){
   return `<article class="resource-card" data-title="${escapeHtml(t.title)}" data-category="${t.category}">
-    <div class="resource-top"><span class="category">${t.category}</span><span class="status-live">● 사용 가능</span></div>
+    <div class="resource-top"><span class="category">${escapeHtml(categoryLabel(t.category))}</span><span class="status-live">● 사용 가능</span></div>
     <h4>${escapeHtml(t.short)}</h4>
     <p>${escapeHtml(t.description)}</p>
     <div class="resource-includes"><span>8–9P PDF</span><span>복약표</span><span>카톡·문자</span><span>D+1·3·7·14</span></div>
@@ -2791,7 +2885,7 @@ function renderLibrary(){
 }
 function bindBuilderButtons(){ document.querySelectorAll('.open-builder').forEach(btn=>btn.addEventListener('click',()=>{ currentTemplateId=btn.dataset.id; renderSelect(); markRecentTemplate(currentTemplateId); beginNewCase(false,true); go('builder'); })); }
 function renderSelect(){ $('templateSelect').innerHTML=templates.map(t=>`<option value="${t.id}">${t.short}</option>`).join(''); $('templateSelect').value=currentTemplateId; }
-function renderAdmin(){ $('adminRows').innerHTML=templates.map(t=>`<tr><td><strong>${escapeHtml(t.short)}</strong>${t._studio?'<br><small style="color:#1f5eff">Content Studio</small>':''}</td><td>${t.category}</td><td>공개</td><td>${t.plan}</td><td>${t._studio?'<button class="mini-btn" data-admin-studio="'+t._studioDocId+'">Studio 편집</button>':'<button class="mini-btn" disabled>기본 자료</button>'}</td></tr>`).join(''); document.querySelectorAll('[data-admin-studio]').forEach(b=>b.addEventListener('click',()=>{go('contentStudio');editStudioItem(b.dataset.adminStudio);})); }
+function renderAdmin(){ $('adminRows').innerHTML=templates.map(t=>`<tr><td><strong>${escapeHtml(t.short)}</strong>${t._studio?'<br><small style="color:#1f5eff">Content Studio</small>':''}</td><td>${escapeHtml(categoryLabel(t.category))}</td><td>공개</td><td>${t.plan}</td><td>${t._studio?'<button class="mini-btn" data-admin-studio="'+t._studioDocId+'">Studio 편집</button>':'<button class="mini-btn" disabled>기본 자료</button>'}</td></tr>`).join(''); document.querySelectorAll('[data-admin-studio]').forEach(b=>b.addEventListener('click',()=>{go('contentStudio');editStudioItem(b.dataset.adminStudio);})); }
 
 function logoHtml(){ return hospital.logo ? `<img src="${hospital.logo}" alt="병원 로고" />` : `<span>${escapeHtml(hospitalName())}</span>`; }
 function contactLine(){ const parts=[hospital.phone,hospital.address,hospital.website].filter(Boolean).map(escapeHtml); return parts.length?parts.join(' · '):'병원 연락처를 병원정보 메뉴에서 등록하세요.'; }
@@ -4860,6 +4954,7 @@ function studioCreateDraftFromRaw(raw,source='AI/JSON 입력'){
  const v=validateStudioPayload(raw);renderStudioValidation(v);if(!v.ok)throw new Error('생성 결과가 CARESTEP Schema를 통과하지 못했습니다.');const m=studioFormMeta();raw.meta={condition:m.condition||raw.template.title,species:m.species,scenario:m.scenario,duration:m.duration,notes:m.notes};let doc=normalizeStudioDoc(raw);let id=doc.template.id;let seq=2;while(templates.some(t=>t.id===id)||studioItems.some(x=>x.template.id===id)){id=doc.template.id+'_'+seq++;}doc.template.id=id;doc.qualityScore=studioQuality(raw).score;studioAudit(doc,'Draft 생성',`${source} · Quality ${doc.qualityScore}/100`);studioItems.unshift(doc);saveStudioItems();renderStudio();editStudioItem(doc.docId);return doc;
 }
 async function studioDirectGenerate(){
+  if(!operatorUnlocked){toast('AI Content Studio는 CARESTEP 운영자 전용입니다.');return;}
   const m=studioFormMeta();if(!m.condition){toast('질환/관리주제를 입력해주세요.');return;}
   if(saasMode==='auth'&&!saasHasFeature('aiContent')){toast(saasFeatureMessage('aiContent'));return;}
   if(!studioAiBaseUrl()){studioSetAiStatus('error','AI Gateway 설정 필요','Worker URL을 먼저 입력해주세요.');toast('먼저 AI Gateway Worker URL을 입력해주세요.');return;}
@@ -4867,7 +4962,7 @@ async function studioDirectGenerate(){
   const btn=$('studioDirectGenerate');const old=btn?.textContent;if(btn){btn.disabled=true;btn.textContent='AI 초안 생성 중…';}const started=performance.now();studioSetAiStatus('running','AI 초안 생성 중',`${m.condition} · 환자정보 없이 콘텐츠 기준만 전송`);
   try{
     const body={brief:{condition:m.condition,species:m.species,category:m.category,scenario:m.scenario,duration:m.duration,carePoints:m.carePoints,redFlags:m.redFlags,notes:m.notes},reference:studioReferenceForAi()};
-    let r;if(saasMode==='auth'&&saasToken){r=await fetch(studioAiBaseUrl()+'/saas/ai/draft',{method:'POST',headers:{'Authorization':'Bearer '+saasToken,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body),cache:'no-store'});}else{r=await fetch(studioAiBaseUrl()+'/draft',{method:'POST',headers:{'Authorization':'Bearer '+studioAiAccess(),'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body),cache:'no-store'});}
+    let r;if(saasMode==='auth'&&saasToken){r=await fetch(studioAiBaseUrl()+'/saas/ai/draft',{method:'POST',headers:{'Authorization':'Bearer '+saasToken,'X-CARESTEP-HQ-KEY':operatorHqKey(),'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body),cache:'no-store'});}else{r=await fetch(studioAiBaseUrl()+'/draft',{method:'POST',headers:{'Authorization':'Bearer '+studioAiAccess(),'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body),cache:'no-store'});}
     let data={};try{data=await r.json()}catch{}if(!r.ok||!data.ok||!data.draft)throw new Error(data.error||`HTTP ${r.status}`);const raw=data.draft;$('studioAiJson').value=JSON.stringify(raw,null,2);const doc=studioCreateDraftFromRaw(raw,`Direct AI · ${data.model||'model'}`);const sec=((performance.now()-started)/1000).toFixed(1);const costEvent=recordAiCost(data.model||'',data.usage||null);studioAiConnected=true;const costText=costEvent?` · ${aiMoney(costEvent.estimatedUsd)} · 입력 ${aiToken(costEvent.inputTokens)} / 출력 ${aiToken(costEvent.outputTokens)}`:'';studioSetAiStatus('ok','AI Draft 생성 완료',`${data.model||'model'} · ${sec}초${costText} · Quality ${doc.qualityScore}/100 · 자동 공개 안 됨`);toast(`AI Draft 생성 완료${costEvent?' · 예상비용 '+aiMoney(costEvent.estimatedUsd):''} · Quality ${doc.qualityScore}/100`);
   }catch(e){studioSetAiStatus('error','AI Draft 생성 실패',e.message||'연결과 구독/플랜 설정을 확인해주세요.');toast(e.message||'AI 초안 생성에 실패했습니다.');}
   finally{if(btn){btn.disabled=false;btn.textContent=old||'✨ AI 초안 생성 → Draft';}}
@@ -4951,8 +5046,9 @@ function syncPublishedStudioItems(){
   [...merged.values()].forEach(doc=>{
     if(!doc?.template?.id)return;
     const t=JSON.parse(JSON.stringify(doc.template));t._studio=true;t._studioDocId=doc.docId;t._studioCentral=!!doc._central;t.status='live';templates.push(t);
-    const p=JSON.parse(JSON.stringify(doc.profile||{}));p._studio=true;p._studioCentral=!!doc._central;journeyProfiles[t.id]=p;studioPublishedRuntimeIds.push(t.id);
+    const p=JSON.parse(JSON.stringify(doc.profile||{}));p._studio=true;p._studioCentral=!!doc._central;journeyProfiles[t.id]=p;studioPublishedRuntimeIds.push(t.id);templateBaseCategories.set(t.id,t.category||'기타');
   });
+  applyCategoryOverrides();
 }
 function studioCentralAdminKey(){return String(sessionStorage.getItem('carestep_voice_admin_key_v622')||'').trim();}
 function studioHydrateCentralKey(){const el=$('studioCentralAdminKey');if(el)el.value=studioCentralAdminKey();}
@@ -5033,7 +5129,7 @@ function duplicateStudioItem(docId){const d=studioItems.find(x=>x.docId===docId)
 function renderStudioPreview(doc){const p=doc.profile||{},t=doc.template||{},el=$('studioContentPreview');if(!el)return;el.innerHTML=`<div><b>핵심 섹션</b><span>${(t.sections||[]).length}개 · ${(t.sections||[]).map(x=>escapeHtml(x[0])).join(' / ')||'-'}</span></div><div><b>위험신호</b><span>${(t.redFlags||[]).length}개</span></div><div><b>추적항목</b><span>${(p.tracking||[]).length}개</span></div><div><b>보호자 실수</b><span>${(p.mistakes||[]).length}개</span></div><div><b>진료실 질문</b><span>${(p.questions||[]).length}개</span></div><div><b>관리 단계</b><span>${[1,3,7,14].filter(d=>p.days?.[d]||p.days?.[String(d)]).map(d=>'D+'+d).join(' · ')}</span></div>`;}
 function renderStudio(){
  const sel=$('studioBaseTemplate');if(sel){const cur=sel.value;sel.innerHTML='<option value="">기존 자료 선택 (선택)</option>'+templates.map(t=>`<option value="${escapeHtml(t.id)}">${escapeHtml(t.short)}</option>`).join('');if([...sel.options].some(o=>o.value===cur))sel.value=cur;}
- const list=$('studioList');if(list){const order={draft:0,review:1,published:2,archived:3};const rows=[...studioItems].sort((a,b)=>(order[a.workflowStatus]??9)-(order[b.workflowStatus]??9)||new Date(b.updatedAt)-new Date(a.updatedAt));const due=rows.filter(x=>x.workflowStatus==='published'&&x.reviewDueAt&&new Date(x.reviewDueAt)<=new Date(Date.now()+30*86400000)).length;$('studioCount').textContent=`총 ${rows.length}개 · Draft ${rows.filter(x=>x.workflowStatus==='draft').length} · Review ${rows.filter(x=>x.workflowStatus==='review').length} · Published ${rows.filter(x=>x.workflowStatus==='published').length}${due?` · REVIEW DUE ${due}`:''}`;list.innerHTML=rows.length?rows.map(d=>{const ds=studioDueState(d.reviewDueAt),q=Number(d.qualityScore||0),qc=q>=90?'good':q>=80?'warn':'bad';return `<div class="studio-item"><div class="studio-item-top"><div><h5>${escapeHtml(d.template.short)}</h5><p>${escapeHtml(d.template.description||d.template.title)}</p></div><span class="studio-chip ${d.workflowStatus}">${studioStatusLabel(d.workflowStatus)}</span></div><div class="studio-item-meta"><span class="studio-chip">v${escapeHtml(d.version)}</span><span class="studio-chip">${escapeHtml(d.template.category)}</span>${q?`<span class="quality-mini ${qc}">Q ${q}</span>`:''}${d.vetReviewed?'<span class="studio-chip published">수의사 검수</span>':''}${d.workflowStatus==='published'?`<span class="review-due ${ds.cls}">${escapeHtml(ds.label)}</span>`:''}</div><div class="studio-item-actions"><button class="btn btn-secondary" type="button" data-studio-edit="${d.docId}">편집</button><button class="btn btn-ghost" type="button" data-studio-dup="${d.docId}">복제</button>${d.workflowStatus!=='archived'?`<button class="btn btn-ghost" type="button" data-studio-archive="${d.docId}">보관</button>`:''}${d.workflowStatus==='published'?`<button class="btn btn-primary" type="button" data-studio-open="${escapeHtml(d.template.id)}">자료 만들기</button>`:''}</div></div>`}).join(''):'<div class="studio-empty">아직 Content Studio 자료가 없습니다.<br>AI 프롬프트 또는 기존 자료 복제로 첫 Draft를 만들어보세요.</div>';list.querySelectorAll('[data-studio-edit]').forEach(b=>b.onclick=()=>editStudioItem(b.dataset.studioEdit));list.querySelectorAll('[data-studio-dup]').forEach(b=>b.onclick=()=>duplicateStudioItem(b.dataset.studioDup));list.querySelectorAll('[data-studio-archive]').forEach(b=>b.onclick=()=>archiveStudioItem(b.dataset.studioArchive));list.querySelectorAll('[data-studio-open]').forEach(b=>b.onclick=()=>{currentTemplateId=b.dataset.studioOpen;renderSelect();beginNewCase(false);go('builder');});}
+ const list=$('studioList');if(list){const order={draft:0,review:1,published:2,archived:3};const rows=[...studioItems].sort((a,b)=>(order[a.workflowStatus]??9)-(order[b.workflowStatus]??9)||new Date(b.updatedAt)-new Date(a.updatedAt));const due=rows.filter(x=>x.workflowStatus==='published'&&x.reviewDueAt&&new Date(x.reviewDueAt)<=new Date(Date.now()+30*86400000)).length;$('studioCount').textContent=`총 ${rows.length}개 · Draft ${rows.filter(x=>x.workflowStatus==='draft').length} · Review ${rows.filter(x=>x.workflowStatus==='review').length} · Published ${rows.filter(x=>x.workflowStatus==='published').length}${due?` · REVIEW DUE ${due}`:''}`;list.innerHTML=rows.length?rows.map(d=>{const ds=studioDueState(d.reviewDueAt),q=Number(d.qualityScore||0),qc=q>=90?'good':q>=80?'warn':'bad';return `<div class="studio-item"><div class="studio-item-top"><div><h5>${escapeHtml(d.template.short)}</h5><p>${escapeHtml(d.template.description||d.template.title)}</p></div><span class="studio-chip ${d.workflowStatus}">${studioStatusLabel(d.workflowStatus)}</span></div><div class="studio-item-meta"><span class="studio-chip">v${escapeHtml(d.version)}</span><span class="studio-chip">${escapeHtml(categoryLabel(d.template.category))}</span>${q?`<span class="quality-mini ${qc}">Q ${q}</span>`:''}${d.vetReviewed?'<span class="studio-chip published">수의사 검수</span>':''}${d.workflowStatus==='published'?`<span class="review-due ${ds.cls}">${escapeHtml(ds.label)}</span>`:''}</div><div class="studio-item-actions"><button class="btn btn-secondary" type="button" data-studio-edit="${d.docId}">편집</button><button class="btn btn-ghost" type="button" data-studio-dup="${d.docId}">복제</button>${d.workflowStatus!=='archived'?`<button class="btn btn-ghost" type="button" data-studio-archive="${d.docId}">보관</button>`:''}${d.workflowStatus==='published'?`<button class="btn btn-primary" type="button" data-studio-open="${escapeHtml(d.template.id)}">자료 만들기</button>`:''}</div></div>`}).join(''):'<div class="studio-empty">아직 Content Studio 자료가 없습니다.<br>AI 프롬프트 또는 기존 자료 복제로 첫 Draft를 만들어보세요.</div>';list.querySelectorAll('[data-studio-edit]').forEach(b=>b.onclick=()=>editStudioItem(b.dataset.studioEdit));list.querySelectorAll('[data-studio-dup]').forEach(b=>b.onclick=()=>duplicateStudioItem(b.dataset.studioDup));list.querySelectorAll('[data-studio-archive]').forEach(b=>b.onclick=()=>archiveStudioItem(b.dataset.studioArchive));list.querySelectorAll('[data-studio-open]').forEach(b=>b.onclick=()=>{currentTemplateId=b.dataset.studioOpen;renderSelect();beginNewCase(false);go('builder');});}
  if(studioEditingId){const d=studioItems.find(x=>x.docId===studioEditingId);if(d){renderStudioPreview(d);renderStudioGovernance();}}
  renderStudioCloudStatus();
 }
@@ -5126,7 +5222,7 @@ function renderCheckCard(day){
   const d=timelineProfile(t,day);
   const items=d.items.map((x,i)=>`<div class="check-card-item"><div class="box"></div><div><strong>${escapeHtml(compactText(x,42))}</strong><span>${escapeHtml(x)}</span></div></div>`).join('');
   const handoff=(d.handoff||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('');
-  $('pdfDocument').innerHTML=`<div class="pdf-page check-card-page"><div class="pdf-brandline"></div><div class="clinical-watermark">CARESTEP</div><div class="check-card-hero"><div class="check-card-title"><span class="page-kicker">CARESTEP CLINICAL CHECK CARD · ${escapeHtml(profileFor(t).label||t.category)}</span><div class="check-card-day">D+${day}</div>${actualDateFor(day)?`<div class="check-card-date">${escapeHtml(actualDateFor(day))}</div>`:''}<h1>${escapeHtml(d.title)}</h1><p>${escapeHtml(t.short)} · ${escapeHtml(d.note)}</p></div><div class="pdf-logo">${logoHtml()}</div></div><div class="clinical-focus"><b>오늘의 핵심</b><span>${escapeHtml(d.focus)}</span></div><div class="check-card-items">${items}</div><div class="handoff-box"><strong>병원에 전달하면 좋은 정보</strong><ul>${handoff}</ul></div><div class="check-card-red"><strong>이런 변화는 기다리지 말고 병원에 알려주세요</strong><ul>${d.redFlags.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></div><div class="memo-lines compact"><h3>오늘 메모</h3><div class="memo-line"></div><div class="memo-line"></div></div>${pdfFooter()}</div>`;
+  $('pdfDocument').innerHTML=`<div class="pdf-page check-card-page"><div class="pdf-brandline"></div><div class="clinical-watermark">CARESTEP</div><div class="check-card-hero"><div class="check-card-title"><span class="page-kicker">CARESTEP CLINICAL CHECK CARD · ${escapeHtml(profileFor(t).label||categoryLabel(t.category))}</span><div class="check-card-day">D+${day}</div>${actualDateFor(day)?`<div class="check-card-date">${escapeHtml(actualDateFor(day))}</div>`:''}<h1>${escapeHtml(d.title)}</h1><p>${escapeHtml(t.short)} · ${escapeHtml(d.note)}</p></div><div class="pdf-logo">${logoHtml()}</div></div><div class="clinical-focus"><b>오늘의 핵심</b><span>${escapeHtml(d.focus)}</span></div><div class="check-card-items">${items}</div><div class="handoff-box"><strong>병원에 전달하면 좋은 정보</strong><ul>${handoff}</ul></div><div class="check-card-red"><strong>이런 변화는 기다리지 말고 병원에 알려주세요</strong><ul>${d.redFlags.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></div><div class="memo-lines compact"><h3>오늘 메모</h3><div class="memo-line"></div><div class="memo-line"></div></div>${pdfFooter()}</div>`;
   $('pdfDocument').classList.remove('hidden'); $('messagePreview').classList.add('hidden'); $('phonePreview').classList.add('hidden');
 }
 function mobilePatientLine(){
@@ -5281,7 +5377,7 @@ function renderCurrentOutput(){
   document.querySelectorAll('.output-option').forEach(b=>b.classList.toggle('active',b.dataset.output===currentOutput));
   readCaseInfoFromForm(); const medPages=medicationPageCount(); const pdfCount=8+medPages;
   const statusMap={pdf:`${pdfCount}P`,summary:'1P',meds:medPages?`${medPages}P`:'MEDS',medcheck:'1P',kakao:'KAKAO',sms:'SMS',d1:'D+1',d3:'D+3',d7:'D+7',d14:'D+14',mobile:'MOBILE',mobile4:'4 PNG',staff:'STAFF'};
-  $('selectedStatus').textContent=`${t.category} · ${statusMap[currentOutput]||''}`;
+  $('selectedStatus').textContent=`${categoryLabel(t.category)} · ${statusMap[currentOutput]||''}`;
   const labels={pdf:'고급 보호자 PDF 미리보기',summary:'퇴원 당일 1페이지 요약 미리보기',meds:'복약 일정표 미리보기',medcheck:medicationCheckLabel()+' 미리보기',kakao:'카카오톡 문구 미리보기',sms:'문자 문구 미리보기',d1:'D+1 체크카드 미리보기',d3:'D+3 체크카드 미리보기',d7:'D+7 체크카드 미리보기',d14:'D+14 체크카드 미리보기',mobile:'휴대폰 이미지 카드 미리보기',mobile4:'D+1·3·7·14 모바일 카드 4종',staff:'직원용 퇴원교육 미리보기'};
   $('previewLabel').textContent=labels[currentOutput]||'미리보기';
   $('mobileDayControl')?.classList.toggle('hidden',currentOutput!=='mobile');
@@ -5485,11 +5581,11 @@ async function voiceLoadAdmin(){
  try{const type=$('voiceAdminType')?.value||'all',status=$('voiceAdminStatus')?.value||'all';const [sr,lr]=await Promise.all([fetch(base+'/voice/admin/summary',{headers:voiceAdminHeaders(),cache:'no-store'}),fetch(base+`/voice/admin/requests?type=${encodeURIComponent(type)}&status=${encodeURIComponent(status)}`,{headers:voiceAdminHeaders(),cache:'no-store'})]);let sd={},ld={};try{sd=await sr.json()}catch{}try{ld=await lr.json()}catch{}if(!sr.ok||!sd.ok)throw new Error(sd.error||`HTTP ${sr.status}`);if(!lr.ok||!ld.ok)throw new Error(ld.error||`HTTP ${lr.status}`);voiceAdminSummary=sd;voiceAdminRows=Array.isArray(ld.requests)?ld.requests:[];voiceRenderAdmin();if(badge){badge.className='ai-conn-badge on';badge.textContent='연결됨';}$('voiceAdminContent')?.classList.remove('voice-hidden');}catch(e){if(badge){badge.className='ai-conn-badge error';badge.textContent='오류';}$('voiceAdminContent')?.classList.add('voice-hidden');toast(e.message||'관리자 요청함을 불러오지 못했습니다.');}
 }
 function voiceRenderRanking(target,items){const el=$(target);if(!el)return;el.innerHTML=(items||[]).length?(items||[]).slice(0,6).map(x=>`<div class="voice-rank"><div><b>${voiceEsc(x.title)}</b><small>${x.lastAt?new Date(x.lastAt).toLocaleDateString('ko-KR'):''}</small></div><span class="voice-count">${Number(x.count)||0}</span></div>`).join(''):'<div class="voice-empty">아직 요청이 없습니다.</div>';}
-function voiceRenderAdmin(){const s=voiceAdminSummary||{};if($('voiceKpiNew'))$('voiceKpiNew').textContent=Number(s.counts?.new)||0;if($('voiceKpiCondition'))$('voiceKpiCondition').textContent=Number(s.counts?.condition)||0;if($('voiceKpiFeature'))$('voiceKpiFeature').textContent=Number(s.counts?.feature)||0;if($('voiceKpiInquiry'))$('voiceKpiInquiry').textContent=Number(s.counts?.openInquiry)||0;voiceRenderRanking('voiceConditionRanking',s.topConditions);voiceRenderRanking('voiceFeatureRanking',s.topFeatures);const list=$('voiceAdminList');if(!list)return;if(!voiceAdminRows.length){list.innerHTML='<div class="voice-empty">조건에 해당하는 요청이 없습니다.</div>';return;}list.innerHTML=voiceAdminRows.map(r=>`<article class="voice-item ${voiceEsc(r.status)}" data-voice-id="${voiceEsc(r.id)}"><div class="voice-item-head"><div><span class="voice-type-badge">${voiceTypeLabel(r.type)}</span><span class="voice-type-badge">${voiceStatusLabel(r.status)}</span><h5>${voiceEsc(r.title)}</h5><div class="voice-item-meta">${voiceEsc(r.clinicName||'병원명 미입력')} · ${new Date(r.createdAt).toLocaleString('ko-KR')}${r.species?' · '+voiceEsc(r.species):''}${r.category?' · '+voiceEsc(r.category):''}${r.inquiryCategory?' · '+voiceEsc(r.inquiryCategory):''}</div></div><span class="voice-count">${Number(r.sameRequestCount)||1}건</span></div><div class="voice-item-details">${voiceEsc(r.details||'세부내용 없음')}</div><div class="voice-item-meta">담당자 ${voiceEsc(r.contactName||'-')}${r.contactEmail?' · '+voiceEsc(r.contactEmail):''}</div><div class="voice-item-actions"><select class="input" data-voice-status><option value="new" ${r.status==='new'?'selected':''}>신규</option><option value="reviewing" ${r.status==='reviewing'?'selected':''}>검토중</option><option value="planned" ${r.status==='planned'?'selected':''}>제작예정</option><option value="building" ${r.status==='building'?'selected':''}>제작중</option><option value="review" ${r.status==='review'?'selected':''}>검수중</option><option value="published" ${r.status==='published'?'selected':''}>공개완료</option><option value="answered" ${r.status==='answered'?'selected':''}>답변완료</option><option value="hold" ${r.status==='hold'?'selected':''}>보류</option></select><textarea class="input" data-voice-note placeholder="관리자 메모">${voiceEsc(r.adminNote||'')}</textarea><div style="display:flex;gap:5px;flex-wrap:wrap"><button class="btn btn-secondary" type="button" data-voice-save>저장</button>${r.type==='condition'?'<button class="btn btn-primary" type="button" data-voice-studio>Content Studio</button>':''}</div></div></article>`).join('');list.querySelectorAll('[data-voice-save]').forEach(b=>b.addEventListener('click',()=>voiceSaveAdminItem(b.closest('[data-voice-id]'))));list.querySelectorAll('[data-voice-studio]').forEach(b=>b.addEventListener('click',()=>voiceSendToStudio(b.closest('[data-voice-id]')?.dataset.voiceId)));}
+function voiceRenderAdmin(){const s=voiceAdminSummary||{};if($('voiceKpiNew'))$('voiceKpiNew').textContent=Number(s.counts?.new)||0;if($('voiceKpiCondition'))$('voiceKpiCondition').textContent=Number(s.counts?.condition)||0;if($('voiceKpiFeature'))$('voiceKpiFeature').textContent=Number(s.counts?.feature)||0;if($('voiceKpiInquiry'))$('voiceKpiInquiry').textContent=Number(s.counts?.openInquiry)||0;voiceRenderRanking('voiceConditionRanking',s.topConditions);voiceRenderRanking('voiceFeatureRanking',s.topFeatures);const list=$('voiceAdminList');if(!list)return;if(!voiceAdminRows.length){list.innerHTML='<div class="voice-empty">조건에 해당하는 요청이 없습니다.</div>';return;}list.innerHTML=voiceAdminRows.map(r=>`<article class="voice-item ${voiceEsc(r.status)}" data-voice-id="${voiceEsc(r.id)}"><div class="voice-item-head"><div><span class="voice-type-badge">${voiceTypeLabel(r.type)}</span><span class="voice-type-badge">${voiceStatusLabel(r.status)}</span><h5>${voiceEsc(r.title)}</h5><div class="voice-item-meta">${voiceEsc(r.clinicName||'병원명 미입력')} · ${new Date(r.createdAt).toLocaleString('ko-KR')}${r.species?' · '+voiceEsc(r.species):''}${r.category?' · '+voiceEsc(categoryLabel(r.category)):''}${r.inquiryCategory?' · '+voiceEsc(r.inquiryCategory):''}</div></div><span class="voice-count">${Number(r.sameRequestCount)||1}건</span></div><div class="voice-item-details">${voiceEsc(r.details||'세부내용 없음')}</div><div class="voice-item-meta">담당자 ${voiceEsc(r.contactName||'-')}${r.contactEmail?' · '+voiceEsc(r.contactEmail):''}</div><div class="voice-item-actions"><select class="input" data-voice-status><option value="new" ${r.status==='new'?'selected':''}>신규</option><option value="reviewing" ${r.status==='reviewing'?'selected':''}>검토중</option><option value="planned" ${r.status==='planned'?'selected':''}>제작예정</option><option value="building" ${r.status==='building'?'selected':''}>제작중</option><option value="review" ${r.status==='review'?'selected':''}>검수중</option><option value="published" ${r.status==='published'?'selected':''}>공개완료</option><option value="answered" ${r.status==='answered'?'selected':''}>답변완료</option><option value="hold" ${r.status==='hold'?'selected':''}>보류</option></select><textarea class="input" data-voice-note placeholder="관리자 메모">${voiceEsc(r.adminNote||'')}</textarea><div style="display:flex;gap:5px;flex-wrap:wrap"><button class="btn btn-secondary" type="button" data-voice-save>저장</button>${r.type==='condition'?'<button class="btn btn-primary" type="button" data-voice-studio>Content Studio</button>':''}</div></div></article>`).join('');list.querySelectorAll('[data-voice-save]').forEach(b=>b.addEventListener('click',()=>voiceSaveAdminItem(b.closest('[data-voice-id]'))));list.querySelectorAll('[data-voice-studio]').forEach(b=>b.addEventListener('click',()=>voiceSendToStudio(b.closest('[data-voice-id]')?.dataset.voiceId)));}
 async function voiceSaveAdminItem(card){if(!card)return;const id=card.dataset.voiceId,status=card.querySelector('[data-voice-status]')?.value||'new',adminNote=card.querySelector('[data-voice-note]')?.value.trim()||'';try{const r=await fetch(voiceBaseUrl()+'/voice/admin/request/'+encodeURIComponent(id),{method:'PATCH',headers:{...voiceAdminHeaders(),'Content-Type':'application/json'},body:JSON.stringify({status,adminNote}),cache:'no-store'});const d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||`HTTP ${r.status}`);toast('요청 상태를 저장했습니다.');voiceLoadAdmin();}catch(e){toast(e.message||'저장하지 못했습니다.');}}
 async function voiceSendToStudio(id){const r=voiceAdminRows.find(x=>x.id===id);if(!r)return;voiceStudioSourceId=id;if($('studioCondition'))$('studioCondition').value=r.title||'';if($('studioSpecies')&&r.species)$('studioSpecies').value=r.species;if($('studioCategory')&&r.category)$('studioCategory').value=r.category;if($('studioScenario')&&r.scenario)$('studioScenario').value=r.scenario;if($('studioNotes'))$('studioNotes').value=`CUSTOMER VOICE 요청 ${id}\n요청병원: ${r.clinicName||'-'}\n요청 메모: ${r.details||'-'}\n\n※ 환자 개인정보가 아닌 제품 콘텐츠 요청 기준으로만 사용.`;try{await fetch(voiceBaseUrl()+'/voice/admin/request/'+encodeURIComponent(id),{method:'PATCH',headers:{...voiceAdminHeaders(),'Content-Type':'application/json'},body:JSON.stringify({status:'building',adminNote:r.adminNote||''}),cache:'no-store'});}catch{}go('contentStudio');toast('요청질환을 AI Content Studio로 가져왔습니다.');}
 
-function renderAll(){ renderHospitalMeta(); voiceHydrateForm(); voiceRenderType(); renderQuick(); renderLibrary(); renderSelect(); renderAdmin(); renderStudio(); hydrateSettings(); hydrateWorkflowSettings(); renderWorkflowDashboard(); renderPilotDashboard(); renderMedicationRows(); updateMedicationPreview(); renderBuilder(); updateCalendarAction(); updateHandoffProgress(); startWorkflowTimer(true); }
+function renderAll(){ applyCategoryOverrides(); renderHospitalMeta(); voiceHydrateForm(); voiceRenderType(); renderQuick(); renderLibrary(); renderSelect(); renderAdmin(); renderStudio(); hydrateSettings(); hydrateWorkflowSettings(); renderWorkflowDashboard(); renderPilotDashboard(); renderMedicationRows(); updateMedicationPreview(); renderBuilder(); updateCalendarAction(); updateHandoffProgress(); startWorkflowTimer(true); applyOperatorUi(); if(operatorUnlocked)renderCategoryManager(); }
 
 $('enterDemo')?.addEventListener('click',saasEnterDemo);
 $('logoutBtn')?.addEventListener('click',saasLogout);
@@ -5880,6 +5976,11 @@ $('studioNewBlank')?.addEventListener('click',resetStudioForm);
 $('studioReviewerName')?.addEventListener('input',renderStudioGovernance);
 $('studioReviewInterval')?.addEventListener('change',renderStudioGovernance);
 $('studioJsonEditor')?.addEventListener('input',()=>{clearTimeout(window.__studioQualityTimer);window.__studioQualityTimer=setTimeout(renderStudioGovernance,180);});
+$('operatorUnlockBtn')?.addEventListener('click',()=>operatorUnlock(false));
+$('operatorLockBtn')?.addEventListener('click',operatorLock);
+$('refreshCategoryManager')?.addEventListener('click',()=>loadCategoryOverrides(false));
+$('categoryManagerSearch')?.addEventListener('input',renderCategoryManager);
+$('categoryManagerFilter')?.addEventListener('change',renderCategoryManager);
 
 studioLoadAiSettings();
 setDefaultDischargeDate(true);
@@ -5888,6 +5989,7 @@ renderAll();
 setWizardStep(1);
 updateReadiness();
 saasBootstrap();
+operatorBootstrap();
 
 </script>
 </body>
