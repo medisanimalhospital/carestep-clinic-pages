@@ -1,209 +1,192 @@
-# CARESTEP Clinic v8.0 · Data-driven Follow-up CRM
+# CARESTEP Clinic v8.1 · Education → Patient Journey Auto Sync
 
-v8.0은 v7.3의 Patient Journey, SOLAPI 자동발송, 보호자 회복 설문, Google Calendar 후속관리 결과를 **비식별 케이스 단위 CRM**으로 묶어 병원이 우선 확인해야 할 케이스를 자동 정렬합니다.
+v8.1은 v8.0.1의 전체 21종 Patient Journey Library와 데이터 기반 Follow-up CRM 위에 **교육자료 → Patient Journey 자동동기화**와 **병원 전용 Journey 삭제**를 추가합니다.
 
-## 핵심 변경
+## 핵심 목적
 
-### 1. 비식별 Follow-up CRM
-후속관리 화면에 `데이터 기반 Follow-up CRM` 패널을 추가했습니다.
+앞으로 질환/수술 교육자료를 계속 추가할 때마다 Worker 코드를 수정해 Patient Journey를 별도로 추가하지 않아도 되도록 구조를 변경했습니다.
 
-케이스별로 다음 운영 신호를 결합합니다.
-- SOLAPI 발송 성공 / 실패 / 미확인 실패
-- 보호자 설문 응답 / 미응답
-- 상태 호전 / 비슷 / 악화
-- 식욕 점수
-- 걱정 증상
-- 보호자 연락 요청
-- Google Calendar에서 기록한 구조화된 연락 결과
-- 수의사 확인 필요 / 해결 여부
+정식 흐름은 다음과 같습니다.
 
-CRM은 `case_key`로 묶이며 보호자 이름, 전화번호, 환자명은 저장하지 않습니다.
+`Content Studio Draft → 수의사 검수 → Published → 중앙 콘텐츠 반영 → Journey 초안 자동생성 → HQ 검토 → Journey 게시 → 모든 병원에 자동 노출`
 
-### 2. 위험점수 0~100
-규칙 기반 위험점수를 계산해 다음 네 단계로 표시합니다.
-- 안정: 0~19
-- 주의: 20~39
-- 고위험: 40~69
-- 최우선: 70~100
+### 중요
 
-가중 신호 예:
-- 미확인 긴급 설문
-- 상태 악화
-- 식욕 1~2점
-- 걱정 증상
-- 보호자 연락 요청
-- 자동발송 실패
-- 연락 결과 `악화`
-- 미해결 수의사 escalation
+로컬 Content Studio에서 `Published`만 한 상태가 아니라 **CARESTEP 중앙 콘텐츠에 반영된 Published 자료**가 자동동기화의 기준입니다. 여러 동물병원에 동일한 Journey를 배포하기 위한 중앙 Source of Truth 구조입니다.
 
-호전 응답과 호전 결과는 위험점수를 낮추는 방향으로 반영합니다.
+## 1. 새 질환 자동 Journey 생성
 
-> 이 점수는 병원 업무 우선순위용 운영 신호입니다. 진단, 예후 예측, 응급도 판정을 대신하지 않습니다.
+중앙에 새 교육자료가 Published되면 Worker가 `profile.days`를 읽어 자동으로 Patient Journey 초안을 만듭니다.
 
-### 3. 권장 다음 행동
-각 CRM 케이스에 현재 데이터에 따른 권장 행동을 표시합니다.
-예:
-- 발송 실패 확인·재발송
-- 보호자 연락 요청 확인
-- 상태 악화 재평가
-- 수의사 재평가
-- 새 위험 신호 검토
-- 다음 후속관리 예정
-- 경과 관찰
+자동 변환 항목:
 
-### 4. 검토 완료 / 케이스 종료
-병원 사용자는 CRM에서:
-- `검토 완료`
-- `케이스 종료`
-- `다시 활성화`
+- 교육자료 ID → Journey `sourceId`
+- 자료명 → Journey 이름
+- 카테고리 → Journey 카테고리
+- `profile.days` → D+ 단계
+- 각 D+ `title` → 단계 제목
+- `focus` / `note` → 오늘의 핵심
+- `items` → 확인 항목
+- 교육자료 `redFlags` → 빠른 확인 기준
+- 단계별 Calendar 업무 기본 ON
+- 단계별 보호자 자동발송 기본 ON
+- 기본 설문 시점 자동 추천
 
-를 처리할 수 있습니다.
+고양이/강아지 표기 또는 Content Studio species 값을 이용해 종도 자동 추정합니다.
 
-종료된 케이스라도 **종료 이후 새로운 위험 신호가 발생하면 자동으로 다시 활성화**됩니다.
+## 2. 수의사 검토 후 게시
 
-### 5. Google Calendar 연락 결과 → CRM 동기화
-기존 후속관리 업무에서 연락 결과를 저장하면 다음 구조화 데이터가 CARESTEP CRM에도 동기화됩니다.
-- 호전
-- 유지
-- 악화
-- 연락 안 됨
-- 수의사 escalation 여부
-- escalation 해결 여부
-- D+ 단계
-- Journey ID
+자동 생성된 Journey는 곧바로 병원에 노출되지 않습니다.
 
-환자명, 일정 제목, 전화번호, 보호자명은 CRM outcome 테이블에 저장하지 않습니다.
+HQ → **Patient Journey Library · Auto Sync**에서:
 
-### 6. 현재 케이스 표시
-브라우저의 현재 후속관리 케이스 nonce와 병원 ID를 SHA-256으로 동일하게 계산해 CRM 목록에서 `현재 케이스` 배지를 표시합니다.
+- `자동초안`
+- `업데이트 대기`
 
-### 7. 병원 CRM KPI
-선택 기간 기준으로 다음을 표시합니다.
-- 활성 케이스
-- 검토 필요
-- 고위험 이상
-- 설문 응답률
-- 자동발송 성공률
+를 확인한 뒤 **검토 후 게시**를 눌러야 활성화됩니다.
 
-기간:
-- 최근 90일
-- 최근 180일
-- 최근 365일
+게시 완료 후 병원은 `Journey 새로고침` 또는 다음 로그인 때 새 Journey를 자동으로 받습니다.
 
-### 8. HQ Follow-up CRM
-HQ에 `Follow-up CRM` 메뉴를 추가했습니다.
+## 3. 교육자료 수정 시 기존 Journey 보호
 
-HQ 지표:
-- 전체 활성 케이스
-- 검토 필요
-- 최우선 케이스 수
-- 평균 위험점수
-- 설문 응답률
-- 발송 성공률
+이미 운영 중인 교육자료/Patient Journey를 수정해서 다시 중앙 Published하더라도 기존 Journey를 즉시 덮어쓰지 않습니다.
 
-비교:
-- 병원별 CRM 운영 지표
-- Patient Journey별 활성 케이스 / 검토 필요 / 고위험 / 호전율 / 발송 성공률
+대신 HQ에:
 
-HQ에는 개별 case key를 노출하지 않고 병원·Journey 단위 집계만 표시합니다.
+`업데이트 대기`
 
-## 신규 D1 테이블
-Worker가 자동 생성합니다.
+상태로 새 제안본이 올라옵니다.
 
-- `followup_crm_outcomes`
-- `followup_crm_case_reviews`
+HQ 검토 후 게시할 때만 기존 Journey가 새 교육자료 기준으로 업데이트됩니다.
 
-### followup_crm_outcomes
-구조화된 연락 결과만 저장합니다.
-- clinic_id
-- anonymous case_key
-- journey_id
-- D+ stage
-- outcome
-- escalation / resolved
-- source
-- occurred_at
-- 처리 직원
+즉 환자 후속관리 중 콘텐츠가 예고 없이 바뀌는 것을 방지합니다.
 
-### followup_crm_case_reviews
-CRM 검토 상태만 저장합니다.
-- clinic_id
-- anonymous case_key
-- active / closed
-- 검토 시각
-- 검토 직원
+## 4. Journey 고급 설정(선택)
 
-**D1 Console에서 SQL을 직접 실행할 필요가 없습니다.**
+Content Studio JSON에 `journey` 객체를 넣으면 자동생성 규칙을 세밀하게 조정할 수 있습니다. v8.1부터 Content Studio 저장/버전이력에서도 이 객체를 보존합니다.
 
-## 개인정보 구조
-v8.0 CRM에는 다음을 저장하지 않습니다.
-- 보호자 이름
-- 보호자 휴대전화
+예시:
+
+```json
+{
+  "journey": {
+    "enabled": true,
+    "name": "고양이 FIC 장기관리 Journey",
+    "species": "cat",
+    "recommendedStages": [1, 3, 7, 30],
+    "surveyDays": [3, 30],
+    "calendarDays": [1, 3, 7, 30],
+    "messageDays": [1, 3, 7]
+  }
+}
+```
+
+이 객체를 입력하지 않아도 `profile.days`를 기준으로 자동 생성됩니다.
+
+## 5. 병원 전용 Journey 삭제
+
+기본 CARESTEP Journey를 `병원용으로 복제`한 사본 또는 병원이 직접 만든 Journey는 이제:
+
+- 편집
+- 보관
+- **삭제**
+
+할 수 있습니다.
+
+삭제 버튼은 Owner/Admin에게만 표시됩니다.
+
+### 삭제 안전정책
+
+삭제하면 병원 Journey Library에서는 즉시 사라지지만, 과거 설문/CRM/사용통계의 Journey 이름을 유지하기 위해 D1에서는 `status=deleted` 형태의 최소 템플릿 메타데이터를 남깁니다.
+
+또한 Journey를 삭제해도 이미 SOLAPI에 접수된 예약문자나 Google/Outlook에 생성된 일정은 자동 취소하지 않습니다. 필요하면 기존 예약을 먼저 취소한 뒤 Journey를 삭제하세요.
+
+CARESTEP 기본/자동 게시 System Journey는 병원에서 삭제할 수 없습니다.
+
+## 6. 신규 D1 구조
+
+Worker가 자동으로 생성합니다.
+
+- `patient_journey_sync_queue`
+  - 중앙 교육자료 ID
+  - 연결 Journey ID
+  - 교육자료 버전
+  - 자동생성/업데이트 제안 상태
+  - HQ 검토 상태
+
+상태:
+
+- `draft` : 새 Journey 자동초안
+- `update_available` : 기존 Journey 업데이트 대기
+- `published` : HQ 검토·게시 완료
+
+**Cloudflare D1 Console에서 SQL을 직접 실행하지 않습니다.**
+
+## 7. 개인정보
+
+자동동기화에는 질환 교육자료와 Journey 운영 템플릿만 사용합니다.
+
+다음 항목은 Auto Sync 테이블에 저장하지 않습니다.
+
 - 환자명
-- 주소
-- 이메일
+- 보호자명
+- 보호자 전화번호
+- 퇴원일
+- 환자별 투약 내용
 
-자동발송에서 생성된 `case_key`는 기존과 동일하게:
+## 8. 새 Worker Secret
 
-`SHA-256(clinic_id | random case nonce)`의 앞 48자리
+없습니다.
 
-를 사용합니다.
+기존 설정을 그대로 유지합니다.
 
-보호자 설문의 자유메모는 기존 설문 테이블에 남지만 CRM API/HQ 집계에는 자유메모를 포함하지 않습니다.
+- `SOLAPI_API_KEY`
+- `SOLAPI_API_SECRET`
+- `CARESTEP_HQ_KEY`
+- 기존 CARESTEP 인증/AI Secret
+- D1 binding `DB`
 
-## 요금제 권한
-신규 feature: `followupCRM`
+## 9. 배포 순서
 
-- PILOT: ON
-- BASIC: OFF
-- PRO: ON
-- ENTERPRISE: ON
-
-기존 `plan_catalog.features_json`은 v8.0 최초 요청에서 자동 보완합니다.
-
-## 신규 API
-병원:
-- `GET /saas/crm/overview?days=180`
-- `POST /saas/crm/outcomes`
-- `POST /saas/crm/cases/:caseKey/review`
-
-HQ:
-- `GET /hq/followup-crm?days=180`
-
-## 추가 Worker Secret
-**없습니다.**
-
-기존 Secret과 D1 binding을 그대로 사용합니다.
-- SOLAPI_API_KEY
-- SOLAPI_API_SECRET
-- CARESTEP_HQ_KEY
-- 기존 CARESTEP 인증 / AI 관련 Secret
-- DB binding
-
-## 배포 순서
-1. Cloudflare Worker → `worker-paste-ready.txt` 전체 교체 → Deploy
+1. Cloudflare Worker를 `worker-paste-ready.txt` 전체 내용으로 교체 → Deploy
 2. 병원용 `index.html` 교체
 3. HQ용 `hq.html` 교체
 4. 브라우저 `Ctrl + Shift + R`
-5. 병원 로그인 → 후속관리 → `데이터 기반 Follow-up CRM` 확인
-6. HQ 로그인 → `Follow-up CRM` 메뉴 확인
+5. HQ → Patient Journey → `교육자료 동기화`
+6. 자동초안/업데이트 대기 건 확인
+7. 검토 후 게시
+8. 병원 화면 → `Journey 새로고침`
 
-## 권장 첫 테스트
-1. 설문이 포함된 Journey로 테스트 환자 자동발송 예약
-2. 보호자 설문에서 `악화` + `연락 요청`으로 제출
-3. CARESTEP 후속관리 CRM 새로고침
-4. 해당 비식별 케이스가 `최우선 / 검토 필요`로 표시되는지 확인
-5. `검토 완료` 클릭
-6. Google Calendar 업무에서 결과를 `호전`으로 기록
-7. CRM 새로고침 후 위험도가 낮아지는지 확인
-8. 케이스 종료 후 새로운 위험 신호를 만들고 자동 재활성화 여부 확인
+## 10. 권장 첫 테스트
 
-## v7.3 기능 유지
-- 질환별 Patient Journey Builder
-- SOLAPI 예약 자동발송
-- 발신번호 온보딩
-- 발송 실패 감지 / 재발송
-- 보호자 회복 설문 / 만족도
-- Google Calendar / Outlook 후속관리
-- SaaS 사용량 / 정산
-- HQ 운영관리
+### Auto Sync
+
+1. Content Studio에서 테스트용 새 질환 교육자료 작성
+2. 수의사 검수 완료
+3. Published + 중앙 반영
+4. HQ → Patient Journey에서 `자동초안` 확인
+5. D+ 단계 제목/내용 확인
+6. `검토 후 게시`
+7. 병원 화면 → Journey 새로고침
+8. 새 질환 Journey 표시 확인
+
+### 병원용 Journey 삭제
+
+1. CARESTEP 기본 Journey 하나 선택
+2. `병원용으로 복제`
+3. 저장
+4. `삭제`
+5. 목록에서 사라지는지 확인
+6. 기본 CARESTEP Journey는 그대로 남아 있는지 확인
+
+## 검증
+
+`TEST_REPORT.txt` 기준 33/33 PASS:
+
+- Worker / 병원 화면 / HQ JavaScript 문법
+- HTML ID 중복
+- Auto Sync queue / migration / routes
+- 신규 자동초안 병원 비노출
+- HQ 게시 후 병원 노출 상태
+- 기존 Journey 업데이트 보호
+- 병원 사본 삭제 및 이력 메타데이터 보존
