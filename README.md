@@ -1,172 +1,169 @@
-# CARESTEP Clinic v6.7 · Automated Guardian Messaging
+# CARESTEP Clinic v6.8 · Messaging Safety & Follow-up Timeline
 
-## 핵심 변경
+v6.8은 v6.7의 SOLAPI 예약 자동발송을 유지하면서, **발송 결과 확인 → 실패 경고 → 확인 처리 → 안전한 재발송 → Google Calendar 업무 타임라인 연결**까지 후속관리 운영 흐름을 확장합니다.
 
-v6.7은 기존 Google Calendar 후속관리 흐름에 **SOLAPI 기반 보호자 예약 자동발송**을 추가합니다.
+## 1. v6.8 핵심 변경
 
-- D+1 / D+3 / D+7 / D+14 문자(SMS/LMS) 예약발송
-- 카카오 알림톡(ATA) 예약발송
-- 알림톡 실패 시 문자 대체발송 옵션
-- 병원별 발신번호 / 카카오 pfId / 승인 템플릿 ID 설정
-- 병원 PC나 CARESTEP 페이지가 꺼져 있어도 SOLAPI가 예약 시각에 발송
-- 예약 취소
-- SOLAPI 그룹 상태 동기화(예약 / 발송중 / 완료 / 실패 / 취소)
-- 동일 케이스·D+ 단계 재예약 시 기존 미래 예약 교체
-- 요금제 권한 `automatedMessaging`
-  - PILOT: ON
-  - BASIC: OFF
-  - PRO: ON
-  - ENTERPRISE: ON
+### 발송 실패 자동 확인
+- 병원용 CARESTEP의 후속관리 화면을 열 때 SOLAPI 예약 상태를 동기화합니다.
+- 후속관리 화면이 활성화되어 있는 동안 약 **2분 간격**으로 상태를 다시 확인합니다.
+- `scheduled / provider_pending / sending` 상태가 SOLAPI에서 `COMPLETE / FAILED` 등으로 바뀌면 CARESTEP 상태에도 반영합니다.
+- 처음 `failed`로 전환될 때 감사 로그(`job.failed`)를 남깁니다.
+- 처음 `sent`로 전환될 때 감사 로그(`job.sent`)를 남깁니다.
 
-## 개인정보 구조
+> 실제 예약발송은 v6.7과 동일하게 SOLAPI의 `scheduledDate`가 담당합니다. 따라서 병원 PC나 CARESTEP 페이지가 꺼져 있어도 예약발송 자체는 계속 동작하며, **예약발송용 Cloudflare Cron은 필요하지 않습니다.**
 
-이번 버전은 CARESTEP 자체 대기열에서 보호자 전화번호를 보관하지 않습니다.
+### 업무보드 실패 경고
+- 후속관리 업무보드에 `📨 발송 실패` 탭을 추가했습니다.
+- `🚨 확인 필요` 숫자에는 기존 수의사 확인 필요 업무와 **미확인 메시지 실패**가 함께 반영됩니다.
+- Calendar 연결 여부와 관계없이 메시지 실패 카드는 확인할 수 있습니다.
+- 실패 건은 `확인 처리`할 수 있으며 확인 시각과 확인 사용자를 D1 운영 메타데이터에 남깁니다.
 
-예약 시:
+### 개인정보 최소화 재발송
+- 실패 건에서 `재발송`을 누르면 보호자 전화번호를 **다시 입력**해야 합니다.
+- 재발송 동의를 다시 체크해야 합니다.
+- 전화번호와 메시지 본문은 재발송 후에도 CARESTEP D1에 저장하지 않습니다.
+- 재발송 건에는 원 실패 건을 가리키는 `retry_of_job_id`만 저장합니다.
+- 동일 실패 건을 실수로 연속 재발송하는 것을 줄이기 위해 최근 5분 이내 중복 재발송을 차단합니다.
+- 재발송이 접수되면 기존 실패 건은 자동으로 `확인 완료` 처리됩니다.
 
-`브라우저 → CARESTEP Worker → SOLAPI 예약발송 API`
+### Google Calendar ↔ 메시지 타임라인 연결
+- v6.8에서 새로 예약하는 D+ 메시지는 해당 Google Calendar 후속관리 이벤트 ID의 SHA-256 해시를 D1에 저장합니다.
+- 원본 Google Calendar 이벤트 ID 자체는 저장하지 않습니다.
+- 업무 카드에서 `문자 예약 / 발송중 / 발송완료 / 발송실패` 상태를 함께 볼 수 있습니다.
+- 동일 실패 건을 재발송하면 가장 최근 메시지 상태가 업무 카드에 연결됩니다.
 
-CARESTEP D1에는 다음만 저장합니다.
+> **기존 v6.7에서 이미 예약된 메시지**는 정상 발송·실패 상태 동기화와 실패 업무보드 기능을 계속 사용할 수 있습니다. 다만 v6.7 예약에는 Calendar event hash가 없을 수 있으므로, 기존 예약 건은 Calendar 업무 카드의 메시지 배지가 연결되지 않을 수 있습니다. v6.8 배포 후 새로 예약한 건부터 자동 연결됩니다.
 
-- 병원 ID
-- D+ 단계
-- 예약 시각
-- 채널(SMS/Kakao)
-- 콘텐츠 template ID
-- 비식별 case key
-- SOLAPI group ID / message ID
-- SOLAPI 상태
-- 동의 확인 시각
-- 생성 사용자 / 생성 시각
+## 2. D1에 새로 추가되는 운영 메타데이터
 
-**보호자 전화번호와 메시지 본문은 CARESTEP D1에 저장하지 않습니다.**
-전화번호와 발송 내용은 실제 메시지 제공자인 SOLAPI로 전송됩니다.
+`followup_message_jobs`에 다음 필드를 사용합니다.
 
-## 왜 Cloudflare Cron을 사용하지 않나
+- `calendar_event_id_hash`
+- `failure_acknowledged_at`
+- `failure_acknowledged_by`
+- `retry_of_job_id`
 
-SOLAPI 메시지 발송 API가 `scheduledDate` 예약발송을 지원하므로, CARESTEP Worker가 개인정보가 포함된 대기열을 유지할 필요가 없습니다.
+Worker가 첫 인증 요청에서 테이블 구조를 확인하고 누락된 컬럼을 자동으로 추가하므로 **수동 D1 SQL 작업은 필요하지 않습니다.**
 
-따라서 v6.7 최종 구조에서는:
+보호자 개인정보 최소화 정책은 그대로 유지합니다.
 
-- Cloudflare Cron Trigger 불필요
-- `FOLLOWUP_ENCRYPTION_KEY` 불필요
-- CARESTEP D1 전화번호 암호문 저장 불필요
+- 보호자 전화번호 D1 저장: **안 함**
+- 메시지 본문 D1 저장: **안 함**
+- 카카오 변수 본문 D1 저장: **안 함**
+- SOLAPI group/message ID, 상태, D+ 단계, 동의 시각, 실패 확인 및 재발송 관계 등 운영 메타데이터만 저장
 
-## 배포 파일
+## 3. 새 API
 
-- `index.html` : 병원용 CARESTEP
-- `hq.html` : CARESTEP HQ 관리자
-- `worker.js` : Cloudflare Worker
-- `worker-paste-ready.txt` : Worker 전체 복붙용
+### 실패 확인 처리
+`POST /saas/followup/messages/:id/ack`
 
-## 배포 순서
+- 현재 병원 소속 실패 건만 처리
+- 실패가 아닌 건은 거부
+- 확인 사용자와 확인 시각 기록
 
-### 1. GitHub Pages
+### 실패 재발송
+`POST /saas/followup/messages/:id/retry`
 
-저장소 루트에서 아래 2개를 교체합니다.
+필수 요청값:
+- `recipientPhone`
+- `consent: true`
+- `channel`
+- 문자 사용 시 `messageText`
+- 알림톡 사용 시 `variables`
 
-- `index.html`
-- `hq.html`
+보안/운영 정책:
+- 실패 상태인 건만 재발송
+- 병원 자동발송 설정이 ON이어야 함
+- SOLAPI API Key/Secret이 정상이어야 함
+- 최근 5분 내 동일 실패 건의 중복 재발송 차단
 
-교체 후 Commit 합니다.
+## 4. HQ 변경
 
-### 2. Cloudflare Worker
+HQ의 `외부 연동 설정 → 보호자 자동발송`에서 다음을 추가로 확인할 수 있습니다.
 
-Worker → Edit code → 기존 코드 전체 삭제 → `worker-paste-ready.txt` 전체 붙여넣기 → Deploy
+- 전체 실패 수
+- 미확인 실패 수
+- 재발송 수
+- 활성 페이지/접속 시 상태 동기화 정책
 
-### 3. 기존 환경변수/Secret 유지
+## 5. 배포 순서
 
-기존 항목은 그대로 유지합니다.
+**Worker를 먼저 배포한 뒤 병원 페이지를 배포하는 순서를 권장합니다.**
 
-- `OPENAI_API_KEY`
-- `CARESTEP_ACCESS_KEY`
-- `CARESTEP_ADMIN_KEY`
-- `CARESTEP_HQ_KEY`
-- `ALLOWED_ORIGINS`
-- `OPENAI_MODEL`
-- D1 binding `DB`
+1. Cloudflare Worker의 `worker.js`를 v6.8로 교체 후 Deploy
+2. 또는 대시보드 편집기를 사용한다면 `worker-paste-ready.txt` 전체 복사 → Deploy
+3. GitHub/Netlify에 병원용 `index.html` 교체
+4. HQ를 사용한다면 `hq.html` 교체
+5. 브라우저 강력 새로고침 (`Ctrl+Shift+R`)
 
-### 4. 새 Worker Secrets 추가
+새 Worker Secret은 없습니다.
 
-Cloudflare Worker의 Settings → Variables and Secrets에서 아래 2개를 **Secret**으로 추가합니다.
-
+기존 필수 Secret:
 - `SOLAPI_API_KEY`
 - `SOLAPI_API_SECRET`
 
-`FOLLOWUP_ENCRYPTION_KEY`는 만들 필요가 없습니다.
-Cloudflare Cron Trigger도 만들 필요가 없습니다.
+기존 발신번호와 병원별 자동발송 설정도 그대로 사용합니다.
 
-## SOLAPI 사전 설정
+## 6. 배포 후 확인 순서
 
-SOLAPI에서 아래 준비가 필요합니다.
+### A. 기존 예약 보호
+1. 배포 전 잡아둔 D+1 / D+3 / D+7 / D+14 예약이 `최근 자동발송 예약`에 그대로 보이는지 확인합니다.
+2. 기존 예약을 취소하거나 다시 생성할 필요는 없습니다.
 
-### 문자 사용
+### B. v6.8 신규 예약 1건 확인
+1. 테스트 케이스를 준비합니다.
+2. Google Calendar 후속관리 일정을 생성/동기화합니다.
+3. 보호자 테스트 번호와 동의를 입력합니다.
+4. 가까운 미래 시각으로 D+ 메시지 1건을 예약합니다.
+5. `최근 자동발송 예약`에서 `예약접수 / SOLAPI SCHEDULED`를 확인합니다.
+6. 같은 D+의 Google Calendar 업무 카드에 `📨 문자 예약` 배지가 표시되는지 확인합니다.
 
-1. SOLAPI 계정 생성
-2. API Key / API Secret 발급
-3. 병원 발신번호 사전 등록
-4. Worker Secret에 API Key / Secret 입력
-5. CARESTEP 병원 페이지 → 후속관리 → 병원 발송 연동에서 등록 발신번호 입력
-6. 테스트 1건 발송
+### C. 실제 발송 결과 확인
+1. 예약 시각 이후 테스트 휴대폰에 문자가 도착하는지 확인합니다.
+2. 후속관리 화면을 열어 둔 경우 최대 약 2분 정도 기다리거나 `예약내역 새로고침`을 누릅니다.
+3. 메시지가 `완료`로 변경되는지 확인합니다.
+4. 연결된 업무 카드가 `📨 문자 발송완료`로 변경되는지 확인합니다.
 
-### 카카오 알림톡 사용
+### D. 실패 흐름
+실제 SOLAPI 실패가 발생했을 때:
+1. `🚨 확인 필요` 카운트 증가 확인
+2. `📨 발송 실패` 탭에서 실패 카드 확인
+3. 단순 확인이면 `확인 처리`
+4. 다시 보내야 하면 `재발송`
+5. 보호자 번호를 다시 입력하고 동의 체크
+6. `지금 재발송` 클릭
+7. 최근 자동발송 목록에 새 재발송 건이 생기는지 확인
 
-문자 설정에 더해 아래가 필요합니다.
+실패 테스트를 만들기 위해 임의로 잘못된 실제 수신번호를 사용하는 것은 권장하지 않습니다. 운영 중 실제 실패가 발생했을 때 위 흐름으로 검증해도 됩니다.
 
-1. SOLAPI에 카카오 비즈니스 채널 연결
-2. 알림톡 템플릿 등록 및 승인
-3. 병원 발송 연동에 `pfId` 입력
-4. 승인된 `templateId` 입력
-5. 알림톡 실패 시 문자 대체발송 사용 여부 선택
+## 7. v6.8 운영 구조
 
-CARESTEP 권장 알림톡 템플릿 변수:
+```text
+CARESTEP 병원 화면
+      │
+      ├─ 예약 생성 ──> Cloudflare Worker ──> SOLAPI scheduledDate
+      │                                      │
+      │                                      └─ 예약 시각 실제 발송
+      │
+      ├─ 화면 접속/2분 동기화 ──> Worker ──> SOLAPI 상태 조회
+      │                                   │
+      │                                   └─ 완료/실패 D1 메타데이터 반영
+      │
+      ├─ 실패 ──> 업무보드 🚨 / 📨 발송 실패
+      │
+      └─ 재발송 ──> 번호 재입력 + 동의 ──> SOLAPI 즉시 재발송
+```
 
-- `#{병원명}`
-- `#{단계}`
-- `#{주제}`
-- `#{핵심}`
-- `#{안내}`
+## 8. 다음 권장 버전
 
-실제 SOLAPI 승인 템플릿의 변수명과 정확히 일치해야 합니다.
+v6.8 실전 운영 후 다음 단계는 **v6.9 운영 알림 센터**가 적합합니다.
 
-## 실제 사용 흐름
+후보 기능:
+- 병원 내 실패 건 누적 알림 센터
+- 일정 시간 이상 미확인 실패 건의 Owner/Admin 강조 표시
+- 발송 성공률 / 실패율 / D+ 단계별 통계
+- 템플릿별 보호자 도달률
+- HQ에서 병원별 메시징 상태 비교
+- 필요 시 Cloudflare Scheduled Trigger를 **발송용이 아니라 상태 모니터링용**으로 선택 적용
 
-1. 퇴원 케이스에서 교육자료와 관리 시작일 설정
-2. 후속관리에서 D+1 / 3 / 7 / 14 단계와 발송 시각 확인
-3. 보호자 휴대전화 입력
-4. 발송 동의 확인 체크
-5. 문자 또는 알림톡 선택
-6. `선택 D+ 자동발송 예약` 클릭
-7. CARESTEP Worker가 즉시 SOLAPI 예약발송 API에 각 D+ 메시지를 접수
-8. SOLAPI가 지정 날짜/시간에 자동 발송
-9. CARESTEP `예약내역 새로고침`에서 provider 상태 확인
-
-## 예약 취소
-
-아직 SOLAPI에서 `SCHEDULED/PENDING` 상태인 예약은 CARESTEP에서 `예약 취소`할 수 있습니다.
-CARESTEP은 SOLAPI 예약 취소 후 해당 그룹도 삭제하여 발송되지 않도록 처리합니다.
-이미 발송 단계에 들어간 그룹은 취소할 수 없습니다.
-
-## 실패 메시지
-
-보호자 전화번호와 메시지 본문을 CARESTEP이 보관하지 않는 구조이므로, 이미 Provider에서 실패한 메시지를 CARESTEP이 전화번호 없이 임의 재전송하지 않습니다.
-필요하면 보호자 번호를 다시 입력하고 새 예약을 생성합니다.
-
-## 상용화 전 운영 주의
-
-- 보호자 연락처 처리 및 메시지 발송에 관한 병원 개인정보 안내/동의 절차를 마련하세요.
-- SOLAPI가 실제 메시지 처리 사업자로 보호자 연락처와 발송 내용을 처리한다는 점을 개인정보 처리방침/위탁 또는 관련 고지에 반영할 필요가 있습니다.
-- 카카오 알림톡은 승인된 정보성 템플릿을 사용하세요.
-- 광고성 메시지를 발송할 경우 정보성 후속관리 메시지와 별도의 광고성 정보 전송 관련 동의/표시 기준을 검토하세요.
-- 실제 상용화 전 테스트 번호로 문자 → 알림톡 → 예약 → 취소 → 발송완료 상태까지 순서대로 검증하는 것을 권장합니다.
-
-## 데이터베이스
-
-새 D1 Binding은 필요하지 않습니다. 기존 `DB`를 사용합니다.
-Worker가 아래 테이블을 자동 생성/보완합니다.
-
-- `clinic_messaging_settings`
-- `followup_message_jobs`
-- `followup_message_audit`
-
-이전에 시험용 v6.7 대기열 스키마가 생성된 경우에도 필요한 provider-side scheduling 컬럼을 자동 추가하며, 신규 예약에는 기존 개인정보 암호화 컬럼을 사용하지 않습니다.
