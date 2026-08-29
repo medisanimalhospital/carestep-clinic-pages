@@ -1,192 +1,72 @@
-# CARESTEP Clinic v8.1 · Education → Patient Journey Auto Sync
+# CARESTEP Clinic v8.1.1 · Unified Category Sync & Version Label Fix
 
-v8.1은 v8.0.1의 전체 21종 Patient Journey Library와 데이터 기반 Follow-up CRM 위에 **교육자료 → Patient Journey 자동동기화**와 **병원 전용 Journey 삭제**를 추가합니다.
+v8.1.1은 v8.1의 Education → Patient Journey Auto Sync 위에 **자료실과 후속관리의 카테고리 체계를 완전히 통일**하고, 병원 화면에 남아 있던 v7.3 표기 오류를 수정한 패치입니다.
 
-## 핵심 목적
+## 1. 카테고리 단일 기준
+CARESTEP은 다음 12개 카테고리 코드를 자료실과 Patient Journey에 공통으로 사용합니다.
 
-앞으로 질환/수술 교육자료를 계속 추가할 때마다 Worker 코드를 수정해 Patient Journey를 별도로 추가하지 않아도 되도록 구조를 변경했습니다.
+- 수술 → 수술·회복
+- 내과 → 내과·만성질환
+- 안과 → 안과
+- 피부과 → 피부·알레르기
+- 비뇨기 → 비뇨기·신장
+- 치과 → 치과·구강
+- 신경 → 신경
+- 종양 → 종양·항암
+- 응급 → 응급·증상
+- 노령 → 노령·삶의질
+- 예방 → 예방·건강관리
+- 기타 → 기타
 
-정식 흐름은 다음과 같습니다.
+기존 Journey의 `정형외과`, `일반외과`, `신경외과`, `내과·소화기` 같은 별도 분류는 자료실 카테고리로 자동 변환됩니다.
 
-`Content Studio Draft → 수의사 검수 → Published → 중앙 콘텐츠 반영 → Journey 초안 자동생성 → HQ 검토 → Journey 게시 → 모든 병원에 자동 노출`
+## 2. 기존 20개 교육자료와 Journey 정렬
+기본 Journey는 연결된 자료실 콘텐츠의 카테고리를 따라갑니다. 예를 들어:
 
-### 중요
+- 슬개골 / 십자인대 / 디스크 / 고관절 / 중성화 / 비장절제 / 방광결석 / 담낭 / 이물 → 수술·회복
+- 췌장염 / 만성신장병 / 심장병 / 당뇨 → 내과·만성질환
+- 경련·발작 / 구토·설사 → 응급·증상
+- 유선종양 / 항암 → 종양·항암
+- 스케일링·발치 / 고양이 전발치 → 치과·구강
+- 인지기능저하 → 노령·삶의질
+- 고양이 요도폐색·FLUTD → 비뇨기·신장
 
-로컬 Content Studio에서 `Published`만 한 상태가 아니라 **CARESTEP 중앙 콘텐츠에 반영된 Published 자료**가 자동동기화의 기준입니다. 여러 동물병원에 동일한 Journey를 배포하기 위한 중앙 Source of Truth 구조입니다.
+## 3. 앞으로 카테고리를 바꾸면 Journey도 같이 변경
+자료실 운영자 카테고리 관리에서 질환 카테고리를 변경하면:
 
-## 1. 새 질환 자동 Journey 생성
+`자료실 카테고리 변경 → 연결된 CARESTEP 기본 Journey 카테고리 변경 → Auto Sync 검토 초안 카테고리 변경`
 
-중앙에 새 교육자료가 Published되면 Worker가 `profile.days`를 읽어 자동으로 Patient Journey 초안을 만듭니다.
+으로 즉시 동기화됩니다. 카테고리를 `원래 분류`로 되돌리는 경우도 Journey가 함께 복원됩니다.
 
-자동 변환 항목:
+새 Published 교육자료에서 자동 생성되는 Journey도 자료실의 **유효 카테고리(운영자 override 우선)** 를 사용합니다.
 
-- 교육자료 ID → Journey `sourceId`
-- 자료명 → Journey 이름
-- 카테고리 → Journey 카테고리
-- `profile.days` → D+ 단계
-- 각 D+ `title` → 단계 제목
-- `focus` / `note` → 오늘의 핵심
-- `items` → 확인 항목
-- 교육자료 `redFlags` → 빠른 확인 기준
-- 단계별 Calendar 업무 기본 ON
-- 단계별 보호자 자동발송 기본 ON
-- 기본 설문 시점 자동 추천
+## 4. 병원 전용 Journey
+병원 Journey 편집기의 카테고리는 자유입력 대신 자료실과 같은 12개 카테고리 선택형으로 변경했습니다. 기존 복제본은 원본 Journey 카테고리를 승계하며, 이전 버전에서 비표준 카테고리를 가진 병원 Journey는 배포 후 자동 정리됩니다.
 
-고양이/강아지 표기 또는 Content Studio species 값을 이용해 종도 자동 추정합니다.
+## 5. v7.3 표기 오류 수정
+병원용 `index.html`에 남아 있던 다음 v7.3 표기를 모두 v8.1.1로 수정했습니다.
 
-## 2. 수의사 검토 후 게시
+- 브라우저 title
+- 로그인/상단 CARESTEP SAAS 버전
+- 메인 화면 버전
+- 자동발송 설명
+- Patient Journey / Follow-up CRM / 운영분석 버전
+- ICS / Follow-up ZIP 내부 버전
 
-자동 생성된 Journey는 곧바로 병원에 노출되지 않습니다.
+HQ도 v8.1.1로 표시됩니다.
 
-HQ → **Patient Journey Library · Auto Sync**에서:
+## 6. 기존 데이터 자동 마이그레이션
+새 migration key: `v8.1.1_unified_library_journey_categories`
 
-- `자동초안`
-- `업데이트 대기`
+Worker가 최초 요청 시 기존 시스템 Journey와 병원 복제 Journey 카테고리를 자동 정리합니다. D1 Console에서 SQL을 직접 실행할 필요가 없습니다.
 
-를 확인한 뒤 **검토 후 게시**를 눌러야 활성화됩니다.
-
-게시 완료 후 병원은 `Journey 새로고침` 또는 다음 로그인 때 새 Journey를 자동으로 받습니다.
-
-## 3. 교육자료 수정 시 기존 Journey 보호
-
-이미 운영 중인 교육자료/Patient Journey를 수정해서 다시 중앙 Published하더라도 기존 Journey를 즉시 덮어쓰지 않습니다.
-
-대신 HQ에:
-
-`업데이트 대기`
-
-상태로 새 제안본이 올라옵니다.
-
-HQ 검토 후 게시할 때만 기존 Journey가 새 교육자료 기준으로 업데이트됩니다.
-
-즉 환자 후속관리 중 콘텐츠가 예고 없이 바뀌는 것을 방지합니다.
-
-## 4. Journey 고급 설정(선택)
-
-Content Studio JSON에 `journey` 객체를 넣으면 자동생성 규칙을 세밀하게 조정할 수 있습니다. v8.1부터 Content Studio 저장/버전이력에서도 이 객체를 보존합니다.
-
-예시:
-
-```json
-{
-  "journey": {
-    "enabled": true,
-    "name": "고양이 FIC 장기관리 Journey",
-    "species": "cat",
-    "recommendedStages": [1, 3, 7, 30],
-    "surveyDays": [3, 30],
-    "calendarDays": [1, 3, 7, 30],
-    "messageDays": [1, 3, 7]
-  }
-}
-```
-
-이 객체를 입력하지 않아도 `profile.days`를 기준으로 자동 생성됩니다.
-
-## 5. 병원 전용 Journey 삭제
-
-기본 CARESTEP Journey를 `병원용으로 복제`한 사본 또는 병원이 직접 만든 Journey는 이제:
-
-- 편집
-- 보관
-- **삭제**
-
-할 수 있습니다.
-
-삭제 버튼은 Owner/Admin에게만 표시됩니다.
-
-### 삭제 안전정책
-
-삭제하면 병원 Journey Library에서는 즉시 사라지지만, 과거 설문/CRM/사용통계의 Journey 이름을 유지하기 위해 D1에서는 `status=deleted` 형태의 최소 템플릿 메타데이터를 남깁니다.
-
-또한 Journey를 삭제해도 이미 SOLAPI에 접수된 예약문자나 Google/Outlook에 생성된 일정은 자동 취소하지 않습니다. 필요하면 기존 예약을 먼저 취소한 뒤 Journey를 삭제하세요.
-
-CARESTEP 기본/자동 게시 System Journey는 병원에서 삭제할 수 없습니다.
-
-## 6. 신규 D1 구조
-
-Worker가 자동으로 생성합니다.
-
-- `patient_journey_sync_queue`
-  - 중앙 교육자료 ID
-  - 연결 Journey ID
-  - 교육자료 버전
-  - 자동생성/업데이트 제안 상태
-  - HQ 검토 상태
-
-상태:
-
-- `draft` : 새 Journey 자동초안
-- `update_available` : 기존 Journey 업데이트 대기
-- `published` : HQ 검토·게시 완료
-
-**Cloudflare D1 Console에서 SQL을 직접 실행하지 않습니다.**
-
-## 7. 개인정보
-
-자동동기화에는 질환 교육자료와 Journey 운영 템플릿만 사용합니다.
-
-다음 항목은 Auto Sync 테이블에 저장하지 않습니다.
-
-- 환자명
-- 보호자명
-- 보호자 전화번호
-- 퇴원일
-- 환자별 투약 내용
-
-## 8. 새 Worker Secret
-
-없습니다.
-
-기존 설정을 그대로 유지합니다.
-
-- `SOLAPI_API_KEY`
-- `SOLAPI_API_SECRET`
-- `CARESTEP_HQ_KEY`
-- 기존 CARESTEP 인증/AI Secret
-- D1 binding `DB`
-
-## 9. 배포 순서
-
-1. Cloudflare Worker를 `worker-paste-ready.txt` 전체 내용으로 교체 → Deploy
+## 배포 순서
+1. Cloudflare Worker → `worker-paste-ready.txt` 전체 교체 → Deploy
 2. 병원용 `index.html` 교체
 3. HQ용 `hq.html` 교체
 4. 브라우저 `Ctrl + Shift + R`
-5. HQ → Patient Journey → `교육자료 동기화`
-6. 자동초안/업데이트 대기 건 확인
-7. 검토 후 게시
-8. 병원 화면 → `Journey 새로고침`
+5. CARESTEP 상단/브라우저 탭이 `v8.1.1`인지 확인
+6. 자료실과 후속관리에서 같은 질환의 카테고리명이 동일한지 확인
+7. 운영자 카테고리 1건 변경 → Journey 새로고침 → 동시 반영 확인
 
-## 10. 권장 첫 테스트
-
-### Auto Sync
-
-1. Content Studio에서 테스트용 새 질환 교육자료 작성
-2. 수의사 검수 완료
-3. Published + 중앙 반영
-4. HQ → Patient Journey에서 `자동초안` 확인
-5. D+ 단계 제목/내용 확인
-6. `검토 후 게시`
-7. 병원 화면 → Journey 새로고침
-8. 새 질환 Journey 표시 확인
-
-### 병원용 Journey 삭제
-
-1. CARESTEP 기본 Journey 하나 선택
-2. `병원용으로 복제`
-3. 저장
-4. `삭제`
-5. 목록에서 사라지는지 확인
-6. 기본 CARESTEP Journey는 그대로 남아 있는지 확인
-
-## 검증
-
-`TEST_REPORT.txt` 기준 33/33 PASS:
-
-- Worker / 병원 화면 / HQ JavaScript 문법
-- HTML ID 중복
-- Auto Sync queue / migration / routes
-- 신규 자동초안 병원 비노출
-- HQ 게시 후 병원 노출 상태
-- 기존 Journey 업데이트 보호
-- 병원 사본 삭제 및 이력 메타데이터 보존
+새 Worker Secret은 없으며 D1 SQL 직접 실행도 필요 없습니다.
