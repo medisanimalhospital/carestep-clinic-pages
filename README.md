@@ -1,40 +1,69 @@
-# CARESTEP Clinic v6.6.3 · Dedicated Follow-up Calendar
+# CARESTEP Clinic v6.6.4 · Follow-up Outcome & Escalation
 
 ## 배포
-이번 패치는 **병원용 `index.html`만 교체**합니다.
+이번 버전은 병원용 `index.html`만 변경합니다.
 
-1. GitHub Pages 저장소 루트 `index.html`을 v6.6.3 파일로 교체
+1. GitHub Pages 저장소 루트의 `index.html`을 이 버전으로 교체
 2. Commit
-3. 배포 후 브라우저에서 Ctrl+F5
+3. CARESTEP 페이지에서 Ctrl+F5
 
-`hq.html`과 Cloudflare Worker는 v6.6.1/v6.6.2에서 사용 중인 것을 그대로 유지합니다. 새 D1 테이블이나 Secret은 없습니다.
+`hq.html`, Cloudflare Worker, D1 schema, Secrets/Variables는 v6.6.3 그대로 사용합니다.
 
-## Google OAuth에 추가할 Scope
-기존 `calendar.events` 외에 아래 두 Scope가 추가됩니다.
+## 주요 변경
 
-- `https://www.googleapis.com/auth/calendar.calendarlist.readonly`
-  - 사용 가능한 Google Calendar 목록을 불러오기 위해 사용
-- `https://www.googleapis.com/auth/calendar.app.created`
-  - CARESTEP이 전용 보조 캘린더를 만들고 그 캘린더의 이벤트를 관리하기 위해 사용
+### 1) 연락 결과 기록
+Google Calendar 후속관리 일정에서 다음 결과를 기록할 수 있습니다.
+- 상태 양호
+- 변화 없음
+- 증상 지속
+- 상태 악화
+- 재진 예약
+- 연락 안 됨
+- 문자만 발송
 
-Google Cloud Console → Google Auth Platform → Data Access → Add or remove scopes에서 추가하세요.
-기존 테스트 계정은 v6.6.3 배포 후 CARESTEP에서 **Google 연결**을 다시 눌러 새 권한에 동의해야 합니다.
+`상태 악화`를 선택하면 `수의사 확인 필요`가 기본 활성화됩니다.
 
-## 새 기능
-- Google Calendar 연결 후 사용 가능한 쓰기 가능 캘린더 목록 표시
-- 기본 캘린더 또는 병원 전용 캘린더 선택
-- **전용 캘린더 만들기** 버튼
-  - 같은 계정에 `CARESTEP 후속관리` 캘린더가 이미 있으면 새로 만들지 않고 기존 캘린더 선택
-  - 없으면 `CARESTEP 후속관리` 보조 캘린더 생성 후 자동 선택
-- D+1·D+3·D+7·D+14 일정은 선택한 캘린더에만 등록
-- 업무보드의 오늘/미완료/완료/예정도 선택한 캘린더에서만 조회
-- 완료 처리/미완료 되돌리기도 선택한 캘린더의 이벤트에 적용
-- 캘린더 선택값은 병원별로 **현재 브라우저 localStorage에만** 저장
-- OAuth access token과 환자별 업무 큐는 CARESTEP D1에 저장하지 않음
+### 2) 수의사 Escalation
+업무보드에 `🚨 확인 필요` 탭과 KPI가 추가됩니다.
+- 확인 필요 상태는 완료된 연락 업무와 독립적으로 유지됩니다.
+- 담당 수의사가 확인한 뒤 `수의사 확인 완료`로 닫을 수 있습니다.
+- 확인자/확인시각이 Google Calendar event private properties에 기록됩니다.
 
-## 기존 일정
-초기 선택은 `기본 캘린더`이므로 v6.6.1/v6.6.2에서 이미 만든 일정은 그대로 보입니다.
-`CARESTEP 후속관리` 전용 캘린더로 전환한 이후 새로 등록하는 일정부터 전용 캘린더에 들어갑니다. 기존 기본 캘린더 일정은 자동 이동하지 않습니다.
+### 3) 담당자 / 담당 수의사 배정
+CARESTEP 병원 계정의 활성 직원 목록을 불러와 일정에 담당자를 배정할 수 있습니다.
+- 내 업무
+- 미배정
+필터가 추가됩니다.
 
-## 권장 운영
-병원 공용 Google 계정으로 연결하고, `CARESTEP 후속관리` 전용 캘린더를 한 번 생성한 뒤 해당 캘린더를 병원 직원들과 Google Calendar에서 공유하는 방식이 가장 단순합니다.
+### 4) 연락 안 됨 → 재연락 일정
+결과 입력 시 아래 재연락 예약을 선택할 수 있습니다.
+- 1시간 후
+- 3시간 후
+- 내일 오전 10시
+
+선택하면 원래 연락 시도는 완료 처리되고 동일한 CARESTEP 후속관리 Google Calendar에 새 미완료 재연락 일정이 생성됩니다.
+
+### 5) 처리 메모
+최대 500자 처리 메모를 입력할 수 있습니다.
+이 메모는 CARESTEP D1이나 localStorage에 저장하지 않고 선택한 Google Calendar 일정의 `extendedProperties.private`에만 저장합니다.
+
+## 업무보드 필터
+- 오늘
+- 🚨 확인 필요
+- 내 업무
+- 미배정
+- 미완료
+- 완료
+- 예정
+
+## 개인정보 원칙
+CARESTEP D1에는 환자별 후속관리 결과, 담당자 배정, 처리 메모, 수의사 확인 상태를 새로 저장하지 않습니다.
+이 정보는 병원이 선택한 Google Calendar 일정에 직접 저장됩니다.
+
+Google Calendar에 환자명을 포함하는 옵션은 기존과 같이 기본 OFF입니다.
+
+## 호환성
+v6.6.1~v6.6.3에서 이미 만든 CARESTEP Google Calendar 일정도 그대로 읽습니다.
+기존 일정은 결과 미입력 상태로 표시되고, v6.6.4에서 결과/담당자 정보를 추가할 수 있습니다.
+
+같은 D+ 일정을 다시 동기화할 때 기존 완료/결과/담당자/수의사 확인 메타데이터를 보존하도록 Google event upsert 로직을 보강했습니다.
