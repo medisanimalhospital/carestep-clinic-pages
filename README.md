@@ -1,70 +1,125 @@
-# CARESTEP Clinic v6.9 · Sender Number Onboarding
+# CARESTEP Clinic v7.0 · SaaS Usage, Billing & Operations
+
+v7.0은 v6.9의 중앙 SOLAPI + 병원별 발신번호 온보딩 구조 위에 **병원별 자동발송 사용량, 요금제 포함량, 초과 사용 정책, 예상 메시지 원가, 구독 매출, HQ 정산 대시보드**를 추가합니다.
 
 ## 핵심 변경
 
-v6.9은 v6.8의 SOLAPI 자동발송/실패관리 위에 **동물병원 발신번호 온보딩 워크플로**를 추가합니다.
+### 1. 병원별 월 자동발송 사용량
+- 한국시간(KST) 기준 월 단위 집계
+- 예약/처리중/완료/실패 중 유효 메시지 집계
+- 취소(`canceled`)·교체(`replaced`) 예약은 사용량 제외
+- 테스트 문자는 사용량 제외
+- SMS / LMS / 알림톡 분리 집계
+- 재발송 건수 / 완료 / 실패 / 예약·처리중 상태 표시
 
-- 각 동물병원은 SOLAPI에 별도 가입하지 않음
-- CARESTEP 중앙 SOLAPI 계정의 API Key/Secret을 Worker Secret으로 공용 사용
-- 병원 Owner/Admin이 CARESTEP에서 대표 발신번호 인증 신청
-- 신청 즉시 해당 병원의 자동발송은 승인 전까지 안전하게 OFF
-- HQ에서 `SOLAPI 등록 확인 · 승인` 처리
-- 승인 즉시 해당 발신번호가 병원 발송 설정에 고정되고 자동발송 ON
-- 보완 요청/승인 해제 시 자동발송 OFF
-- 승인 번호와 실제 발송 설정 번호가 불일치하면 발송 차단
-- v6.8에서 이미 정상 사용 중이던 `enabled=1` 병원은 최초 마이그레이션 시 자동으로 `approved` 승계
+### 2. 요금제별 자동발송 포함량
+기본 정책:
+- PILOT: 월 500건
+- BASIC: 자동발송 기능 미지원
+- PRO: 월 500건
+- ENTERPRISE: 월 2,000건
 
-## 병원 온보딩 흐름
+HQ의 `요금제 · 구독` 화면에서 플랜별 포함량과 초과 1건 요금을 변경할 수 있습니다.
 
-1. 병원 가입 및 자동발송 가능한 요금제(PILOT/PRO/ENTERPRISE) 사용
-2. 후속관리 → 병원 발송 연동 → 대표전화 입력
-3. `발신번호 인증 신청`
-4. 상태가 `승인 대기`로 변경되고 자동발송은 임시 OFF
-5. CARESTEP 운영자가 SOLAPI 관리자에서 해당 발신번호 등록/인증
-6. HQ → 외부 연동 설정 → 동물병원 발신번호 온보딩
-7. 해당 병원에서 `SOLAPI 등록 확인 · 승인`
-8. 병원 자동발송이 즉시 ON
-9. 병원은 테스트 문자 후 D+ 자동예약 사용
+### 3. 병원별 예외 정책
+HQ → 병원 관리 → 병원 상세 → 구독 설정에서:
+- 월 메시지 개별 한도 (`-1` = 플랜 기준, `0` = 무제한)
+- 한도 초과 사용/과금 허용 ON/OFF
+- 병원별 초과 1건 요금 (`0` = 플랜값)
 
-## 중요 운영 원칙
+을 설정할 수 있습니다.
 
-HQ의 승인 버튼은 단순 내부 승인이 아니라 **해당 번호가 SOLAPI 측에서 실제 발신번호 등록/인증 완료됐음을 확인했다는 의미**입니다. 번호 사용 권한을 확인하기 전에 승인하지 마세요.
+초과 사용 허용이 OFF인 병원은 월 한도 도달 시 신규 자동발송 예약 및 실패건 재발송이 차단됩니다.
 
-## 기존 병원 보호
+### 4. 사용량 경고
+병원 화면에 자동발송 사용량 Meter가 표시됩니다.
+- 80% 이상: 주의 표시
+- 100% 이상: 한도/초과 사용 상태 표시
+- 초과 사용 허용 OFF + 100% 도달: 신규 예약/재발송 차단
 
-v6.9 배포 직후 기존 v6.8 사용 병원이 갑자기 차단되지 않도록 최초 D1 마이그레이션에서:
+### 5. HQ 사용량 · 정산 대시보드
+신규 HQ 메뉴 `사용량 · 정산`에서:
+- 월 전체 자동발송 건수
+- 병원별 사용량 / 포함량 / 사용률
+- SMS / LMS / 알림톡 구분
+- 완료 / 실패 / 예약·처리중 / 재발송
+- 월 환산 구독 매출
+- 예상 초과사용 매출
+- 예상 SOLAPI 메시지 원가
+- 예상 기여액(구독 + 초과 - 메시지원가)
 
-- `clinic_messaging_settings.enabled = 1`
-- `sender_number`가 존재하는 병원
+을 확인합니다.
 
-은 `clinic_sender_onboarding.status = approved`로 자동 승계합니다.
+### 6. SOLAPI 원가 단가
+CARESTEP은 외부 사업자의 실제 단가를 임의로 가정하지 않습니다.
 
-## 신규 D1 테이블
+HQ → `사용량 · 정산`에서 운영자가 실제 계약/충전 단가를 입력합니다.
+- SMS 1건 원가
+- LMS 1건 원가
+- 알림톡 1건 원가
 
-`clinic_sender_onboarding`
+초기값은 모두 **0원**입니다. 실제 단가를 입력해야 예상 메시지 원가가 계산됩니다.
 
-저장 항목은 병원 발신번호, 신청/검토 상태와 시각, 운영 메모입니다. 보호자 전화번호나 메시지 본문은 저장하지 않습니다.
+### 7. 개인정보 구조 유지
+v7.0 정산 집계에도 다음 정보는 CARESTEP D1에 저장하지 않습니다.
+- 보호자 전화번호
+- 메시지 본문
 
-## 신규 API
+정산은 기존의 비식별 메시지 운영 메타데이터만 사용합니다.
 
-병원:
-- `POST /saas/messaging/sender-onboarding`
+## v6.9 → v7.0 자동 마이그레이션
+Worker가 최초 요청 시 D1 스키마를 자동 보완합니다.
 
-HQ:
-- `GET /hq/messaging/sender-onboarding`
-- `PATCH /hq/messaging/sender-onboarding/:clinicId`
+`clinic_subscriptions`에 다음 필드가 자동 추가됩니다.
+- `messages_monthly_override`
+- `messaging_overage_enabled`
+- `messaging_overage_price_krw`
+
+또한 기존 `plan_catalog.limits_json`에 `messagesMonthly`, `messagingOverageKrw`가 없는 경우에만 기본값을 추가합니다.
+
+**Cloudflare D1 Console에서 SQL을 직접 실행할 필요가 없습니다.**
+
+## 추가 Worker Secret
+없습니다.
+
+기존 Secret을 그대로 사용합니다.
+- `SOLAPI_API_KEY`
+- `SOLAPI_API_SECRET`
+- `CARESTEP_HQ_KEY`
+- 기존 CARESTEP 인증/AI 관련 Secret
+
+## 배포 파일
+- `worker.js`
+- `worker-paste-ready.txt`
+- `index.html`
+- `hq.html`
+- `README.md`
+- `DEPLOY_CHECKLIST.txt`
 
 ## 배포 순서
+1. Cloudflare Worker 코드를 `worker-paste-ready.txt` 전체 내용으로 교체 후 Deploy
+2. 병원용 `index.html` 교체
+3. HQ용 `hq.html` 교체
+4. HQ 접속 → `사용량 · 정산` 확인
+5. 실제 SOLAPI 단가 입력 및 저장
+6. HQ → `요금제 · 구독`에서 PRO/ENTERPRISE 월 메시지 포함량 및 초과요금 확인
+7. 테스트 병원 상세에서 초과 허용 정책 확인
+8. 병원 화면 → 계정 / 후속관리 화면에서 메시지 사용량 Meter 확인
 
-1. Cloudflare Worker를 `worker-paste-ready.txt` 전체 내용으로 교체 후 Deploy
-2. 별도 D1 SQL 실행 불필요 — Worker가 `CREATE TABLE IF NOT EXISTS` 및 승계 마이그레이션 수행
-3. 새 Worker Secret 없음
-4. 기존 `SOLAPI_API_KEY`, `SOLAPI_API_SECRET`, `CARESTEP_HQ_KEY` 유지
-5. 병원용 `index.html` 교체
-6. HQ용 `hq.html` 교체
-7. 기존 병원에서 자동발송 상태가 계속 `승인 완료 / 준비됨`인지 확인
-8. 신규 테스트 병원에서 발신번호 신청 → HQ 승인 → 자동발송 ON 흐름 확인
+## 권장 초기 운영 정책
+- PRO: 월 500건 포함
+- ENTERPRISE: 월 2,000건 포함
+- 초과 사용은 기본 허용하여 환자 후속관리 발송이 갑자기 중단되지 않도록 운영
+- 초과 1건 요금은 실제 SOLAPI 비용 + 운영 마진을 반영해 HQ에서 결정
+- 특정 병원에 하드캡이 필요한 경우 병원별 `한도 초과 사용/과금 허용`을 OFF
 
-## 개인정보 구조
+## 정산 수치의 성격
+`예상 메시지 원가`는 HQ에 입력한 단가 × CARESTEP 운영 메타데이터 집계값입니다. SOLAPI 세금계산서/충전내역과의 최종 회계 대사는 별도로 확인해야 합니다.
 
-보호자 휴대전화와 발송문구는 기존과 동일하게 CARESTEP D1에 저장하지 않습니다. 예약 시 Worker를 거쳐 SOLAPI로 전달하고 CARESTEP에는 비식별 운영 메타데이터만 남깁니다.
+`월 환산 구독매출`은 내부 구독원장의 적용 가격을 기준으로 계산하며, 연간 구독은 적용 연간 가격 ÷ 12로 표시합니다. 실제 PG 결제 성공 여부를 의미하지는 않습니다.
+
+## v7.1 권장 다음 단계
+- 병원별/질환별 메시지 템플릿 관리
+- D+ Workflow 템플릿 세트
+- 알림톡 승인 템플릿 버전 관리
+- 병원 자체 메시지 수정 권한 / 중앙 템플릿 잠금 정책
