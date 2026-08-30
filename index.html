@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>CARESTEP Clinic v9.0 · Message Overage Auto Settlement</title>
+  <title>CARESTEP Clinic v9.0.1 · Account & Team UX</title>
   <meta name="description" content="동물병원 보호자 교육자료 라이브러리 및 병원 맞춤 PDF 생성 MVP" />
   <style>
 :root {
@@ -839,186 +839,203 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
 
       <section id="account" class="view">
-        <div class="saas-account-hero">
+        <div class="saas-account-hero account-ux-hero">
           <div>
-            <p class="eyebrow">MULTI-CLINIC FOUNDATION</p>
+            <p class="eyebrow">병원 계정 관리</p>
             <h3 id="saasClinicTitle">병원 계정</h3>
-            <p id="saasAccountSubtitle">로그인한 병원과 직원 권한을 확인합니다.</p>
+            <p id="saasAccountSubtitle">내 계정, 직원, 결제, 보안과 데이터 설정을 한 곳에서 관리합니다.</p>
           </div>
           <span id="saasAccountRole" class="voice-safe">LOCAL DEMO</span>
         </div>
 
-        <div class="saas-account-grid">
-          <div class="panel">
-            <div class="section-head" style="margin:0">
-              <div><p class="eyebrow">Clinic Cloud</p><h3 style="font-size:15px">병원 설정 클라우드 동기화</h3></div>
-              <span id="saasCloudBadge" class="ai-conn-badge off">연결 필요</span>
-            </div>
-            <p class="muted">병원 프로필·QR·질환별 퇴원 프리셋·출력 프리셋을 D1에 저장합니다. 환자 케이스 입력과 복약정보는 포함하지 않습니다.</p>
-            <div class="saas-kpi-grid">
-              <div class="saas-kpi"><span>플랜</span><strong id="saasPlanKpi">--</strong></div>
-              <div class="saas-kpi"><span>내 역할</span><strong id="saasRoleKpi">--</strong></div>
-              <div class="saas-kpi"><span>최근 30일 패키지</span><strong id="saasPackageKpi">--</strong></div><div class="saas-kpi"><span>이번 달 자동발송</span><strong id="saasMessageKpi">--</strong></div>
-            </div>
-            <div id="saasSubscriptionDetail" class="subscription-detail-box">구독 정보는 로그인 후 표시됩니다.</div><div id="saasBillingMeter" class="billing-meter"><div class="billing-meter-head"><b>문자 자동발송 사용량</b><span id="saasBillingMeterValue">--</span></div><div class="billing-meter-track"><div id="saasBillingMeterFill" class="billing-meter-fill"></div></div><small id="saasBillingMeterNote">로그인 후 이번 달 사용량을 확인합니다.</small></div>
-            <div class="saas-cloud-actions">
-              <button id="saasUploadState" class="btn btn-primary" type="button">현재 설정 → 클라우드</button>
-              <button id="saasDownloadState" class="btn btn-secondary" type="button">클라우드 → 이 PC</button>
-              <button id="saasRefreshAccount" class="btn btn-ghost" type="button">새로고침</button>
-            </div>
-            <div id="saasCloudNote" class="saas-cloud-note">로그인 후 사용할 수 있습니다.</div>
-          </div>
-
-          <div class="panel">
-            <div class="section-head" style="margin:0">
-              <div><p class="eyebrow">Current Account</p><h3 style="font-size:15px">현재 사용자</h3></div>
-            </div>
-            <div class="info-box"><strong id="saasUserName">로컬 데모</strong><span id="saasUserEmail">계정 미연결</span></div>
-            <div style="display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:9px;align-items:end">
-              <div><label class="field-label" for="saasClinicSwitch">병원 전환</label><select id="saasClinicSwitch" class="input"><option value="">로그인 후 확인</option></select></div>
-              <button id="saasSwitchClinicBtn" class="btn btn-secondary" type="button">전환</button>
-            </div>
-            <table class="saas-permission-table">
-              <thead><tr><th>역할</th><th>주요 권한</th></tr></thead>
-              <tbody>
-                <tr><td>Owner</td><td>병원설정 · 직원관리 · 콘텐츠 · 퇴원자료</td></tr>
-                <tr><td>Admin</td><td>병원설정 · 직원관리 · 콘텐츠 · 퇴원자료</td></tr>
-                <tr><td>Vet</td><td>콘텐츠 검수 · 퇴원자료 · 클라우드 프리셋</td></tr>
-                <tr><td>Staff</td><td>자료실 · 퇴원자료 · 고객요청</td></tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="account-ux-summary" aria-label="계정 요약">
+          <div><span>현재 플랜</span><b id="accountUxPlan">--</b><small>구독 상태</small></div>
+          <div><span>직원</span><b id="accountUxMembers">--</b><small>활성 계정 포함</small></div>
+          <div><span>다음 결제</span><b id="accountUxNextPayment">--</b><small>또는 체험 종료일</small></div>
+          <div><span>보안</span><b id="accountUxSecurity">--</b><small>로그인 세션</small></div>
         </div>
 
-
-        <div class="panel billing-subscription-panel" id="subscriptionBillingPanel">
-          <div class="billing-head">
-            <div><p class="eyebrow">SUBSCRIPTION BILLING · v9.0</p><h3 style="font-size:15px;margin:2px 0 0">결제 · 구독 관리</h3><p class="muted" style="margin-top:5px">무료체험 전환, BASIC/PRO/ENTERPRISE 변경, 카드 정기결제, 문자 초과사용 자동정산, 실패 재시도와 영수증을 한 곳에서 관리합니다. HQ에서 활성화한 유료 플랜만 신규 선택할 수 있습니다.</p></div>
-            <span id="billingProviderBadge" class="billing-provider">설정 확인 중</span>
-          </div>
-          <div id="billingManageLock" class="billing-blocked hidden">Owner/Admin 계정에서 결제수단과 구독을 변경할 수 있습니다.</div>
-          <div class="billing-grid">
-            <div class="billing-box">
-              <h4>구독 플랜</h4><p id="billingSubscriptionSummary">구독 상태를 불러오는 중입니다.</p>
-              <div class="billing-status-grid">
-                <div class="billing-mini"><span>현재 플랜</span><b id="billingCurrentPlan">--</b></div>
-                <div class="billing-mini"><span>다음 결제</span><b id="billingNextDate">--</b></div>
-                <div class="billing-mini"><span>결제 상태</span><b id="billingPaymentState">--</b></div>
-              </div>
-              <div class="billing-plan-row">
-                <div><label class="field-label" for="billingPlanSelect">변경할 플랜</label><select id="billingPlanSelect" class="input"><option value="BASIC">BASIC</option><option value="PRO">PRO</option><option value="ENTERPRISE">ENTERPRISE</option></select></div>
-                <div><label class="field-label" for="billingCycleSelect">결제주기</label><select id="billingCycleSelect" class="input"><option value="monthly">월 결제</option><option value="annual">연 결제</option></select></div>
-                <button id="billingSchedulePlan" class="btn btn-secondary" type="button">다음 결제일부터 변경</button>
-              </div>
-              <div id="billingPlanPrice" class="billing-note"></div>
-              <div class="billing-actions"><button id="billingCancelSubscription" class="btn btn-ghost billing-danger" type="button">구독 해지 예약</button><button id="billingUndoCancel" class="btn btn-ghost hidden" type="button">해지 예약 취소</button></div>
-              <div class="billing-note">무료체험 중에는 선택한 플랜이 체험 종료일에 자동 전환됩니다. 유료 구독 중 플랜 변경은 다음 결제일부터 적용되며 중도 일할계산은 하지 않습니다.</div>
-            </div>
-            <div class="billing-box">
-              <h4>정기결제 카드</h4><p>카드번호는 CARESTEP이 직접 받지 않고 토스페이먼츠 카드 등록창에서 인증합니다.</p>
-              <div id="billingCardBox" class="billing-card"><div><b>등록된 카드 없음</b><span>자동결제를 사용하려면 카드를 등록해주세요.</span></div></div>
-              <div class="billing-actions"><button id="billingRegisterCard" class="btn btn-primary" type="button">카드 등록 / 변경</button><button id="billingRetryPayment" class="btn btn-secondary hidden" type="button">결제 다시 시도</button></div>
-              <div id="billingFailureNote" class="billing-note"></div>
-            </div>
-          </div>
-          <div class="billing-box" style="margin-top:12px">
-            <h4>문자 초과사용 자동정산</h4>
-            <p>월 포함량을 넘긴 메시지는 HQ에서 초과 사용·과금 허용과 건당 단가가 설정된 경우에만 정산됩니다. 확정된 초과사용료는 다음 정기결제에 구독료와 한 번에 합산됩니다.</p>
-            <div id="billingOverageSummary" class="billing-note">초과사용 정책을 불러오는 중입니다.</div>
-            <div id="billingOverageHistory" class="invoice-list" style="margin-top:8px"></div>
-          </div>
-          <div class="billing-box" style="margin-top:12px">
-            <div class="section-head" style="margin:0"><div><h4 style="font-size:12px">청구내역 · 영수증</h4><p style="margin:3px 0 0">구독료와 문자 초과사용료의 합산 내역, 성공·실패 기록과 카드 매출전표를 확인합니다.</p></div><button id="billingRefresh" class="btn btn-ghost" type="button">새로고침</button></div>
-            <div id="billingInvoiceList" class="invoice-list"><div class="voice-empty">결제내역을 불러오는 중입니다.</div></div>
-          </div>
+        <div class="account-ux-actions" aria-label="빠른 작업">
+          <button class="account-quick-btn" type="button" data-account-open-tab="team" data-account-focus="saasInviteRole"><b>직원 초대</b><span>직원·수의사·관리자 추가</span></button>
+          <button class="account-quick-btn" type="button" data-account-open-tab="billing" data-account-focus="billingPlanSelect"><b>결제 관리</b><span>플랜·카드·영수증 확인</span></button>
+          <button class="account-quick-btn" type="button" data-account-open-tab="my" data-account-focus="saasCurrentPassword"><b>비밀번호 변경</b><span>내 계정 보안 설정</span></button>
         </div>
 
-        <div class="panel" style="margin-top:14px">
-          <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">ACCOUNT SECURITY · v6.5.2</p><h3 style="font-size:15px">비밀번호 · 로그인 세션 · 진단 상태</h3></div>
-            <span id="saasSecurityBadge" class="ai-conn-badge off">로그인 필요</span>
-          </div>
-          <div class="saas-security-grid">
-            <div class="saas-security-box">
-              <h4>비밀번호 변경</h4><p>변경하면 현재 브라우저를 제외한 다른 로그인 세션을 자동 종료합니다.</p>
-              <div class="saas-password-grid">
+        <div class="account-tabs" id="accountTabs" role="tablist" aria-label="계정 설정 메뉴">
+          <button type="button" class="account-tab active" data-account-tab="my" role="tab" aria-selected="true">내 계정</button>
+          <button type="button" class="account-tab" data-account-tab="team" role="tab" aria-selected="false">직원 관리</button>
+          <button type="button" class="account-tab" data-account-tab="billing" role="tab" aria-selected="false">요금제 · 결제</button>
+          <button type="button" class="account-tab" data-account-tab="security" role="tab" aria-selected="false">보안 · 데이터</button>
+          <button type="button" class="account-tab" data-account-tab="legal" role="tab" aria-selected="false">약관 · 탈퇴</button>
+        </div>
+
+        <div class="account-tab-pane active" data-account-pane="my">
+          <div class="account-pane-head"><div><h3>내 계정</h3><p>현재 로그인한 사용자와 병원 소속을 확인하고 비밀번호를 관리합니다.</p></div><button id="saasRefreshAccount" class="btn btn-ghost" type="button">새로고침</button></div>
+          <div class="saas-account-grid">
+            <div class="panel account-ux-card">
+              <div class="section-head" style="margin:0"><div><h3 style="font-size:15px">현재 사용자</h3><p class="muted" style="margin:4px 0 0">내 계정 정보와 병원 소속</p></div></div>
+              <div class="info-box"><strong id="saasUserName">로컬 데모</strong><span id="saasUserEmail">계정 미연결</span></div>
+              <div style="display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:9px;align-items:end">
+                <div><label class="field-label" for="saasClinicSwitch">병원 전환</label><select id="saasClinicSwitch" class="input"><option value="">로그인 후 확인</option></select></div>
+                <button id="saasSwitchClinicBtn" class="btn btn-secondary" type="button">전환</button>
+              </div>
+              <div class="account-role-note">현재 역할은 우측 상단에 표시됩니다. 역할별 기능은 직원 관리 탭에서 확인할 수 있습니다.</div>
+            </div>
+            <div class="panel account-ux-card">
+              <div class="section-head" style="margin:0"><div><h3 style="font-size:15px">비밀번호 변경</h3><p class="muted" style="margin:4px 0 0">변경하면 현재 브라우저를 제외한 다른 로그인 세션을 종료합니다.</p></div></div>
+              <div class="saas-password-grid" style="margin-top:10px">
                 <input id="saasCurrentPassword" class="input" type="password" autocomplete="current-password" placeholder="현재 비밀번호" />
                 <input id="saasNewPassword" class="input" type="password" autocomplete="new-password" placeholder="새 비밀번호 · 10자 이상" />
                 <input id="saasNewPasswordConfirm" class="input" type="password" autocomplete="new-password" placeholder="새 비밀번호 확인" />
                 <button id="saasChangePassword" class="btn btn-primary" type="button">비밀번호 변경</button>
               </div>
-              <div id="saasPasswordStatus" class="saas-cloud-note">비밀번호는 PBKDF2-SHA256 해시로 저장되며 평문 비밀번호는 D1에 저장하지 않습니다.</div>
+              <div id="saasPasswordStatus" class="saas-cloud-note">비밀번호는 안전한 해시로 저장되며 평문 비밀번호는 저장하지 않습니다.</div>
             </div>
-            <div class="saas-security-box">
-              <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><h4>활성 로그인 세션</h4><p>최대 10개 세션을 유지하고 7일 후 자동 만료됩니다.</p></div><button id="saasRefreshSessions" class="btn btn-ghost" type="button">새로고침</button></div>
-              <div id="saasSessionList" class="saas-session-list"><div class="voice-empty">로그인 후 세션을 확인합니다.</div></div>
+          </div>
+        </div>
+
+        <div class="account-tab-pane" data-account-pane="team">
+          <div class="account-pane-head"><div><h3>직원 관리</h3><p>병원 직원 계정을 초대하고 역할·상태·로그인 세션을 관리합니다.</p></div><span id="saasMemberCount" class="status-badge">0명</span></div>
+          <div class="panel account-ux-card account-team-primary">
+            <div class="section-head" style="margin:0"><div><h3 style="font-size:15px">직원 계정 · 초대</h3><p class="muted" style="margin:4px 0 0">초대코드는 7일 동안 한 번만 사용할 수 있습니다.</p></div></div>
+            <div id="saasInviteControls">
+              <div class="saas-invite-actions">
+                <select id="saasInviteRole" class="input" style="max-width:200px"><option value="staff">직원 Staff</option><option value="vet">수의사 Vet</option><option value="admin">관리자 Admin</option></select>
+                <button id="saasCreateInvite" class="btn btn-primary" type="button">7일 초대코드 만들기</button>
+              </div>
+              <div id="saasInviteResult" class="saas-invite-result"></div>
+            </div>
+            <div id="saasMemberList" class="saas-member-list"><div class="voice-empty">로그인 후 직원 목록을 불러옵니다.</div></div>
+          </div>
+          <div class="panel account-ux-card">
+            <div class="section-head" style="margin:0"><div><h3 style="font-size:15px">역할별 기본 권한</h3><p class="muted" style="margin:4px 0 0">필요 이상으로 권한을 세분화하지 않고 역할 단위로 운영합니다.</p></div></div>
+            <table class="saas-permission-table">
+              <thead><tr><th>역할</th><th>주요 권한</th></tr></thead>
+              <tbody>
+                <tr><td>Owner</td><td>병원설정 · 직원관리 · 결제 · 콘텐츠 · 퇴원자료</td></tr>
+                <tr><td>Admin</td><td>병원설정 · 직원관리 · 결제 · 콘텐츠 · 퇴원자료</td></tr>
+                <tr><td>Vet</td><td>콘텐츠 검수 · 퇴원자료 · 클라우드 프리셋</td></tr>
+                <tr><td>Staff</td><td>자료실 · 퇴원자료 · 고객요청</td></tr>
+              </tbody>
+            </table>
+            <div class="account-role-note">직원 계정 중지 또는 세션 종료는 위 직원 목록에서 바로 처리할 수 있습니다.</div>
+          </div>
+        </div>
+
+        <div class="account-tab-pane" data-account-pane="billing">
+          <div class="account-pane-head"><div><h3>요금제 · 결제</h3><p>현재 구독, 결제수단, 문자 초과정산과 영수증을 관리합니다.</p></div></div>
+          <div class="panel billing-subscription-panel account-ux-card" id="subscriptionBillingPanel">
+            <div class="billing-head">
+              <div><h3 style="font-size:15px;margin:2px 0 0">결제 · 구독 관리</h3><p class="muted" style="margin-top:5px">무료체험 전환, BASIC/PRO/ENTERPRISE 변경, 카드 정기결제, 문자 초과사용 자동정산, 실패 재시도와 영수증을 한 곳에서 관리합니다. HQ에서 활성화한 유료 플랜만 신규 선택할 수 있습니다.</p></div>
+              <span id="billingProviderBadge" class="billing-provider">설정 확인 중</span>
+            </div>
+            <div id="billingManageLock" class="billing-blocked hidden">Owner/Admin 계정에서 결제수단과 구독을 변경할 수 있습니다.</div>
+            <div class="billing-grid">
+              <div class="billing-box">
+                <h4>구독 플랜</h4><p id="billingSubscriptionSummary">구독 상태를 불러오는 중입니다.</p>
+                <div class="billing-status-grid">
+                  <div class="billing-mini"><span>현재 플랜</span><b id="billingCurrentPlan">--</b></div>
+                  <div class="billing-mini"><span>다음 결제</span><b id="billingNextDate">--</b></div>
+                  <div class="billing-mini"><span>결제 상태</span><b id="billingPaymentState">--</b></div>
+                </div>
+                <div class="billing-plan-row">
+                  <div><label class="field-label" for="billingPlanSelect">변경할 플랜</label><select id="billingPlanSelect" class="input"><option value="BASIC">BASIC</option><option value="PRO">PRO</option><option value="ENTERPRISE">ENTERPRISE</option></select></div>
+                  <div><label class="field-label" for="billingCycleSelect">결제주기</label><select id="billingCycleSelect" class="input"><option value="monthly">월 결제</option><option value="annual">연 결제</option></select></div>
+                  <button id="billingSchedulePlan" class="btn btn-secondary" type="button">다음 결제일부터 변경</button>
+                </div>
+                <div id="billingPlanPrice" class="billing-note"></div>
+                <div class="billing-actions"><button id="billingCancelSubscription" class="btn btn-ghost billing-danger" type="button">구독 해지 예약</button><button id="billingUndoCancel" class="btn btn-ghost hidden" type="button">해지 예약 취소</button></div>
+                <div class="billing-note">무료체험 중에는 선택한 플랜이 체험 종료일에 자동 전환됩니다. 유료 구독 중 플랜 변경은 다음 결제일부터 적용되며 중도 일할계산은 하지 않습니다.</div>
+              </div>
+              <div class="billing-box">
+                <h4>정기결제 카드</h4><p>카드번호는 CARESTEP이 직접 받지 않고 토스페이먼츠 카드 등록창에서 인증합니다.</p>
+                <div id="billingCardBox" class="billing-card"><div><b>등록된 카드 없음</b><span>자동결제를 사용하려면 카드를 등록해주세요.</span></div></div>
+                <div class="billing-actions"><button id="billingRegisterCard" class="btn btn-primary" type="button">카드 등록 / 변경</button><button id="billingRetryPayment" class="btn btn-secondary hidden" type="button">결제 다시 시도</button></div>
+                <div id="billingFailureNote" class="billing-note"></div>
+              </div>
+            </div>
+            <div class="billing-box" style="margin-top:12px">
+              <h4>문자 초과사용 자동정산</h4>
+              <p>월 포함량을 넘긴 메시지는 HQ에서 초과 사용·과금 허용과 건당 단가가 설정된 경우에만 정산됩니다. 확정된 초과사용료는 다음 정기결제에 구독료와 한 번에 합산됩니다.</p>
+              <div id="billingOverageSummary" class="billing-note">초과사용 정책을 불러오는 중입니다.</div>
+              <div id="billingOverageHistory" class="invoice-list" style="margin-top:8px"></div>
+            </div>
+            <div class="billing-box" style="margin-top:12px">
+              <div class="section-head" style="margin:0"><div><h4 style="font-size:12px">청구내역 · 영수증</h4><p style="margin:3px 0 0">구독료와 문자 초과사용료의 합산 내역, 성공·실패 기록과 카드 매출전표를 확인합니다.</p></div><button id="billingRefresh" class="btn btn-ghost" type="button">새로고침</button></div>
+              <div id="billingInvoiceList" class="invoice-list"><div class="voice-empty">결제내역을 불러오는 중입니다.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-tab-pane" data-account-pane="security">
+          <div class="account-pane-head"><div><h3>보안 · 데이터</h3><p>로그인 세션, 병원 설정 동기화와 구성백업을 관리합니다.</p></div><span id="saasSecurityBadge" class="ai-conn-badge off">로그인 필요</span></div>
+          <div class="saas-account-grid">
+            <div class="panel account-ux-card">
+              <div class="section-head" style="margin:0">
+                <div><h3 style="font-size:15px">병원 설정 클라우드 동기화</h3><p class="muted" style="margin:4px 0 0">병원 프로필·QR·퇴원 프리셋·출력 프리셋만 동기화합니다.</p></div>
+                <span id="saasCloudBadge" class="ai-conn-badge off">연결 필요</span>
+              </div>
+              <div class="saas-kpi-grid">
+                <div class="saas-kpi"><span>플랜</span><strong id="saasPlanKpi">--</strong></div>
+                <div class="saas-kpi"><span>내 역할</span><strong id="saasRoleKpi">--</strong></div>
+                <div class="saas-kpi"><span>최근 30일 패키지</span><strong id="saasPackageKpi">--</strong></div>
+                <div class="saas-kpi"><span>이번 달 자동발송</span><strong id="saasMessageKpi">--</strong></div>
+              </div>
+              <div id="saasSubscriptionDetail" class="subscription-detail-box">구독 정보는 로그인 후 표시됩니다.</div>
+              <div id="saasBillingMeter" class="billing-meter"><div class="billing-meter-head"><b>문자 자동발송 사용량</b><span id="saasBillingMeterValue">--</span></div><div class="billing-meter-track"><div id="saasBillingMeterFill" class="billing-meter-fill"></div></div><small id="saasBillingMeterNote">로그인 후 이번 달 사용량을 확인합니다.</small></div>
+              <div class="saas-cloud-actions">
+                <button id="saasUploadState" class="btn btn-primary" type="button">현재 설정 백업</button>
+                <button id="saasDownloadState" class="btn btn-secondary" type="button">클라우드 설정 불러오기</button>
+              </div>
+              <div id="saasCloudNote" class="saas-cloud-note">로그인 후 사용할 수 있습니다.</div>
+            </div>
+            <div class="panel account-ux-card">
+              <div class="section-head" style="margin:0"><div><h3 style="font-size:15px">활성 로그인 세션</h3><p class="muted" style="margin:4px 0 0">최대 10개 세션을 유지하고 7일 후 자동 만료됩니다.</p></div><button id="saasRefreshSessions" class="btn btn-ghost" type="button">새로고침</button></div>
+              <div id="saasSessionList" class="saas-session-list" style="margin-top:10px"><div class="voice-empty">로그인 후 세션을 확인합니다.</div></div>
               <div class="saas-diag"><b style="font-size:9px">최근 시스템 진단</b><div id="saasDiagnostics"><div class="saas-diag-row">Owner/Admin 계정에서 최근 동기화·서버 오류를 확인합니다.</div></div></div>
             </div>
           </div>
+          <div class="panel account-ux-card" style="margin-top:14px">
+            <div class="section-head" style="margin:0"><div><h3 style="font-size:15px">병원 설정 구성백업 · 복구</h3><p class="muted" style="margin:4px 0 0">병원 프로필/프리셋, 콘텐츠 설정, 발송 설정, 커스텀 Journey를 최대 최근 10개 보관합니다.</p></div><button id="createConfigBackupBtn" class="btn btn-secondary" type="button">지금 백업</button></div>
+            <div id="configBackupList" class="governance-list"><div class="voice-empty">Owner/Admin 로그인 후 백업을 확인합니다.</div></div>
+            <div class="account-role-note">구성백업에는 결제키·환자명·보호자 연락처·복약정보를 넣지 않습니다.</div>
+          </div>
+          <div id="operatorUnlockPanel" class="panel operator-unlock-panel hidden" style="margin-top:14px">
+            <div class="section-head" style="margin:0"><div><h3 style="font-size:15px">CARESTEP 운영자 모드</h3></div><span id="operatorStatusBadge" class="ai-conn-badge off">잠김</span></div>
+            <p class="muted" style="font-size:11px">일반 병원 계정에서는 숨겨진 CARESTEP 운영자 전용 기능입니다. 현재 브라우저 세션에서만 잠금해제됩니다.</p>
+            <div class="operator-unlock-row"><input id="operatorHqKey" class="input" type="password" autocomplete="off" placeholder="CARESTEP_HQ_KEY" /><button id="operatorUnlockBtn" class="btn btn-primary" type="button">운영자 잠금해제</button><button id="operatorLockBtn" class="btn btn-ghost hidden" type="button">운영자 잠금</button></div>
+            <div id="operatorStatusText" class="saas-cloud-note">운영자 전용 URL에서 HQ Key를 입력하면 메뉴가 표시됩니다.</div>
+          </div>
         </div>
 
-        <div class="panel production-governance-panel" id="productionGovernancePanel" style="margin-top:14px">
-          <div class="section-head" style="margin:0 0 12px">
-            <div><p class="eyebrow">PRODUCTION GOVERNANCE · v9.0</p><h3 style="font-size:15px">약관 · 개인정보 · 백업 · 삭제 · 탈퇴</h3><p class="muted" style="margin-top:5px">상용 운영에 필요한 동의 이력과 병원 설정 구성백업, 데이터 삭제 요청, 계정 탈퇴를 관리합니다. 구성백업에는 결제키·환자명·보호자 연락처·복약정보를 넣지 않습니다.</p></div>
-            <span id="legalStatusBadge" class="ai-conn-badge off">확인 중</span>
-          </div>
-          <div class="production-governance-grid">
-            <div class="governance-box">
-              <h4>이용약관 · 개인정보 처리방침</h4>
-              <p id="legalStatusText">최신 동의 상태를 불러오는 중입니다.</p>
-              <div class="governance-actions"><button class="btn btn-ghost" type="button" data-legal-doc="terms">이용약관 보기</button><button class="btn btn-ghost" type="button" data-legal-doc="privacy">개인정보 처리방침 보기</button></div>
-              <div id="legalAcceptanceControls" class="legal-account-controls">
-                <label><input id="accountTermsAgree" type="checkbox"> 이용약관 동의</label>
-                <label><input id="accountPrivacyAgree" type="checkbox"> 개인정보 처리방침 동의</label>
-                <button id="acceptLegalBtn" class="btn btn-primary" type="button">최신 약관 동의</button>
+        <div class="account-tab-pane" data-account-pane="legal">
+          <div class="account-pane-head"><div><h3>약관 · 탈퇴</h3><p>서비스 약관, 개인정보 처리방침과 삭제·탈퇴 같은 중요 작업을 관리합니다.</p></div><span id="legalStatusBadge" class="ai-conn-badge off">확인 중</span></div>
+          <div class="panel production-governance-panel account-ux-card" id="productionGovernancePanel">
+            <div class="production-governance-grid">
+              <div class="governance-box">
+                <h4>이용약관 · 개인정보 처리방침</h4>
+                <p id="legalStatusText">최신 동의 상태를 불러오는 중입니다.</p>
+                <div class="governance-actions"><button class="btn btn-ghost" type="button" data-legal-doc="terms">이용약관 보기</button><button class="btn btn-ghost" type="button" data-legal-doc="privacy">개인정보 처리방침 보기</button></div>
+                <div id="legalAcceptanceControls" class="legal-account-controls"><label><input id="accountTermsAgree" type="checkbox"> 이용약관 동의</label><label><input id="accountPrivacyAgree" type="checkbox"> 개인정보 처리방침 동의</label><button id="acceptLegalBtn" class="btn btn-primary" type="button">최신 약관 동의</button></div>
+                <small class="governance-note">상용 출시 전 사업자 정보·환불정책·처리위탁/국외이전·보유기간은 실제 계약 구조를 기준으로 최종 검토하세요.</small>
               </div>
-              <small class="governance-note">실제 상용 출시 전 사업자 정보·환불정책·처리위탁/국외이전·보유기간은 실제 계약 구조를 기준으로 법률·세무 검토 후 확정하세요.</small>
-            </div>
-            <div class="governance-box">
-              <div class="governance-box-head"><div><h4>병원 설정 구성백업 · 복구</h4><p>병원 프로필/프리셋, 콘텐츠 설정, 발송 설정, 커스텀 Journey를 최대 최근 10개 보관합니다.</p></div><button id="createConfigBackupBtn" class="btn btn-secondary" type="button">지금 백업</button></div>
-              <div id="configBackupList" class="governance-list"><div class="voice-empty">Owner/Admin 로그인 후 백업을 확인합니다.</div></div>
-            </div>
-            <div class="governance-box danger-zone">
-              <h4>병원 데이터 삭제 요청</h4><p>Owner만 요청할 수 있습니다. 요청 후 7일 유예기간이 있으며, HQ는 구독 종료·미정산 금액 확인 후 실행합니다. 결제·회계·감사상 보존이 필요한 최소 기록은 유지됩니다.</p>
-              <div id="clinicDeletionStatus" class="governance-note">삭제 요청 없음</div>
-              <input id="clinicDeletionConfirm" class="input" placeholder="삭제 요청 시 병원명을 정확히 입력" />
-              <div class="governance-actions"><button id="requestClinicDeletionBtn" class="btn btn-ghost billing-danger" type="button">병원 데이터 삭제 요청</button><button id="cancelClinicDeletionBtn" class="btn btn-ghost hidden" type="button">삭제 요청 취소</button></div>
-            </div>
-            <div class="governance-box danger-zone">
-              <h4>개인 계정 탈퇴</h4><p>다른 병원의 단독 Owner가 아닌 경우 계정을 탈퇴할 수 있습니다. 탈퇴 시 세션을 종료하고 이메일·표시이름을 비식별화합니다.</p>
-              <div class="account-withdraw-grid"><input id="withdrawPassword" class="input" type="password" autocomplete="current-password" placeholder="현재 비밀번호"><input id="withdrawConfirm" class="input" placeholder="탈퇴 입력"><button id="withdrawAccountBtn" class="btn btn-ghost billing-danger" type="button">계정 탈퇴</button></div>
+              <div class="governance-box legal-safety-note">
+                <h4>데이터 관리 원칙</h4>
+                <p>병원 설정 구성백업과 삭제 절차는 보안 · 데이터 탭에서 확인할 수 있습니다. 결제·회계·감사상 법적 보존이 필요한 최소 기록은 서비스 데이터 삭제 후에도 별도 보존될 수 있습니다.</p>
+                <button class="btn btn-secondary" type="button" data-account-open-tab="security">백업 · 복구 관리</button>
+              </div>
+              <div class="governance-box danger-zone">
+                <h4>병원 데이터 삭제 요청</h4><p>Owner만 요청할 수 있습니다. 요청 후 7일 유예기간이 있으며, HQ는 구독 종료·미정산 금액 확인 후 실행합니다.</p>
+                <div id="clinicDeletionStatus" class="governance-note">삭제 요청 없음</div>
+                <input id="clinicDeletionConfirm" class="input" placeholder="삭제 요청 시 병원명을 정확히 입력" />
+                <div class="governance-actions"><button id="requestClinicDeletionBtn" class="btn btn-ghost billing-danger" type="button">병원 데이터 삭제 요청</button><button id="cancelClinicDeletionBtn" class="btn btn-ghost hidden" type="button">삭제 요청 취소</button></div>
+              </div>
+              <div class="governance-box danger-zone">
+                <h4>개인 계정 탈퇴</h4><p>다른 병원의 단독 Owner가 아닌 경우 계정을 탈퇴할 수 있습니다. 탈퇴 시 세션을 종료하고 이메일·표시이름을 비식별화합니다.</p>
+                <div class="account-withdraw-grid"><input id="withdrawPassword" class="input" type="password" autocomplete="current-password" placeholder="현재 비밀번호"><input id="withdrawConfirm" class="input" placeholder="탈퇴 입력"><button id="withdrawAccountBtn" class="btn btn-ghost billing-danger" type="button">계정 탈퇴</button></div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div id="operatorUnlockPanel" class="panel operator-unlock-panel hidden" style="margin-top:14px">
-          <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">CARESTEP OPERATOR · v6.5.2</p><h3 style="font-size:15px">운영자 모드</h3></div>
-            <span id="operatorStatusBadge" class="ai-conn-badge off">잠김</span>
-          </div>
-          <p class="muted" style="font-size:11px">AI Content Studio와 운영자 도구는 일반 병원 계정에 표시되지 않습니다. CARESTEP HQ Key를 확인한 현재 브라우저 세션에서만 운영자 메뉴가 열립니다.</p>
-          <div class="operator-unlock-row">
-            <input id="operatorHqKey" class="input" type="password" autocomplete="off" placeholder="CARESTEP_HQ_KEY" />
-            <button id="operatorUnlockBtn" class="btn btn-primary" type="button">운영자 잠금해제</button>
-            <button id="operatorLockBtn" class="btn btn-ghost hidden" type="button">운영자 잠금</button>
-          </div>
-          <div id="operatorStatusText" class="saas-cloud-note">운영자 전용 URL에서 HQ Key를 입력하면 메뉴가 표시됩니다.</div>
-        </div>
-
-        <div class="panel" style="margin-top:14px">
-          <div class="section-head" style="margin:0">
-            <div><p class="eyebrow">TEAM</p><h3 style="font-size:15px">직원 계정 · 초대</h3></div>
-            <span id="saasMemberCount" class="status-badge">0명</span>
-          </div>
-          <div id="saasInviteControls">
-            <div class="saas-invite-actions">
-              <select id="saasInviteRole" class="input" style="max-width:180px"><option value="staff">직원 Staff</option><option value="vet">수의사 Vet</option><option value="admin">관리자 Admin</option></select>
-              <button id="saasCreateInvite" class="btn btn-primary" type="button">7일 초대코드 만들기</button>
-            </div>
-            <div id="saasInviteResult" class="saas-invite-result"></div>
-          </div>
-          <div id="saasMemberList" class="saas-member-list"><div class="voice-empty">로그인 후 직원 목록을 불러옵니다.</div></div>
-          <div class="saas-pilot-warning"><b>Pilot 인증 안내</b> · 현재 버전은 PBKDF2 비밀번호 해시, 7일 Bearer 세션, 로그인 실패 제한, 세션 강제종료, 비밀번호 변경을 적용합니다. 정식 판매 전에는 이메일 인증·비밀번호 재설정·MFA/SSO·보안감사를 추가하는 것을 전제로 합니다.</div>
         </div>
       </section>
 
@@ -1315,7 +1332,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 
   <div id="legalModal" class="legal-modal hidden" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle">
     <div class="legal-modal-card">
-      <div class="legal-modal-head"><div><p class="eyebrow">CARESTEP LEGAL · v9.0</p><h3 id="legalModalTitle">법적 문서</h3><p id="legalModalMeta" class="muted"></p></div><button id="legalModalClose" class="btn btn-ghost" type="button">닫기</button></div>
+      <div class="legal-modal-head"><div><p class="eyebrow">CARESTEP LEGAL · v9.0.1</p><h3 id="legalModalTitle">법적 문서</h3><p id="legalModalMeta" class="muted"></p></div><button id="legalModalClose" class="btn btn-ghost" type="button">닫기</button></div>
       <div id="legalModalBody" class="legal-modal-body"></div>
       <div id="legalModalReview" class="legal-modal-review"></div>
     </div>
@@ -1324,6 +1341,11 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 <style>
 .legal-consent-row{display:flex;gap:7px;align-items:flex-start;font-size:9px;line-height:1.45;color:#637087;margin-top:8px}.legal-consent-row input{margin-top:2px}.legal-link{border:0;background:none;padding:0;color:#1f5eff;font-weight:850;font-size:inherit;text-decoration:underline;cursor:pointer}.production-governance-panel{border-color:#cfdcf1;background:linear-gradient(145deg,#fbfdff,#fff)}.production-governance-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.governance-box{border:1px solid #e0e7f0;border-radius:13px;padding:12px;background:#fff;min-width:0}.governance-box h4{font-size:12px;margin:0 0 4px}.governance-box p{font-size:9px;line-height:1.55;color:#6f7d92;margin:0 0 9px}.governance-box-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.governance-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.governance-note{font-size:8.5px;line-height:1.5;color:#6f7d92;background:#f7f9fc;border-radius:9px;padding:8px;margin-top:8px}.legal-account-controls{display:grid;gap:6px;margin-top:9px}.legal-account-controls label{font-size:9px;color:#59677b}.governance-list{display:grid;gap:6px;margin-top:8px}.governance-list-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px;border:1px solid #e7ebf1;border-radius:9px}.governance-list-item b{display:block;font-size:9px}.governance-list-item span{display:block;font-size:8px;color:#7e8999;margin-top:2px}.danger-zone{border-color:#efd5d1;background:#fffdfc}.account-withdraw-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:7px}.legal-modal{position:fixed;inset:0;z-index:400;background:#111827cc;display:flex;align-items:center;justify-content:center;padding:18px}.legal-modal.hidden{display:none}.legal-modal-card{width:min(860px,100%);max-height:88vh;overflow:hidden;background:#fff;border-radius:18px;box-shadow:0 24px 80px #0005;display:flex;flex-direction:column}.legal-modal-head{padding:16px 18px;border-bottom:1px solid #e5eaf1;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.legal-modal-head h3{margin:2px 0 3px}.legal-modal-body{padding:17px 18px;overflow:auto}.legal-doc-section{padding:10px 0;border-bottom:1px solid #edf0f4}.legal-doc-section:last-child{border-bottom:0}.legal-doc-section h4{margin:0 0 5px;font-size:12px}.legal-doc-section p{margin:0;font-size:10px;line-height:1.65;color:#536176}.legal-modal-review{padding:11px 18px;background:#fff8e8;border-top:1px solid #efdfb6;font-size:9px;line-height:1.55;color:#775f28}@media(max-width:760px){.production-governance-grid{grid-template-columns:1fr}.account-withdraw-grid{grid-template-columns:1fr}.governance-box-head{display:block}.governance-box-head .btn{margin-top:8px}}
 .operator-unlock-panel{border:1px solid #cddcff;background:#f8faff}.operator-unlock-row{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:8px;align-items:center;margin-top:10px}.operator-category-panel{border-color:#d9e2f2}.category-manager-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 220px;gap:8px;margin-bottom:9px}.category-manager-note{font-size:10px;line-height:1.55;color:#627089;background:#f6f8fb;border:1px solid #e2e7ef;border-radius:10px;padding:9px 10px;margin-bottom:10px}.category-manager-table select{min-width:150px}.category-source{display:inline-flex;padding:4px 7px;border-radius:999px;background:#f0f3f8;color:#5b687d;font-size:9px;font-weight:850}.category-override-mark{display:inline-flex;margin-left:4px;padding:3px 6px;border-radius:999px;background:#edf4ff;color:#1f5eff;font-size:8px;font-weight:900}.operator-only.hidden{display:none!important}@media(max-width:760px){.operator-unlock-row,.category-manager-toolbar{grid-template-columns:1fr}.category-manager-table{min-width:760px}}
+
+/* v9.0.1 · Account UX & information architecture */
+.account-ux-hero{margin-bottom:12px}.account-ux-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:10px}.account-ux-summary>div{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 12px}.account-ux-summary span{display:block;font-size:8.5px;color:#7a8798}.account-ux-summary b{display:block;font-size:17px;color:#26344b;margin:4px 0 1px}.account-ux-summary small{font-size:8px;color:#98a2b1}.account-ux-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:13px}.account-quick-btn{border:1px solid #dfe6f0;background:#fff;border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;color:#29364b}.account-quick-btn:hover{border-color:#aebfe2;background:#f7faff}.account-quick-btn b{display:block;font-size:10px}.account-quick-btn span{display:block;font-size:8.5px;color:#7b8799;margin-top:3px}.account-tabs{display:flex;gap:5px;align-items:center;overflow:auto;padding:5px;background:#eef2f7;border:1px solid #e0e6ee;border-radius:12px;margin-bottom:14px}.account-tab{flex:1;min-width:108px;border:0;background:transparent;border-radius:9px;padding:9px 10px;font-size:9.5px;font-weight:850;color:#66758a;cursor:pointer;white-space:nowrap}.account-tab.active{background:#fff;color:#1f5eff;box-shadow:0 1px 5px #26344b14}.account-tab-pane{display:none}.account-tab-pane.active{display:block}.account-pane-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin:2px 1px 10px}.account-pane-head h3{font-size:16px;margin:0 0 3px;color:#26344b}.account-pane-head p{font-size:9px;color:#7a879a;margin:0;line-height:1.45}.account-ux-card{margin-top:0!important}.account-role-note{margin-top:10px;padding:8px 9px;border-radius:9px;background:#f6f8fb;color:#738095;font-size:8.5px;line-height:1.5}.account-team-primary{margin-bottom:12px}.legal-safety-note{background:#f7faff;border-color:#d7e2f4}.account-tab-pane .production-governance-panel{margin-top:0!important}.account-tab-pane .billing-subscription-panel{margin-top:0!important}
+@media(max-width:900px){.account-ux-summary{grid-template-columns:repeat(2,1fr)}.account-ux-actions{grid-template-columns:1fr}.account-tab{flex:0 0 auto}.account-pane-head{align-items:center}}
+@media(max-width:540px){.account-ux-summary{grid-template-columns:1fr 1fr}.account-ux-summary b{font-size:14px}.account-tabs{margin-left:-2px;margin-right:-2px}.account-pane-head{display:block}.account-pane-head>.btn,.account-pane-head>.status-badge,.account-pane-head>.ai-conn-badge{margin-top:8px}}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -2682,7 +2704,7 @@ async function saasLoadMembers(){
   try{const d=await saasRequest('/saas/members',{method:'GET'});renderSaasMembers(d.members||[]);}catch(e){if($('saasMemberList'))$('saasMemberList').innerHTML=`<div class="voice-empty">${escapeHtml(e.message||'직원 목록 오류')}</div>`;}
 }
 function renderSaasMembers(rows){
-  const el=$('saasMemberList');if(!el)return;if($('saasMemberCount'))$('saasMemberCount').textContent=`${rows.length}명`;
+  const el=$('saasMemberList');if(!el)return;if($('saasMemberCount'))$('saasMemberCount').textContent=`${rows.length}명`;if($('accountUxMembers'))$('accountUxMembers').textContent=`${rows.length}명`;
   const can=saasMode==='auth'&&['owner','admin'].includes(saasMe?.role)&&saasHasFeature('teamManagement');
   if(!rows.length){el.innerHTML='<div class="voice-empty">등록된 직원이 없습니다.</div>';return;}
   el.innerHTML=rows.map(x=>{
@@ -2755,9 +2777,9 @@ function renderBillingOverview(){
   const badge=$('billingProviderBadge');if(badge){badge.className='billing-provider '+(provider.configured?'on':'warn');badge.textContent=provider.configured?'Toss Payments · 연결됨':'Toss Payments · 설정 필요';}
   if($('billingManageLock'))$('billingManageLock').classList.toggle('hidden',!auth||!!d?.canManage);
   const controls=['billingPlanSelect','billingCycleSelect','billingSchedulePlan','billingRegisterCard','billingCancelSubscription','billingUndoCancel','billingRetryPayment'];controls.forEach(id=>{if($(id))$(id).disabled=!auth||!d?.canManage;});
-  if(!auth||!d){if($('billingSubscriptionSummary'))$('billingSubscriptionSummary').textContent='로그인 후 결제·구독 정보를 확인합니다.';return;}
+  if(!auth||!d){if($('billingSubscriptionSummary'))$('billingSubscriptionSummary').textContent='로그인 후 결제·구독 정보를 확인합니다.';if($('accountUxNextPayment'))$('accountUxNextPayment').textContent='--';return;}
   if($('billingCurrentPlan'))$('billingCurrentPlan').textContent=`${sub.planCode||saasMe?.clinic?.plan||'-'} · ${sub.billingCycle==='annual'?'연':'월'}`;
-  const next=sub.status==='trialing'?(sub.trialEndsAt||sub.currentPeriodEnd):(sub.nextPaymentAt||sub.currentPeriodEnd);if($('billingNextDate'))$('billingNextDate').textContent=next?billingDate(next):'-';
+  const next=sub.status==='trialing'?(sub.trialEndsAt||sub.currentPeriodEnd):(sub.nextPaymentAt||sub.currentPeriodEnd),nextLabel=next?billingDate(next):'-';if($('billingNextDate'))$('billingNextDate').textContent=nextLabel;if($('accountUxNextPayment'))$('accountUxNextPayment').textContent=nextLabel;
   if($('billingPaymentState'))$('billingPaymentState').textContent=billingStatusLabel(sub.status)+(sub.paymentGraceActive?' · 유예기간':'')+(sub.cancelAtPeriodEnd?' · 해지 예정':'');
   const pending=sub.pendingPlanCode?` · 다음 ${sub.pendingPlanCode}/${sub.pendingBillingCycle==='annual'?'연':'월'} 예정`:'';$('billingSubscriptionSummary').textContent=`현재 ${sub.planCode||'-'} · ${billingStatusLabel(sub.status)}${pending}`;
   if($('billingPlanSelect')){const sel=$('billingPlanSelect'),wanted=sub.pendingPlanCode||(['BASIC','PRO','ENTERPRISE'].includes(sub.planCode)?sub.planCode:'PRO'),allPlans=d.plans||{},codes=['BASIC','PRO','ENTERPRISE'];sel.innerHTML=codes.filter(code=>allPlans[code]?.isActive||code===wanted||code===sub.planCode).map(code=>`<option value="${code}" ${allPlans[code]?.isActive?'':(code===wanted||code===sub.planCode?'':'disabled')}>${code}${allPlans[code]?.isActive?'':' · 신규 선택 중지'}</option>`).join('');sel.value=[...sel.options].some(o=>o.value===wanted)?wanted:([...sel.options].find(o=>!o.disabled)?.value||'PRO');}
@@ -2834,6 +2856,21 @@ async function restoreConfigBackup(id){if(!confirm('선택한 구성백업으로
 async function requestClinicDeletion(){const name=$('clinicDeletionConfirm')?.value.trim()||'';if(!name){toast('병원명을 정확히 입력해주세요.');return;}if(!confirm('병원 데이터 삭제 요청을 접수할까요?\n\n7일 유예 후 HQ가 구독·미정산 금액을 확인하고 실행합니다. 실행 후 운영 데이터는 복구가 제한됩니다.'))return;try{clinicDeletionState=await saasRequest('/saas/clinic/deletion-request',{method:'POST',body:JSON.stringify({confirmClinicName:name})});if($('clinicDeletionConfirm'))$('clinicDeletionConfirm').value='';renderProductionGovernance();toast('병원 데이터 삭제 요청이 접수되었습니다.');}catch(e){toast(e.message||'삭제 요청 실패');}}
 async function cancelClinicDeletion(){if(!confirm('병원 데이터 삭제 요청을 취소할까요?'))return;try{clinicDeletionState=await saasRequest('/saas/clinic/deletion-request/cancel',{method:'POST'});renderProductionGovernance();toast('삭제 요청을 취소했습니다.');}catch(e){toast(e.message||'삭제 요청 취소 실패');}}
 async function withdrawAccount(){const password=$('withdrawPassword')?.value||'',confirmText=$('withdrawConfirm')?.value.trim()||'';if(confirmText!=='탈퇴'){toast('확인란에 “탈퇴”를 입력해주세요.');return;}if(!confirm('개인 계정을 탈퇴할까요?\n\n현재 사용자 세션이 모두 종료되며 이메일·표시이름은 비식별화됩니다. 이 작업은 되돌릴 수 없습니다.'))return;try{await saasRequest('/saas/account/withdraw',{method:'POST',body:JSON.stringify({password,confirm:'탈퇴'})});saasToken='';saasMe=null;localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();saasSetAuthStatus('계정 탈퇴가 완료되었습니다.','ok');}catch(e){toast(e.message||'계정 탈퇴 실패');}}
+const ACCOUNT_TAB_STORAGE_KEY='carestep_account_tab_v901';
+const ACCOUNT_TABS=new Set(['my','team','billing','security','legal']);
+function setAccountTab(tab='my',focusId=''){
+  const next=ACCOUNT_TABS.has(tab)?tab:'my';
+  document.querySelectorAll('[data-account-tab]').forEach(b=>{const on=b.dataset.accountTab===next;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');});
+  document.querySelectorAll('[data-account-pane]').forEach(p=>p.classList.toggle('active',p.dataset.accountPane===next));
+  try{localStorage.setItem(ACCOUNT_TAB_STORAGE_KEY,next);}catch{}
+  if(focusId)setTimeout(()=>{const el=$(focusId);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});try{el.focus({preventScroll:true});}catch{el.focus();}}},90);
+}
+function initAccountUx(){
+  document.querySelectorAll('[data-account-tab]').forEach(b=>b.addEventListener('click',()=>setAccountTab(b.dataset.accountTab)));
+  document.querySelectorAll('[data-account-open-tab]').forEach(b=>b.addEventListener('click',()=>setAccountTab(b.dataset.accountOpenTab,b.dataset.accountFocus||'')));
+  let saved='my';try{saved=localStorage.getItem(ACCOUNT_TAB_STORAGE_KEY)||'my';}catch{}setAccountTab(saved);
+}
+
 function renderSaasAccount(){
   renderBillingOverview();
   const auth=saasMode==='auth'&&saasMe,role=auth?saasMe.role:'owner';
@@ -2842,7 +2879,7 @@ function renderSaasAccount(){
   if($('saasAccountRole'))$('saasAccountRole').textContent=auth?saasRoleLabel(role):'LOCAL DEMO';
   if($('saasUserName'))$('saasUserName').textContent=auth?saasMe.user.displayName:'로컬 데모';
   if($('saasUserEmail'))$('saasUserEmail').textContent=auth?saasMe.user.email:'계정 미연결';
-  if($('saasPlanKpi'))$('saasPlanKpi').textContent=auth?(saasMe.entitlements?.plan?.displayName||saasMe.clinic.plan):'DEMO';
+  const uxPlan=auth?(saasMe.entitlements?.plan?.displayName||saasMe.clinic.plan):'DEMO';if($('saasPlanKpi'))$('saasPlanKpi').textContent=uxPlan;if($('accountUxPlan'))$('accountUxPlan').textContent=uxPlan;
   if($('saasSubscriptionDetail')){const e=auth?saasMe.entitlements:null;if(!auth)$('saasSubscriptionDetail').textContent='구독 정보는 로그인 후 표시됩니다.';else{const p=e?.plan||{},sub=e?.subscription||{},pkg=p.limits?.packagesMonthly||'무제한',members=p.limits?.members||'무제한',mb=e?.messaging||saasUsageSummary?.messaging||{},msgLimit=mb.included||'무제한';const end=sub.trialEndsAt||sub.currentPeriodEnd||'',founding=sub.foundingApplied?`<br><b>Founding Clinic ${sub.foundingActive?'가격보장 적용 중':'가격보장 종료'}</b>${sub.foundingLockedUntil?` · ${escapeHtml(new Date(sub.foundingLockedUntil).toLocaleDateString('ko-KR'))}까지`:''}${sub.effectivePriceKrw?` · 적용가 ${Number(sub.effectivePriceKrw).toLocaleString('ko-KR')}원/월`:''}`:'';$('saasSubscriptionDetail').innerHTML=`<b>${escapeHtml(p.displayName||saasMe.clinic.plan)} · ${escapeHtml(sub.status||'active')}</b><br>결제주기 ${escapeHtml(sub.billingCycle||'monthly')} · 월 패키지 ${escapeHtml(String(pkg))} · 자동발송 ${escapeHtml(String(msgLimit))} · 직원 ${escapeHtml(String(members))}명 한도${end?`<br>${sub.status==='trialing'?'무료체험 종료':'현재 사용기한'} ${escapeHtml(new Date(end).toLocaleDateString('ko-KR'))}`:''}${founding}`;}}
   if($('saasRoleKpi'))$('saasRoleKpi').textContent=auth?role.toUpperCase():'LOCAL';
   if($('saasPackageKpi'))$('saasPackageKpi').textContent=auth?String(saasUsageSummary?.packages??'--'):'--';if($('saasMessageKpi'))$('saasMessageKpi').textContent=auth?String((saasUsageSummary?.messaging?.usage?.used??saasMe?.entitlements?.messaging?.usage?.used)??'--'):'--';const mb=auth?(saasUsageSummary?.messaging||saasMe?.entitlements?.messaging||{}):{},limit=Number(mb.included)||0,used=Number(mb.usage?.used)||0,pct=limit?Math.min(100,Number(mb.percent)||0):0,meter=$('saasBillingMeter');if(meter){meter.classList.toggle('warn',limit>0&&pct>=80&&pct<100);meter.classList.toggle('danger',limit>0&&pct>=100);if($('saasBillingMeterValue'))$('saasBillingMeterValue').textContent=auth?`${used} / ${limit||'무제한'}${limit?` · ${Math.round(Number(mb.percent)||0)}%`:''}`:'--';if($('saasBillingMeterFill'))$('saasBillingMeterFill').style.width=auth?(limit?`${pct}%`:'0%'):'0%';if($('saasBillingMeterNote'))$('saasBillingMeterNote').textContent=!auth?'로그인 후 이번 달 사용량을 확인합니다.':limit&&pct>=100?(mb.overageEnabled?`포함량을 초과했습니다. 초과 ${Number(mb.overageCount)||0}건은 병원 계약 정책에 따라 정산됩니다.`:'월 한도에 도달하여 신규 자동발송 예약이 제한됩니다.'):limit&&pct>=80?'월 포함량의 80% 이상을 사용했습니다.':'테스트 문자는 사용량에 포함하지 않으며, 취소·교체된 예약은 제외됩니다.';}
@@ -2850,7 +2887,7 @@ function renderSaasAccount(){
   const badge=$('saasCloudBadge'),note=$('saasCloudNote');
   if(badge){if(!auth){badge.className='ai-conn-badge off';badge.textContent='로컬';}else if(saasCloudMeta?.conflict){badge.className='ai-conn-badge error';badge.textContent='충돌 감지';}else if(saasCloudMeta?.state){badge.className='ai-conn-badge on';badge.textContent='클라우드 저장됨';}else{badge.className='ai-conn-badge off';badge.textContent='첫 동기화 필요';}}
   if(note){note.classList.toggle('saas-sync-conflict',!!saasCloudMeta?.conflict);note.textContent=!auth?'SaaS 로그인 후 클라우드 동기화를 사용할 수 있습니다.':saasCloudMeta?.conflict?(saasCloudMeta.error||'다른 PC의 변경을 먼저 불러와야 합니다.'):saasCloudMeta?.updatedAt?`클라우드 v${saasCloudMeta.version||0} · 최종 저장 ${new Date(saasCloudMeta.updatedAt).toLocaleString('ko-KR')} · ${saasCloudBound()?'자동 동기화 ON':'업로드/불러오기 후 자동 동기화 시작'}`:'클라우드에 저장된 설정이 없습니다. 현재 설정을 한 번 업로드하면 이후 병원정보·프리셋 변경이 자동 동기화됩니다.';}
-  const security=$('saasSecurityBadge');if(security){security.className='ai-conn-badge '+(auth?'on':'off');security.textContent=auth?`${saasSessions.length||1} 세션`:'로그인 필요';}
+  const security=$('saasSecurityBadge'),sessionCount=auth?(saasSessions.length||1):0;if(security){security.className='ai-conn-badge '+(auth?'on':'off');security.textContent=auth?`${sessionCount} 세션`:'로그인 필요';}if($('accountUxSecurity'))$('accountUxSecurity').textContent=auth?`정상 · ${sessionCount}`:'--';
   $('saasInviteControls')?.classList.toggle('saas-hidden',!(auth&&['owner','admin'].includes(role)&&saasHasFeature('teamManagement')));renderSubscriptionAccess();
   renderSaasSessions();renderSaasDiagnostics();renderProductionGovernance();
 }
@@ -3589,7 +3626,7 @@ function go(view){
   if(view==='contentStudio'){studioHydrateCentralKey();renderStudioCloudStatus();}
   if(view==='pilot'&&saasMode==='auth'&&saasMe)setTimeout(()=>loadMonthlyOperationsReport(false),0);
   if(view==='onboarding'&&saasMode==='auth'&&saasMe)setTimeout(()=>loadOnboardingStatus(false,false),0);
-  if(view==='account') saasRefreshAccount(false);
+  if(view==='account'){let tab='my';try{tab=localStorage.getItem(ACCOUNT_TAB_STORAGE_KEY)||'my';}catch{}setAccountTab(tab);saasRefreshAccount(false);}
   if(view==='dashboard')setTimeout(()=>refreshDailyWorkflowIndicators(false),0);
   renderGlobalCaseBadge();
 }
@@ -7209,6 +7246,7 @@ studioLoadAiSettings();
 setDefaultDischargeDate(true);
 updateSelectedOutputUi();
 renderAll();
+initAccountUx();
 setWizardStep(1);
 updateReadiness();
 saasBootstrap();
