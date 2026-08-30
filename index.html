@@ -502,6 +502,37 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
   #followup .messaging-status,#followup .work-message-status{font-size:9.5px!important}
   #followup .messaging-empty,#followup .messaging-privacy{font-size:10.5px!important;line-height:1.55}
 
+  /* v9.0.2 HOTFIX 9 · FOLLOW-UP CALENDAR LAYOUT
+     Larger operational fonts must not force provider cards outside the left column. */
+  #followup .followup-grid{grid-template-columns:minmax(370px,410px) minmax(0,1fr);align-items:start}
+  #followup .followup-settings,
+  #followup .calendar-direct,
+  #followup .calendar-provider,
+  #followup .google-calendar-picker{min-width:0;max-width:100%;box-sizing:border-box}
+  #followup .calendar-provider-grid{grid-template-columns:minmax(0,1fr)!important}
+  #followup .calendar-provider-title{flex-wrap:wrap;align-items:flex-start}
+  #followup .calendar-provider-title b,
+  #followup .calendar-provider p,
+  #followup .calendar-sync-result,
+  #followup .calendar-direct-note,
+  #followup .google-calendar-picker-note{overflow-wrap:anywhere;word-break:keep-all}
+  #followup .calendar-provider-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  #followup .calendar-provider-actions .btn{width:100%;min-width:0;white-space:normal;line-height:1.35;padding:8px 9px!important}
+  #followup .google-calendar-picker-row{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px}
+  #followup .google-calendar-picker-row .input{grid-column:1/-1;min-width:0}
+  #followup .google-calendar-picker-row .btn{width:100%;min-width:0;white-space:normal;line-height:1.35;padding:8px 9px!important}
+  #followup .calendar-case-option label{min-width:0}
+  @media(max-width:1180px){
+    #followup .followup-grid{grid-template-columns:minmax(0,1fr)!important}
+    #followup .calendar-provider-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  }
+  @media(max-width:760px){
+    #followup .calendar-provider-grid,
+    #followup .calendar-provider-actions,
+    #followup .google-calendar-picker-row{grid-template-columns:minmax(0,1fr)!important}
+    #followup .google-calendar-picker-row .input{grid-column:auto}
+  }
+
   /* Follow-up operation / CRM / analytics */
   #followup .followup-operation-head p{font-size:11px!important;line-height:1.55}
   #followup .followup-operation-kpi span{font-size:10px!important}
