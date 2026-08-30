@@ -323,6 +323,75 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .dashboard-secondary-note{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 14px;padding:9px 11px;border:1px solid #e4e9f0;border-radius:11px;background:#f9fbfd;color:#6d7a8d;font-size:8.8px}.dashboard-secondary-note b{color:#3d4b61}.account-tab.locked-role{display:none!important}
 @media(max-width:980px){.today-focus-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.today-focus-grid{grid-template-columns:1fr 1fr}.case-context-bar{align-items:flex-start;flex-wrap:wrap}.case-context-actions{width:100%}.case-context-actions .btn{flex:1}.today-focus-card b{font-size:17px}}
 
+
+
+/* v9.0.2 HOTFIX 10 · Patient Journey selected-detail readability
+   Scope: right-side selected Journey detail only. Left list and generated outputs remain unchanged. */
+#patientJourneyDetail.journey-detail{
+  padding:18px 20px;
+}
+#patientJourneyDetail.journey-detail > h4{
+  font-size:20px;
+  line-height:1.32;
+  letter-spacing:-.2px;
+  margin:0 0 7px;
+}
+#patientJourneyDetail .journey-detail-desc{
+  font-size:11.5px;
+  line-height:1.7;
+  margin-bottom:14px;
+}
+#patientJourneyDetail .journey-stage-preview{
+  gap:0;
+}
+#patientJourneyDetail .journey-stage-preview-row{
+  grid-template-columns:64px minmax(0,1fr) auto;
+  gap:14px;
+  align-items:start;
+  padding:13px 0;
+}
+#patientJourneyDetail .journey-stage-preview-row > strong{
+  font-size:12.5px;
+  line-height:1.45;
+  color:#172033;
+}
+#patientJourneyDetail .journey-stage-preview-row > div:nth-child(2) > strong{
+  font-size:13.5px;
+  line-height:1.45;
+  color:#172033;
+}
+#patientJourneyDetail .journey-stage-preview-row > div:nth-child(2) > span{
+  display:inline-block;
+  margin-top:5px;
+  font-size:11.5px;
+  line-height:1.65;
+  color:#65758a;
+}
+#patientJourneyDetail .journey-card-tags{
+  gap:6px;
+  margin-top:0;
+  justify-content:flex-end;
+}
+#patientJourneyDetail .journey-tag{
+  font-size:10.5px!important;
+  line-height:1.2;
+  padding:6px 9px!important;
+}
+#patientJourneyDetail .journey-actions{
+  margin-top:16px;
+  gap:9px;
+}
+#patientJourneyDetail .journey-actions .btn{
+  min-height:42px;
+  padding:10px 14px;
+  font-size:12.5px;
+}
+@media(max-width:760px){
+  #patientJourneyDetail.journey-detail{padding:15px}
+  #patientJourneyDetail.journey-detail > h4{font-size:18px}
+  #patientJourneyDetail .journey-stage-preview-row{grid-template-columns:52px minmax(0,1fr);gap:10px}
+  #patientJourneyDetail .journey-stage-preview-row > .journey-card-tags{grid-column:2;justify-content:flex-start;margin-top:2px}
+}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://alcdn.msauth.net/browser/2.35.0/js/msal-browser.min.js" defer></script>
