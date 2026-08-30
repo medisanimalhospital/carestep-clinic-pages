@@ -2815,6 +2815,54 @@ async function resetCategoryOverride(row){
 const SAAS_SESSION_STORAGE_KEY='carestep_saas_session_v63';
 const SAAS_ENDPOINT_STORAGE_KEY='carestep_ai_endpoint_v62';
 const FOLLOWUP_CASE_NONCE_KEY='carestep_followup_case_nonce_v661';
+const CLINIC_HOSPITAL_STORAGE_PREFIX='carestep_hospital_clinic_';
+const CLINIC_WORKFLOW_STORAGE_PREFIX='carestep_workflow_clinic_';
+function loadSaasSessionToken(){
+  let token='';
+  try{token=String(sessionStorage.getItem(SAAS_SESSION_STORAGE_KEY)||'').trim();}catch{}
+  if(!token){
+    try{
+      const legacy=String(localStorage.getItem(SAAS_SESSION_STORAGE_KEY)||'').trim();
+      if(legacy){token=legacy;sessionStorage.setItem(SAAS_SESSION_STORAGE_KEY,legacy);}
+      localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);
+    }catch{}
+  }
+  return token;
+}
+function persistSaasSessionToken(token=''){
+  const value=String(token||'').trim();
+  try{if(value)sessionStorage.setItem(SAAS_SESSION_STORAGE_KEY,value);else sessionStorage.removeItem(SAAS_SESSION_STORAGE_KEY);}catch{}
+  try{localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);}catch{}
+}
+function clinicHospitalStorageKey(clinicId=''){const id=String(clinicId||saasMe?.clinic?.id||'').trim();return id?CLINIC_HOSPITAL_STORAGE_PREFIX+id:'carestep_hospital';}
+function clinicWorkflowStorageKey(clinicId=''){const id=String(clinicId||saasMe?.clinic?.id||'').trim();return id?CLINIC_WORKFLOW_STORAGE_PREFIX+id:'carestep_workflow';}
+function parseLocalJson(key){try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}}
+function normalizedWorkflowState(raw={}){return {...defaultWorkflowSettings,...(raw||{}),qr:{...defaultWorkflowSettings.qr,...(raw?.qr||{})},followup:{...defaultWorkflowSettings.followup,...(raw?.followup||{}),stages:Array.isArray(raw?.followup?.stages)?raw.followup.stages:defaultWorkflowSettings.followup.stages},dischargePresets:{...(raw?.dischargePresets||{})},packagePresets:{...(raw?.packagePresets||{})},recent:Array.isArray(raw?.recent)?raw.recent:[],timings:Array.isArray(raw?.timings)?raw.timings:[],usage:Array.isArray(raw?.usage)?raw.usage:[],feedback:Array.isArray(raw?.feedback)?raw.feedback:[],pilot:{...defaultWorkflowSettings.pilot,...(raw?.pilot||{})}};}
+function persistAuthenticatedClinicLocalState(){
+  if(saasMode!=='auth'||!saasMe?.clinic?.id)return;
+  try{localStorage.setItem(clinicHospitalStorageKey(),JSON.stringify(hospital));localStorage.setItem(clinicWorkflowStorageKey(),JSON.stringify(workflowSettings));}catch{}
+}
+function applyClinicStatePayload(state={}){
+  hospital={...defaultHospital,...(state?.hospital||{})};
+  if(!hospital.name&&saasMe?.clinic?.name)hospital.name=saasMe.clinic.name;
+  workflowSettings=normalizedWorkflowState(state?.workflow||{});
+}
+function hydrateAuthenticatedClinicLocalState(){
+  if(saasMode!=='auth'||!saasMe?.clinic?.id)return 'none';
+  const hk=clinicHospitalStorageKey(),wk=clinicWorkflowStorageKey();
+  const scopedHospital=parseLocalJson(hk),scopedWorkflow=parseLocalJson(wk);
+  if(scopedHospital||scopedWorkflow){
+    hospital={...defaultHospital,...(scopedHospital||{}),name:(scopedHospital?.name||saasMe.clinic.name||'')};
+    workflowSettings=normalizedWorkflowState(scopedWorkflow||{});
+    return 'scoped';
+  }
+  const legacyHospital=parseLocalJson('carestep_hospital'),legacyWorkflow=parseLocalJson('carestep_workflow');
+  if(legacyHospital?.name&&String(legacyHospital.name).trim()===String(saasMe.clinic.name||'').trim()){
+    hospital={...defaultHospital,...legacyHospital};workflowSettings=normalizedWorkflowState(legacyWorkflow||{});persistAuthenticatedClinicLocalState();return 'legacy_migrated';
+  }
+  if(saasCloudMeta?.state){applyClinicStatePayload(saasCloudMeta.state);persistAuthenticatedClinicLocalState();return 'cloud';}
+  hospital={...defaultHospital,name:saasMe.clinic.name||''};workflowSettings=normalizedWorkflowState({});persistAuthenticatedClinicLocalState();return 'fresh';
+}
 const GOOGLE_FOLLOWUP_CALENDAR_PREFIX='carestep_google_followup_calendar_v663';
 let calendarIntegrationConfig={googleClientId:'',microsoftClientId:'',microsoftTenant:'common',updatedAt:''};
 let googleCalendarToken={accessToken:'',expiresAt:0};
@@ -2867,7 +2915,7 @@ function newFollowupCaseNonce(){const v=(crypto.randomUUID?crypto.randomUUID():`
 function resetFollowupCaseNonce(){followupCaseNonce=newFollowupCaseNonce();googleCalendarTokenClient=null;if($('followupCalendarIncludePatient'))$('followupCalendarIncludePatient').checked=false;renderCalendarIntegrationStatus();}
 function resetMessagingCaseState(){if($('messagingRecipientPhone'))$('messagingRecipientPhone').value='';if($('messagingConsent'))$('messagingConsent').checked=false;}
 
-let saasToken=String(localStorage.getItem(SAAS_SESSION_STORAGE_KEY)||'').trim();
+let saasToken=loadSaasSessionToken();
 let saasMe=null;
 let saasMode='auth';
 let saasCloudMeta=null;
@@ -2916,9 +2964,8 @@ function saasSaveEndpoint(){
 async function saasFinishAuth(data){
   if(!data?.token||!data?.me)throw new Error('로그인 응답이 올바르지 않습니다.');
   saasToken=data.token;saasMe=data.me;saasMode='auth';saasSessionMeta=data.session||{id:data.sessionId||'',expiresAt:data.expiresAt||'',createdAt:'',lastSeenAt:''};
-  localStorage.setItem(SAAS_SESSION_STORAGE_KEY,saasToken);saasSaveEndpoint();
-  if(!hospital.name&&saasMe.clinic?.name){hospital.name=saasMe.clinic.name;localStorage.setItem('carestep_hospital',JSON.stringify(hospital));}
-  showApp();applySaasPermissions();await saasRefreshAccount(false);await saasLoadCentralContent(true);await loadCategoryOverrides(true);await loadCalendarIntegrationConfig(true);await loadMessagingSettings(false);voiceHydrateForm();await loadOnboardingStatus(false,true);setTimeout(()=>refreshClinicActionCenter(true),0);
+  persistSaasSessionToken(saasToken);saasSaveEndpoint();
+  showApp();applySaasPermissions();await saasRefreshAccount(false);hydrateAuthenticatedClinicLocalState();renderAll();applySaasPermissions();await saasLoadCentralContent(true);await loadCategoryOverrides(true);await loadCalendarIntegrationConfig(true);await loadMessagingSettings(false);voiceHydrateForm();await loadOnboardingStatus(false,true);setTimeout(()=>refreshClinicActionCenter(true),0);
 }
 async function saasLogin(){
   try{
@@ -2948,15 +2995,14 @@ async function saasBootstrap(){
   if(!saasToken||!endpoint){showLogin();return;}
   try{
     const d=await saasRequest('/saas/me',{method:'GET'});saasMe=d.me;saasSessionMeta=d.session||null;saasMode='auth';
-    if(!hospital.name&&saasMe?.clinic?.name){hospital.name=saasMe.clinic.name;localStorage.setItem('carestep_hospital',JSON.stringify(hospital));}
-    showApp();applySaasPermissions();await saasRefreshAccount(false);await handleBillingRedirect();await saasLoadCentralContent(true);await loadCategoryOverrides(true);await loadCalendarIntegrationConfig(true);voiceHydrateForm();await loadOnboardingStatus(false,true);
+    showApp();applySaasPermissions();await saasRefreshAccount(false);hydrateAuthenticatedClinicLocalState();renderAll();applySaasPermissions();await handleBillingRedirect();await saasLoadCentralContent(true);await loadCategoryOverrides(true);await loadCalendarIntegrationConfig(true);voiceHydrateForm();await loadOnboardingStatus(false,true);
   }catch{
-    saasToken='';saasMe=null;localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();
+    saasToken='';saasMe=null;persistSaasSessionToken('');showLogin();
   }
 }
 async function saasLogout(){
   if(saasMode==='auth'&&saasToken){try{await saasRequest('/saas/logout',{method:'POST'});}catch{}}
-  saasToken='';saasMe=null;saasSessionMeta=null;saasSessions=[];saasDiagnostics=[];billingOverviewState=null;billingRedirectHandled=false;legalStatusState=null;legalDocsState=null;configBackupsState=[];clinicDeletionState=null;saasMode='auth';googleCalendarToken={accessToken:'',expiresAt:0};googleCalendarTokenClient=null;microsoftCalendarApp=null;microsoftCalendarAccount=null;calendarIntegrationConfig={googleClientId:'',microsoftClientId:'',microsoftTenant:'common',updatedAt:''};centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};categoryOverrides={};syncPublishedStudioItems();applyCategoryOverrides();localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();saasSetAuthStatus('로그아웃되었습니다.','ok');
+  saasToken='';saasMe=null;saasSessionMeta=null;saasSessions=[];saasDiagnostics=[];billingOverviewState=null;billingRedirectHandled=false;legalStatusState=null;legalDocsState=null;configBackupsState=[];clinicDeletionState=null;saasMode='auth';googleCalendarToken={accessToken:'',expiresAt:0};googleCalendarTokenClient=null;microsoftCalendarApp=null;microsoftCalendarAccount=null;calendarIntegrationConfig={googleClientId:'',microsoftClientId:'',microsoftTenant:'common',updatedAt:''};centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};categoryOverrides={};syncPublishedStudioItems();applyCategoryOverrides();persistSaasSessionToken('');showLogin();saasSetAuthStatus('로그아웃되었습니다.','ok');
 }
 function saasEnterDemo(){
   saasMode='demo';saasMe=null;saasSessionMeta=null;saasSessions=[];saasDiagnostics=[];billingOverviewState=null;billingRedirectHandled=false;legalStatusState=null;configBackupsState=[];clinicDeletionState=null;googleCalendarToken={accessToken:'',expiresAt:0};googleCalendarTokenClient=null;microsoftCalendarApp=null;microsoftCalendarAccount=null;calendarIntegrationConfig={googleClientId:'',microsoftClientId:'',microsoftTenant:'common',updatedAt:''};centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};categoryOverrides={};syncPublishedStudioItems();applyCategoryOverrides();showApp();applySaasPermissions();renderSaasAccount();toast('로컬 데모로 입장했습니다.');
@@ -3024,10 +3070,10 @@ async function saasDownloadCloud(){
     const d=await saasRequest('/saas/clinic/state',{method:'GET'});
     if(!d.state){toast('아직 클라우드에 저장된 병원 설정이 없습니다.');return;}
     if(!confirm('클라우드 병원 설정으로 이 브라우저의 병원정보·프리셋을 바꿀까요? 환자 케이스 정보는 대상이 아닙니다.'))return;
-    hospital={...defaultHospital,...(d.state.hospital||{})};
-    const w=d.state.workflow||{};
-    workflowSettings={...workflowSettings,dischargePresets:{...(w.dischargePresets||{})},packagePresets:{...(w.packagePresets||{})},qr:{...defaultWorkflowSettings.qr,...(w.qr||{})},followup:{...defaultWorkflowSettings.followup,...(w.followup||{}),stages:Array.isArray(w.followup?.stages)?w.followup.stages:defaultWorkflowSettings.followup.stages},recent:Array.isArray(w.recent)?w.recent:[],pilot:{...defaultWorkflowSettings.pilot,...(w.pilot||{})}};
-    localStorage.setItem('carestep_hospital',JSON.stringify(hospital));localStorage.setItem('carestep_workflow',JSON.stringify(workflowSettings));
+    const localMetrics={timings:[...(workflowSettings.timings||[])],usage:[...(workflowSettings.usage||[])],feedback:[...(workflowSettings.feedback||[])]};
+    applyClinicStatePayload(d.state);
+    workflowSettings={...workflowSettings,...localMetrics};
+    persistAuthenticatedClinicLocalState();
     const k=saasCloudKey();if(k)localStorage.setItem(k,'1');saasCloudMeta=d;renderAll();applySaasPermissions();toast('클라우드 병원 설정을 이 PC에 불러왔습니다.');
   }catch(e){toast(e.message||'클라우드 불러오기 실패');if(btn){btn.classList.add('ux-error');btn.textContent='다시 시도';}}finally{if(btn)setTimeout(()=>{if(btn.isConnected){btn.disabled=false;btn.classList.remove('ux-busy','ux-error');btn.textContent=old||'클라우드 설정 불러오기';}},1000);}
 }
@@ -3095,7 +3141,7 @@ function renderSaasSessions(error=''){
 }
 async function saasRevokeSession(card){
   if(!card)return;const current=card.classList.contains('current');if(!confirm(current?'현재 브라우저에서 로그아웃할까요?':'선택한 로그인 세션을 종료할까요?'))return;
-  try{const d=await saasRequest('/saas/sessions/'+encodeURIComponent(card.dataset.sessionId),{method:'DELETE'});if(d.current){saasToken='';saasMe=null;saasSessionMeta=null;localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();saasSetAuthStatus('현재 세션을 종료했습니다.','ok');return;}toast('선택한 세션을 종료했습니다.');await saasLoadSessions();}catch(e){toast(e.message||'세션 종료 실패');}
+  try{const d=await saasRequest('/saas/sessions/'+encodeURIComponent(card.dataset.sessionId),{method:'DELETE'});if(d.current){saasToken='';saasMe=null;saasSessionMeta=null;persistSaasSessionToken('');showLogin();saasSetAuthStatus('현재 세션을 종료했습니다.','ok');return;}toast('선택한 세션을 종료했습니다.');await saasLoadSessions();}catch(e){toast(e.message||'세션 종료 실패');}
 }
 async function saasChangePassword(){
   const current=$('saasCurrentPassword')?.value||'',next=$('saasNewPassword')?.value||'',confirmPw=$('saasNewPasswordConfirm')?.value||'',status=$('saasPasswordStatus'),btn=$('saasChangePassword');
@@ -3104,7 +3150,7 @@ async function saasChangePassword(){
 }
 async function saasSwitchClinic(){
   const clinicId=$('saasClinicSwitch')?.value||'';if(!clinicId||clinicId===saasMe?.clinic?.id){toast('현재 병원이 선택되어 있습니다.');return;}
-  try{const d=await saasRequest('/saas/switch-clinic',{method:'POST',body:JSON.stringify({clinicId})});saasMe=d.me;saasCloudMeta=null;saasUsageSummary=null;centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};applySaasPermissions();await saasRefreshAccount(false);await saasLoadCentralContent(true);voiceHydrateForm();renderAll();toast(`${saasMe.clinic.name}으로 전환했습니다.`);}catch(e){toast(e.message||'병원 전환 실패');}
+  try{const d=await saasRequest('/saas/switch-clinic',{method:'POST',body:JSON.stringify({clinicId})});saasMe=d.me;saasCloudMeta=null;saasUsageSummary=null;centralStudioItems=[];centralContentMeta={loaded:false,count:0,updatedAt:'',error:''};applySaasPermissions();await saasRefreshAccount(false);hydrateAuthenticatedClinicLocalState();await saasLoadCentralContent(true);voiceHydrateForm();renderAll();applySaasPermissions();toast(`${saasMe.clinic.name}으로 전환했습니다.`);}catch(e){toast(e.message||'병원 전환 실패');}
 }
 async function saasLogClientError(area,code,message){
   if(saasMode!=='auth'||!saasToken)return;try{await saasRequest('/saas/client-error',{method:'POST',body:JSON.stringify({area:String(area||'').slice(0,100),code:String(code||'').slice(0,40),message:String(message||'').slice(0,300)})});}catch{}
@@ -3210,7 +3256,7 @@ async function createConfigBackup(){if(!confirm('현재 병원 설정의 구성�
 async function restoreConfigBackup(id){if(!confirm('선택한 구성백업으로 병원 설정을 복구할까요?\n\n복구 직전 상태도 자동으로 백업합니다. 결제·구독 정보는 변경하지 않습니다.'))return;try{const d=await saasRequest('/saas/backups/'+encodeURIComponent(id)+'/restore',{method:'POST'});configBackupsState=d.backups||configBackupsState;await saasRefreshAccount(false);toast('구성백업 복구가 완료되었습니다.');}catch(e){toast(e.message||'백업 복구 실패');}}
 async function requestClinicDeletion(){const name=$('clinicDeletionConfirm')?.value.trim()||'';if(!name){toast('병원명을 정확히 입력해주세요.');return;}if(!confirm('병원 데이터 삭제 요청을 접수할까요?\n\n7일 유예 후 HQ가 구독·미정산 금액을 확인하고 실행합니다. 실행 후 운영 데이터는 복구가 제한됩니다.'))return;try{clinicDeletionState=await saasRequest('/saas/clinic/deletion-request',{method:'POST',body:JSON.stringify({confirmClinicName:name})});if($('clinicDeletionConfirm'))$('clinicDeletionConfirm').value='';renderProductionGovernance();toast('병원 데이터 삭제 요청이 접수되었습니다.');}catch(e){toast(e.message||'삭제 요청 실패');}}
 async function cancelClinicDeletion(){if(!confirm('병원 데이터 삭제 요청을 취소할까요?'))return;try{clinicDeletionState=await saasRequest('/saas/clinic/deletion-request/cancel',{method:'POST'});renderProductionGovernance();toast('삭제 요청을 취소했습니다.');}catch(e){toast(e.message||'삭제 요청 취소 실패');}}
-async function withdrawAccount(){const password=$('withdrawPassword')?.value||'',confirmText=$('withdrawConfirm')?.value.trim()||'';if(confirmText!=='탈퇴'){toast('확인란에 “탈퇴”를 입력해주세요.');return;}if(!confirm('개인 계정을 탈퇴할까요?\n\n현재 사용자 세션이 모두 종료되며 이메일·표시이름은 비식별화됩니다. 이 작업은 되돌릴 수 없습니다.'))return;try{await saasRequest('/saas/account/withdraw',{method:'POST',body:JSON.stringify({password,confirm:'탈퇴'})});saasToken='';saasMe=null;localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();saasSetAuthStatus('계정 탈퇴가 완료되었습니다.','ok');}catch(e){toast(e.message||'계정 탈퇴 실패');}}
+async function withdrawAccount(){const password=$('withdrawPassword')?.value||'',confirmText=$('withdrawConfirm')?.value.trim()||'';if(confirmText!=='탈퇴'){toast('확인란에 “탈퇴”를 입력해주세요.');return;}if(!confirm('개인 계정을 탈퇴할까요?\n\n현재 사용자 세션이 모두 종료되며 이메일·표시이름은 비식별화됩니다. 이 작업은 되돌릴 수 없습니다.'))return;try{await saasRequest('/saas/account/withdraw',{method:'POST',body:JSON.stringify({password,confirm:'탈퇴'})});saasToken='';saasMe=null;persistSaasSessionToken('');showLogin();saasSetAuthStatus('계정 탈퇴가 완료되었습니다.','ok');}catch(e){toast(e.message||'계정 탈퇴 실패');}}
 const ACCOUNT_TAB_STORAGE_KEY='carestep_account_tab_v902_hotfix';
 const ACCOUNT_TABS=new Set(['my','team','billing','security','legal']);
 function setAccountTab(tab='my',focusId=''){
@@ -3331,11 +3377,11 @@ function loadHospital(){
   try { return { ...defaultHospital, ...JSON.parse(localStorage.getItem('carestep_hospital') || '{}') }; }
   catch { return { ...defaultHospital }; }
 }
-function saveHospitalData(){ localStorage.setItem('carestep_hospital', JSON.stringify(hospital)); scheduleClinicCloudSync(); }
+function saveHospitalData(){ localStorage.setItem(clinicHospitalStorageKey(), JSON.stringify(hospital)); scheduleClinicCloudSync(); }
 function loadWorkflowSettings(){
   try{const raw=JSON.parse(localStorage.getItem('carestep_workflow')||'{}');return {...defaultWorkflowSettings,...raw,qr:{...defaultWorkflowSettings.qr,...(raw.qr||{})},followup:{...defaultWorkflowSettings.followup,...(raw.followup||{}),stages:Array.isArray(raw.followup?.stages)?raw.followup.stages:defaultWorkflowSettings.followup.stages},dischargePresets:{...(raw.dischargePresets||{})},packagePresets:{...(raw.packagePresets||{})},recent:Array.isArray(raw.recent)?raw.recent:[],timings:Array.isArray(raw.timings)?raw.timings:[],usage:Array.isArray(raw.usage)?raw.usage:[],feedback:Array.isArray(raw.feedback)?raw.feedback:[],pilot:{...defaultWorkflowSettings.pilot,...(raw.pilot||{})}};}catch{return JSON.parse(JSON.stringify(defaultWorkflowSettings));}
 }
-function saveWorkflowSettings(){localStorage.setItem('carestep_workflow',JSON.stringify(workflowSettings));scheduleClinicCloudSync();}
+function saveWorkflowSettings(){localStorage.setItem(clinicWorkflowStorageKey(),JSON.stringify(workflowSettings));scheduleClinicCloudSync();}
 function formatElapsed(ms){const sec=Math.max(0,Math.round(ms/1000));const m=Math.floor(sec/60);const s=sec%60;return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
 function startWorkflowTimer(reset=true){if(reset) workflowStartAt=Date.now();clearInterval(workflowTimerHandle);const tick=()=>{if($('workflowTimer'))$('workflowTimer').textContent=formatElapsed(Date.now()-workflowStartAt);};tick();workflowTimerHandle=setInterval(tick,1000);}
 function stopWorkflowTimer(){const elapsed=Date.now()-workflowStartAt;clearInterval(workflowTimerHandle);workflowTimerHandle=null;return elapsed;}
