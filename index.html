@@ -655,8 +655,8 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
       <h1>CARESTEP Clinic</h1>
       <p class="login-copy">병원별 계정과 직원 권한으로 CARESTEP을 시작합니다.</p>
 
-      <label class="field-label" for="saasEndpoint">CARESTEP Worker API URL</label>
-      <input id="saasEndpoint" class="input" type="url" placeholder="https://carestep-ai-api.xxxx.workers.dev" />
+      <!-- PILOT READY HOTFIX 16: CARESTEP Worker endpoint is centrally configured. -->
+      <input id="saasEndpoint" type="hidden" value="https://carestep-ai-api.kk04sdw.workers.dev" />
 
       <div class="saas-auth-tabs" id="saasAuthTabs">
         <button class="saas-auth-tab active" type="button" data-saas-auth="login">로그인</button>
@@ -2814,6 +2814,7 @@ async function resetCategoryOverride(row){
 /* ========================= v6.3 MULTI-CLINIC FRONTEND ========================= */
 const SAAS_SESSION_STORAGE_KEY='carestep_saas_session_v63';
 const SAAS_ENDPOINT_STORAGE_KEY='carestep_ai_endpoint_v62';
+const CARESTEP_DEFAULT_WORKER_URL='https://carestep-ai-api.kk04sdw.workers.dev'; // Pilot Ready Hotfix 16 · public endpoint, not a Secret
 const FOLLOWUP_CASE_NONCE_KEY='carestep_followup_case_nonce_v661';
 const CLINIC_HOSPITAL_STORAGE_PREFIX='carestep_hospital_clinic_';
 const CLINIC_WORKFLOW_STORAGE_PREFIX='carestep_workflow_clinic_';
@@ -2930,8 +2931,9 @@ let configBackupsState=[];
 let clinicDeletionState=null;
 
 function saasEndpoint(){
-  const ui=document.getElementById('saasEndpoint')?.value.trim().replace(/\/+$/,'')||'';
-  return ui||String(localStorage.getItem(SAAS_ENDPOINT_STORAGE_KEY)||'').trim().replace(/\/+$/,'');
+  // Pilot Ready Hotfix 16: clinic users never choose the backend endpoint.
+  // Keeping a single centrally configured endpoint prevents stale/mistyped Worker URLs on external clinic PCs.
+  return CARESTEP_DEFAULT_WORKER_URL;
 }
 function saasSetAuthStatus(text='',kind=''){
   const el=document.getElementById('saasAuthStatus');if(!el)return;el.textContent=text;el.className='saas-auth-status '+kind;
@@ -2956,9 +2958,10 @@ function saasSelectAuth(mode){
   saasSetAuthStatus('');
 }
 function saasSaveEndpoint(){
-  const base=saasEndpoint();
-  if(base&&!/^https:\/\//i.test(base))throw new Error('Worker URL은 https:// 로 시작해야 합니다.');
-  if(base)localStorage.setItem(SAAS_ENDPOINT_STORAGE_KEY,base);
+  const base=CARESTEP_DEFAULT_WORKER_URL;
+  // Preserve the legacy storage key only for compatibility with older code paths; users cannot edit it.
+  try{localStorage.setItem(SAAS_ENDPOINT_STORAGE_KEY,base);}catch{}
+  if($('saasEndpoint'))$('saasEndpoint').value=base;
   return base;
 }
 async function saasFinishAuth(data){
@@ -2990,9 +2993,10 @@ async function saasAcceptInvite(){
   }catch(e){saasSetAuthStatus(e.message||'초대 가입 실패','error');}
 }
 async function saasBootstrap(){
-  const endpoint=String(localStorage.getItem(SAAS_ENDPOINT_STORAGE_KEY)||'').trim();
+  const endpoint=CARESTEP_DEFAULT_WORKER_URL;
+  try{localStorage.setItem(SAAS_ENDPOINT_STORAGE_KEY,endpoint);}catch{}
   if($('saasEndpoint'))$('saasEndpoint').value=endpoint;
-  if(!saasToken||!endpoint){showLogin();return;}
+  if(!saasToken){showLogin();return;}
   try{
     const d=await saasRequest('/saas/me',{method:'GET'});saasMe=d.me;saasSessionMeta=d.session||null;saasMode='auth';
     showApp();applySaasPermissions();await saasRefreshAccount(false);hydrateAuthenticatedClinicLocalState();renderAll();applySaasPermissions();await handleBillingRedirect();await saasLoadCentralContent(true);await loadCategoryOverrides(true);await loadCalendarIntegrationConfig(true);voiceHydrateForm();await loadOnboardingStatus(false,true);
@@ -7818,7 +7822,8 @@ function printCurrent(){
 #followup .followup-guide-content{margin-top:0}
 #followup .followup-guide-body{scroll-margin-top:78px}
 @media(max-width:760px){#followup .followup-guide-nav{top:4px;padding:9px;align-items:stretch}#followup .followup-guide-nav-left{flex:1 1 100%;justify-content:space-between}#followup .followup-guide-nav-right{flex:1 1 100%}#followup .followup-guide-nav-right .btn{flex:1;min-width:0}#followup .followup-guide-nav .guide-primary-next{min-width:0}}
-</style></head><body><div class="pdf-document">${$('pdfDocument').innerHTML}</div></body></html>`); w.document.close(); setTimeout(()=>{w.focus();w.print();},600);
+</style></head><body><div class="pdf-document">${$('pdfDocument').innerHTML}</div><!-- CARESTEP v9.0.2 · PILOT READY HOTFIX 16 · fixed Worker endpoint + Hotfix 15 security hardening -->
+</body></html>`); w.document.close(); setTimeout(()=>{w.focus();w.print();},600);
 }
 async function generateSingleSelectedOutput(type){
   const original=currentOutput;currentOutput=type;renderCurrentOutput();const t=templates.find(x=>x.id===currentTemplateId)||templates[0];
