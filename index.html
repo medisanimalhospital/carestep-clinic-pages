@@ -879,17 +879,17 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
         </div>
 
         <div class="account-ux-actions" aria-label="빠른 작업">
-          <button class="account-quick-btn" type="button" data-account-open-tab="team" data-account-focus="saasInviteRole"><b>직원 초대</b><span>직원·수의사·관리자 추가</span></button>
-          <button class="account-quick-btn" type="button" data-account-open-tab="billing" data-account-focus="billingPlanSelect"><b>결제 관리</b><span>플랜·카드·영수증 확인</span></button>
-          <button class="account-quick-btn" type="button" data-account-open-tab="my" data-account-focus="saasCurrentPassword"><b>비밀번호 변경</b><span>내 계정 보안 설정</span></button>
+          <button class="account-quick-btn" type="button" data-account-open-tab="team" data-account-focus="saasInviteRole" onclick="setAccountTab('team','saasInviteRole')"><b>직원 초대</b><span>직원·수의사·관리자 추가</span></button>
+          <button class="account-quick-btn" type="button" data-account-open-tab="billing" data-account-focus="billingPlanSelect" onclick="setAccountTab('billing','billingPlanSelect')"><b>결제 관리</b><span>플랜·카드·영수증 확인</span></button>
+          <button class="account-quick-btn" type="button" data-account-open-tab="my" data-account-focus="saasCurrentPassword" onclick="setAccountTab('my','saasCurrentPassword')"><b>비밀번호 변경</b><span>내 계정 보안 설정</span></button>
         </div>
 
         <div class="account-tabs" id="accountTabs" role="tablist" aria-label="계정 설정 메뉴">
-          <button type="button" class="account-tab active" data-account-tab="my" role="tab" aria-selected="true">내 계정</button>
-          <button type="button" class="account-tab" data-account-tab="team" role="tab" aria-selected="false">직원 관리</button>
-          <button type="button" class="account-tab" data-account-tab="billing" role="tab" aria-selected="false">요금제 · 결제</button>
-          <button type="button" class="account-tab" data-account-tab="security" role="tab" aria-selected="false">보안 · 데이터</button>
-          <button type="button" class="account-tab" data-account-tab="legal" role="tab" aria-selected="false">약관 · 탈퇴</button>
+          <button type="button" class="account-tab active" data-account-tab="my" role="tab" aria-selected="true" onclick="setAccountTab('my')">내 계정</button>
+          <button type="button" class="account-tab" data-account-tab="team" role="tab" aria-selected="false" onclick="setAccountTab('team')">직원 관리</button>
+          <button type="button" class="account-tab" data-account-tab="billing" role="tab" aria-selected="false" onclick="setAccountTab('billing')">요금제 · 결제</button>
+          <button type="button" class="account-tab" data-account-tab="security" role="tab" aria-selected="false" onclick="setAccountTab('security')">보안 · 데이터</button>
+          <button type="button" class="account-tab" data-account-tab="legal" role="tab" aria-selected="false" onclick="setAccountTab('legal')">약관 · 탈퇴</button>
         </div>
 
         <div class="account-tab-pane active" data-account-pane="my">
@@ -1045,7 +1045,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
               <div class="governance-box legal-safety-note">
                 <h4>데이터 관리 원칙</h4>
                 <p>병원 설정 구성백업과 삭제 절차는 보안 · 데이터 탭에서 확인할 수 있습니다. 결제·회계·감사상 법적 보존이 필요한 최소 기록은 서비스 데이터 삭제 후에도 별도 보존될 수 있습니다.</p>
-                <button class="btn btn-secondary" type="button" data-account-open-tab="security">백업 · 복구 관리</button>
+                <button class="btn btn-secondary" type="button" data-account-open-tab="security" onclick="setAccountTab('security')">백업 · 복구 관리</button>
               </div>
               <div id="clinicDeletionBox" class="governance-box danger-zone">
                 <h4>병원 데이터 삭제 요청</h4><p>Owner만 요청할 수 있습니다. 요청 후 7일 유예기간이 있으며, HQ는 구독 종료·미정산 금액 확인 후 실행합니다.</p>
@@ -1366,7 +1366,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .operator-unlock-panel{border:1px solid #cddcff;background:#f8faff}.operator-unlock-row{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:8px;align-items:center;margin-top:10px}.operator-category-panel{border-color:#d9e2f2}.category-manager-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 220px;gap:8px;margin-bottom:9px}.category-manager-note{font-size:10px;line-height:1.55;color:#627089;background:#f6f8fb;border:1px solid #e2e7ef;border-radius:10px;padding:9px 10px;margin-bottom:10px}.category-manager-table select{min-width:150px}.category-source{display:inline-flex;padding:4px 7px;border-radius:999px;background:#f0f3f8;color:#5b687d;font-size:9px;font-weight:850}.category-override-mark{display:inline-flex;margin-left:4px;padding:3px 6px;border-radius:999px;background:#edf4ff;color:#1f5eff;font-size:8px;font-weight:900}.operator-only.hidden{display:none!important}@media(max-width:760px){.operator-unlock-row,.category-manager-toolbar{grid-template-columns:1fr}.category-manager-table{min-width:760px}}
 
 /* v9.0.2 · Daily workflow & UX polish */
-.account-ux-hero{margin-bottom:12px}.account-ux-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:10px}.account-ux-summary>div{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 12px}.account-ux-summary span{display:block;font-size:8.5px;color:#7a8798}.account-ux-summary b{display:block;font-size:17px;color:#26344b;margin:4px 0 1px}.account-ux-summary small{font-size:8px;color:#98a2b1}.account-ux-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:13px}.account-quick-btn{border:1px solid #dfe6f0;background:#fff;border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;color:#29364b}.account-quick-btn:hover{border-color:#aebfe2;background:#f7faff}.account-quick-btn b{display:block;font-size:10px}.account-quick-btn span{display:block;font-size:8.5px;color:#7b8799;margin-top:3px}.account-tabs{display:flex;gap:5px;align-items:center;overflow:auto;padding:5px;background:#eef2f7;border:1px solid #e0e6ee;border-radius:12px;margin-bottom:14px}.account-tab{flex:1;min-width:108px;border:0;background:transparent;border-radius:9px;padding:9px 10px;font-size:9.5px;font-weight:850;color:#66758a;cursor:pointer;white-space:nowrap}.account-tab.active{background:#fff;color:#1f5eff;box-shadow:0 1px 5px #26344b14}.account-tab-pane{display:none}.account-tab-pane.active{display:block}.account-pane-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin:2px 1px 10px}.account-pane-head h3{font-size:16px;margin:0 0 3px;color:#26344b}.account-pane-head p{font-size:9px;color:#7a879a;margin:0;line-height:1.45}.account-ux-card{margin-top:0!important}.account-role-note{margin-top:10px;padding:8px 9px;border-radius:9px;background:#f6f8fb;color:#738095;font-size:8.5px;line-height:1.5}.account-team-primary{margin-bottom:12px}.legal-safety-note{background:#f7faff;border-color:#d7e2f4}.account-tab-pane .production-governance-panel{margin-top:0!important}.account-tab-pane .billing-subscription-panel{margin-top:0!important}
+.account-ux-hero{margin-bottom:12px}.account-ux-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:10px}.account-ux-summary>div{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 12px}.account-ux-summary span{display:block;font-size:8.5px;color:#7a8798}.account-ux-summary b{display:block;font-size:17px;color:#26344b;margin:4px 0 1px}.account-ux-summary small{font-size:8px;color:#98a2b1}.account-ux-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:13px}.account-quick-btn{border:1px solid #dfe6f0;background:#fff;border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;color:#29364b}.account-quick-btn:hover{border-color:#aebfe2;background:#f7faff}.account-quick-btn b{display:block;font-size:10px}.account-quick-btn span{display:block;font-size:8.5px;color:#7b8799;margin-top:3px}.account-tabs{display:flex;gap:5px;align-items:center;overflow:auto;padding:5px;background:#eef2f7;border:1px solid #e0e6ee;border-radius:12px;margin-bottom:14px;position:relative;z-index:6;pointer-events:auto}.account-tab{flex:1;min-width:108px;border:0;background:transparent;border-radius:9px;padding:9px 10px;font-size:9.5px;font-weight:850;color:#66758a;cursor:pointer;white-space:nowrap;position:relative;z-index:7;pointer-events:auto;touch-action:manipulation}.account-tab.active{background:#fff;color:#1f5eff;box-shadow:0 1px 5px #26344b14}.account-tab-pane{display:none}.account-tab-pane.active{display:block}.account-pane-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin:2px 1px 10px}.account-pane-head h3{font-size:16px;margin:0 0 3px;color:#26344b}.account-pane-head p{font-size:9px;color:#7a879a;margin:0;line-height:1.45}.account-ux-card{margin-top:0!important}.account-role-note{margin-top:10px;padding:8px 9px;border-radius:9px;background:#f6f8fb;color:#738095;font-size:8.5px;line-height:1.5}.account-team-primary{margin-bottom:12px}.legal-safety-note{background:#f7faff;border-color:#d7e2f4}.account-tab-pane .production-governance-panel{margin-top:0!important}.account-tab-pane .billing-subscription-panel{margin-top:0!important}
 @media(max-width:900px){.account-ux-summary{grid-template-columns:repeat(2,1fr)}.account-ux-actions{grid-template-columns:1fr}.account-tab{flex:0 0 auto}.account-pane-head{align-items:center}}
 @media(max-width:540px){.account-ux-summary{grid-template-columns:1fr 1fr}.account-ux-summary b{font-size:14px}.account-tabs{margin-left:-2px;margin-right:-2px}.account-pane-head{display:block}.account-pane-head>.btn,.account-pane-head>.status-badge,.account-pane-head>.ai-conn-badge{margin-top:8px}}
 </style>
@@ -2891,20 +2891,27 @@ async function restoreConfigBackup(id){if(!confirm('선택한 구성백업으로
 async function requestClinicDeletion(){const name=$('clinicDeletionConfirm')?.value.trim()||'';if(!name){toast('병원명을 정확히 입력해주세요.');return;}if(!confirm('병원 데이터 삭제 요청을 접수할까요?\n\n7일 유예 후 HQ가 구독·미정산 금액을 확인하고 실행합니다. 실행 후 운영 데이터는 복구가 제한됩니다.'))return;try{clinicDeletionState=await saasRequest('/saas/clinic/deletion-request',{method:'POST',body:JSON.stringify({confirmClinicName:name})});if($('clinicDeletionConfirm'))$('clinicDeletionConfirm').value='';renderProductionGovernance();toast('병원 데이터 삭제 요청이 접수되었습니다.');}catch(e){toast(e.message||'삭제 요청 실패');}}
 async function cancelClinicDeletion(){if(!confirm('병원 데이터 삭제 요청을 취소할까요?'))return;try{clinicDeletionState=await saasRequest('/saas/clinic/deletion-request/cancel',{method:'POST'});renderProductionGovernance();toast('삭제 요청을 취소했습니다.');}catch(e){toast(e.message||'삭제 요청 취소 실패');}}
 async function withdrawAccount(){const password=$('withdrawPassword')?.value||'',confirmText=$('withdrawConfirm')?.value.trim()||'';if(confirmText!=='탈퇴'){toast('확인란에 “탈퇴”를 입력해주세요.');return;}if(!confirm('개인 계정을 탈퇴할까요?\n\n현재 사용자 세션이 모두 종료되며 이메일·표시이름은 비식별화됩니다. 이 작업은 되돌릴 수 없습니다.'))return;try{await saasRequest('/saas/account/withdraw',{method:'POST',body:JSON.stringify({password,confirm:'탈퇴'})});saasToken='';saasMe=null;localStorage.removeItem(SAAS_SESSION_STORAGE_KEY);showLogin();saasSetAuthStatus('계정 탈퇴가 완료되었습니다.','ok');}catch(e){toast(e.message||'계정 탈퇴 실패');}}
-const ACCOUNT_TAB_STORAGE_KEY='carestep_account_tab_v901';
+const ACCOUNT_TAB_STORAGE_KEY='carestep_account_tab_v902_hotfix';
 const ACCOUNT_TABS=new Set(['my','team','billing','security','legal']);
 function setAccountTab(tab='my',focusId=''){
   const next=ACCOUNT_TABS.has(tab)?tab:'my';
-  document.querySelectorAll('[data-account-tab]').forEach(b=>{const on=b.dataset.accountTab===next;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');});
-  document.querySelectorAll('[data-account-pane]').forEach(p=>p.classList.toggle('active',p.dataset.accountPane===next));
+  document.querySelectorAll('[data-account-tab]').forEach(b=>{const on=b.dataset.accountTab===next;b.classList.toggle('active',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1;});
+  document.querySelectorAll('[data-account-pane]').forEach(p=>{const on=p.dataset.accountPane===next;p.classList.toggle('active',on);p.hidden=!on;});
   try{localStorage.setItem(ACCOUNT_TAB_STORAGE_KEY,next);}catch{}
   if(focusId)setTimeout(()=>{const el=$(focusId);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});try{el.focus({preventScroll:true});}catch{el.focus();}}},90);
 }
 function initAccountUx(){
-  document.querySelectorAll('[data-account-tab]').forEach(b=>b.addEventListener('click',()=>setAccountTab(b.dataset.accountTab)));
-  document.querySelectorAll('[data-account-open-tab]').forEach(b=>b.addEventListener('click',()=>setAccountTab(b.dataset.accountOpenTab,b.dataset.accountFocus||'')));
+  const tabs=$('accountTabs');
+  if(tabs&&!tabs.dataset.bound){
+    tabs.dataset.bound='1';
+    tabs.addEventListener('click',e=>{const b=e.target.closest('[data-account-tab]');if(!b||!tabs.contains(b))return;e.preventDefault();setAccountTab(b.dataset.accountTab);});
+    tabs.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;const visible=[...tabs.querySelectorAll('[data-account-tab]')].filter(b=>!b.classList.contains('ux-role-hidden'));if(!visible.length)return;const cur=Math.max(0,visible.findIndex(b=>b.classList.contains('active')));let i=cur;if(e.key==='ArrowRight')i=(cur+1)%visible.length;else if(e.key==='ArrowLeft')i=(cur-1+visible.length)%visible.length;else if(e.key==='Home')i=0;else i=visible.length-1;e.preventDefault();setAccountTab(visible[i].dataset.accountTab);visible[i].focus();});
+  }
+  const account=$('account');if(account&&!account.dataset.quickBound){account.dataset.quickBound='1';account.addEventListener('click',e=>{const b=e.target.closest('[data-account-open-tab]');if(!b||!account.contains(b))return;setAccountTab(b.dataset.accountOpenTab,b.dataset.accountFocus||'');});}
   let saved='my';try{saved=localStorage.getItem(ACCOUNT_TAB_STORAGE_KEY)||'my';}catch{}setAccountTab(saved);
 }
+// Critical local navigation: bind immediately so unrelated late-page initialization cannot disable account tabs.
+initAccountUx();
 
 function renderSaasAccount(){
   renderBillingOverview();
@@ -7283,7 +7290,6 @@ studioLoadAiSettings();
 setDefaultDischargeDate(true);
 updateSelectedOutputUi();
 renderAll();
-initAccountUx();
 setWizardStep(1);
 updateReadiness();
 saasBootstrap();
