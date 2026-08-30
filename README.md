@@ -1,45 +1,108 @@
-# CARESTEP Clinic v8.9 — Pilot & Customer Success
+# CARESTEP Clinic v9.0.2 — Daily Workflow & UX Polish
 
-v8.9 adds an HQ Customer Success portfolio on top of v8.8.3.
+v9.0.2 is a usability release on top of v9.0.1. It does not add a new business domain or permission model. Instead it applies seven UX improvements across the clinic and HQ experiences while preserving billing, messaging, Customer Success, Production Launch, legal/privacy, backup/deletion, and security behavior.
 
-## 핵심
-- 병원별 **도입 점수 0~100** 자동 계산
-- 병원별 **이탈 위험점수 0~100** 자동 계산
-- 자동 판정: `도입 성공 / 양호 / 관찰 필요 / 위험 / 도입 초기`
-- 무료체험 **7일 이하**, **3일 이하**, 체험 종료 + 카드 미등록 자동 탐지
-- **7일/14일 미사용**, 실사용 이벤트 없음, 30일 퇴원자료 0건 자동 탐지
-- Go-Live 완료율, 최근 30일 패키지·후속관리·활성일을 플랜 특성에 맞춰 반영
-- `past_due / paused / canceled / 해지예약`을 이탈 위험에 반영
-- 미확인 문자 실패도 운영 마찰 신호로 반영
-- 병원별 **추천 Customer Success 액션** 자동 제안
-- HQ Dashboard 승인·처리센터에 **고객 성공 위험** 카드 추가
+## 1. Clinic home — today-first workflow
 
-## 도입 점수
-BASIC처럼 후속관리 기능이 없는 플랜은 후속관리 미사용으로 감점하지 않습니다.
-- 온보딩/Go-Live
-- 최근 30일 퇴원자료 생성
-- 최근 30일 활성일
-- 후속관리 지원 플랜은 Patient Journey/후속관리 활용
+The clinic home now emphasizes the work that should be handled now:
+- 오늘 후속관리
+- 확인 필요
+- 문자 실패
+- 새 환자 자료 만들기
 
-## 이탈 위험
-다음 신호를 조합합니다.
-- 7일/14일 이상 미사용
-- 체험 종료 임박 또는 종료 + 카드 미등록
-- 가입 후 온보딩 지연
-- 30일 퇴원자료 0건 / 실사용 이벤트 없음
-- 결제 실패·일시중지·해지·해지 예약
-- 미확인 문자 실패
+The cards link directly to the relevant workflow. Existing performance/statistics remain available as secondary information rather than competing with the daily action area.
 
-규칙 기반 Customer Success 운영지표이며 의료 판단용 점수가 아닙니다.
+## 2. Role-aware account simplification
 
-## Privacy
-HQ Customer Success에는 환자명, 보호자명, 전화번호, 복약정보, 메시지 본문을 사용하거나 표시하지 않습니다. 병원 단위 운영 메타데이터만 집계합니다.
+The existing Owner/Admin/Vet/Staff model is retained. No additional permission granularity was introduced.
+- Owner/Admin: all account tabs, including 직원 관리 and 요금제 · 결제
+- Vet/Staff: the management-only 직원 관리 and 요금제 · 결제 tabs are hidden, while 내 계정, 보안 · 데이터, 약관 · 탈퇴 remain available
+- Clinic data deletion remains Owner-only
 
-## Deploy
-1. `worker-paste-ready.txt` 전체로 Cloudflare Worker 교체 → Deploy
-2. `index.html` 교체
-3. `hq.html` 교체
-4. Ctrl + Shift + R
-5. HQ → `고객 성공` 메뉴 확인
+## 3. Unified user-facing status language
 
-새 Secret 없음 · 수동 D1 SQL 없음 · Cron 변경 없음 (`15 0 * * *` 유지).
+The hospital-facing UI uses a smaller, consistent Korean status vocabulary such as:
+- 정상
+- 확인 필요
+- 처리 중
+- 완료
+- 조치 필요
+- 중지
+
+Messaging, sender onboarding, and billing states are mapped into the same mental model while preserving backend status values.
+
+## 4. Actionable empty states
+
+Empty screens now suggest the next useful action instead of only reporting that data is absent. Examples include:
+- first employee invite
+- first configuration backup
+- card registration
+- filter reset
+- follow-up setup
+
+HQ empty results also include reset/recovery actions where appropriate.
+
+## 5. Current case context
+
+A compact current-case bar remains visible while the user moves between discharge material creation and follow-up work. It shows the current browser-session case context and offers:
+- 케이스 계속
+- 새 환자
+
+No new patient-context D1 endpoint or patient PII persistence was added.
+
+## 6. HQ priority workflow
+
+Customer Success now supports one-click operational filters:
+- 오늘 처리
+- 위험 병원
+- 체험 종료 임박
+- 결제 문제
+- 14일 미사용
+
+Default priority sorting emphasizes payment failure, trial expiry, long inactivity, onboarding delay, and then risk score.
+
+## 7. Clear action feedback
+
+Important actions now provide in-place feedback such as:
+- 저장 중… → ✓ 저장됨
+- 백업 중… → ✓ 백업 완료
+- 결제 처리 중… → ✓ 결제 완료
+
+This is applied to key clinic and HQ operations while keeping the existing toast/error flow.
+
+## Regression / backend impact
+
+- Existing v9.0.1 static control IDs preserved
+- Existing HQ 5-group navigation and quick clinic search preserved
+- Enterprise billing preserved
+- message overage auto-settlement preserved
+- Founding policy preserved
+- real-time message test preserved
+- Customer Success preserved
+- Production Launch / legal / backup / deletion preserved
+- No new D1 table or column
+- No new Secret
+- No Cron change
+- Worker business logic is unchanged from v9.0.1 except version metadata alignment (`9.0.2`)
+
+## Validation
+
+Static/structural regression suite: **120/120 PASS**
+- Worker JavaScript syntax PASS
+- Clinic inline JavaScript syntax PASS
+- HQ inline JavaScript syntax PASS
+- no duplicate static HTML IDs
+- all v9.0.1 static IDs preserved
+- all seven UX improvement groups verified
+- critical billing/messaging/governance regression markers verified
+
+External provider/runtime transactions are not executed by this offline static validation and should be smoke-tested after deployment.
+
+## Deployment
+
+1. Deploy `worker-paste-ready.txt` to Cloudflare Worker.
+2. Confirm `/hq/health` reports `9.0.2`.
+3. Replace GitHub Pages `index.html`.
+4. Replace `hq.html`.
+5. Wait for Pages deployment and hard refresh (`Ctrl+Shift+R`).
+6. Follow `DEPLOY_CHECKLIST.txt`.
