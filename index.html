@@ -2964,7 +2964,7 @@ let workflowStartAt=Date.now();
 let workflowTimerHandle=null;
 let qrDataUrl='';
 
-const $ = (id) => document.getElementById(id);
+function $(id){ return document.getElementById(id); }
 
 function localTodayIso(){
   const d=new Date();
@@ -3097,6 +3097,8 @@ async function startNewCaseSafely(templateId=''){
   go(templateId?'builder':'library');
   return true;
 }
+function beginDashboardNewCase(){ return startNewCaseSafely(); }
+
 function resumeCurrentCase(){
   if(!caseHasActiveWork()){toast('현재 작성 중인 환자가 없습니다.');return;}
   if(currentCasePhase==='followup'){go('followup');setFollowupGuideMode?.('setup');}
