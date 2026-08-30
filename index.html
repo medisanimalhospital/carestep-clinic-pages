@@ -4042,12 +4042,21 @@ function cardTemplate(t){
 
 function renderQuick(){ $('quickCards').innerHTML = templates.filter(t=>t.featured).map(cardTemplate).join(''); bindBuilderButtons(); }
 function renderLibrary(){
-  const q=($('searchInput')?.value||'').trim().toLowerCase();
-  const data=templates.filter(t => (currentFilter==='전체'||t.category===currentFilter) && (!q || `${t.title} ${t.short} ${t.description}`.toLowerCase().includes(q)));
+  const q=normalizeSearchText($('searchInput')?.value||'');
+  let data;
+  if(q){
+    // 질환 검색 중에는 자료 생성과 동일한 랭킹 엔진을 사용합니다.
+    // 카테고리 칩은 결과를 다시 좁히는 보조 필터로만 적용합니다.
+    data=templateSearchMatches(q,{limit:80});
+    if(currentFilter!=='전체')data=data.filter(t=>t.category===currentFilter);
+  }else{
+    data=templates.filter(t=>currentFilter==='전체'||t.category===currentFilter);
+  }
   $('libraryGrid').innerHTML=data.map(cardTemplate).join('') || '<div class="panel">검색 결과가 없습니다.</div>';
   bindBuilderButtons();
 }
 function bindBuilderButtons(){ document.querySelectorAll('.open-builder').forEach(btn=>btn.addEventListener('click',()=>startNewCaseSafely(btn.dataset.id))); }
+
 function templateSearchAliases(category=''){
   const map={
     '수술':'수술 회복 수술후 수술 후 퇴원',
@@ -4065,34 +4074,128 @@ function templateSearchAliases(category=''){
   };
   return map[category]||category;
 }
-function normalizeTemplateQuery(v=''){return String(v||'').normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();}
-function templateSearchText(t){
-  let profile='';
-  try{
-    const p=journeyProfiles?.[t.id];
-    if(p) profile=[p.label,...(p.tracking||[]),...(p.questions||[]),...(p.mistakes||[]).flat()].join(' ');
-  }catch{}
-  return normalizeTemplateQuery([t.title,t.short,t.description,t.category,categoryLabel(t.category),templateSearchAliases(t.category),profile].filter(Boolean).join(' '));
+
+/* v9.0.2 HOTFIX 13 · CONSISTENT DISEASE SEARCH
+   자료실 / 자료 생성 / Patient Journey가 동일한 질환 검색 규칙을 사용합니다. */
+const DISEASE_SEARCH_SYNONYMS=[
+  ['슬개골','슬개골탈구','patella','mpl'],
+  ['십자인대','전십자인대','전방십자인대','전방십자','ccl','cruciate','tplo'],
+  ['디스크','추간판','추간판탈출','추간판탈출증','ivdd'],
+  ['고관절','hip'],
+  ['중성화','neuter','spay','castration'],
+  ['유선종양','유선암','유선종괴','mammary'],
+  ['비장절제','비장절제술','비장종괴','비장수술','splenectomy'],
+  ['방광결석','방광결석증','요로결석','방광절개','cystotomy'],
+  ['스케일링','치석제거','dental scaling'],
+  ['담낭적출','담낭적출술','담낭점액종','담낭점액종수술','cholecystectomy'],
+  ['전발치','전악발치','구내염','fcgs','full mouth extraction','fullmouth'],
+  ['췌장염','pancreatitis'],
+  ['만성신장병','만성콩팥병','만성신부전','신장병','ckd'],
+  ['심장병','심장질환','심부전','chf','cardiac disease'],
+  ['당뇨병','당뇨','diabetes'],
+  ['경련','발작','seizure'],
+  ['인지기능저하','인지장애','인지기능장애','치매','cds','cognitive dysfunction'],
+  ['항암','항암치료','chemotherapy'],
+  ['구토설사','구토·설사','구토/설사','위장염']
+];
+const DISEASE_SEARCH_STOP_WORDS=new Set([
+  '강아지','고양이','반려동물','환자','보호자','질환','병','치료',
+  '관리','가정관리','퇴원관리','회복관리','회복','퇴원','진단','진단후',
+  '수술','수술후','후','journey','patient'
+]);
+
+function normalizeSearchText(v=''){
+  return String(v||'').normalize('NFKC').toLowerCase()
+    .replace(/[·ㆍ•/_,()[\]{}:;|+\-]+/g,' ')
+    .replace(/\s+/g,' ').trim();
 }
-function templateSearchMatches(raw){
-  const q=normalizeTemplateQuery(raw);
+function compactSearchText(v=''){return normalizeSearchText(v).replace(/\s+/g,'');}
+function diseaseSearchTerms(raw=''){
+  const q=normalizeSearchText(raw);
   if(!q)return [];
-  const terms=q.split(' ').filter(Boolean);
-  return templates.map(t=>{
-    const hay=templateSearchText(t),compact=hay.replace(/\s+/g,''),title=normalizeTemplateQuery(`${t.short} ${t.title}`),cat=normalizeTemplateQuery(`${t.category} ${categoryLabel(t.category)} ${templateSearchAliases(t.category)}`);
-    let score=0;
-    for(const term of terms){
-      const compactTerm=term.replace(/\s+/g,'');
-      if(!hay.includes(term)&&!compact.includes(compactTerm))return null;
-      if(title===term)score+=120;
-      else if(title.startsWith(term))score+=70;
-      else if(title.includes(term))score+=45;
-      else if(cat.includes(term)||cat.replace(/\s+/g,'').includes(compactTerm))score+=25;
-      else score+=10;
+  const all=q.split(' ').filter(Boolean);
+  const meaningful=all.filter(x=>!DISEASE_SEARCH_STOP_WORDS.has(x));
+  return meaningful.length?meaningful:all;
+}
+function diseaseSearchVariants(term=''){
+  const t=normalizeSearchText(term),ct=compactSearchText(t);
+  if(!t)return [];
+  const group=DISEASE_SEARCH_SYNONYMS.find(g=>g.some(x=>compactSearchText(x)===ct));
+  return [...new Set((group||[t]).map(normalizeSearchText).filter(Boolean))];
+}
+function searchFieldHas(field='',variant=''){
+  const f=normalizeSearchText(field),v=normalizeSearchText(variant);
+  if(!f||!v)return false;
+  return f.includes(v)||compactSearchText(f).includes(compactSearchText(v));
+}
+function weightedDiseaseSearchScore(raw,{primary='',secondary='',description='',extra=''}={}){
+  const q=normalizeSearchText(raw),terms=diseaseSearchTerms(q);
+  if(!q||!terms.length)return 0;
+  const p=normalizeSearchText(primary),s=normalizeSearchText(secondary),d=normalizeSearchText(description),e=normalizeSearchText(extra);
+  let score=0,strongHits=0;
+  for(const term of terms){
+    const variants=diseaseSearchVariants(term);
+    let best=0;
+    for(const v of variants){
+      const cv=compactSearchText(v),cp=compactSearchText(p);
+      if(cp===cv)best=Math.max(best,180);
+      else if(cp.startsWith(cv))best=Math.max(best,145);
+      else if(searchFieldHas(p,v))best=Math.max(best,110);
+      else if(searchFieldHas(s,v))best=Math.max(best,55);
+      else if(searchFieldHas(d,v))best=Math.max(best,28);
+      else if(searchFieldHas(e,v))best=Math.max(best,10);
     }
-    if(title.includes(q))score+=35;
-    return {t,score};
-  }).filter(Boolean).sort((a,b)=>b.score-a.score||a.t.short.localeCompare(b.t.short,'ko')).slice(0,12).map(x=>x.t);
+    if(!best)return null; // 여러 단어 검색은 의미 있는 단어를 모두 만족해야 합니다.
+    if(best>=55)strongHits++;
+    score+=best;
+  }
+  const cq=compactSearchText(q),cp=compactSearchText(p);
+  if(cq&&cp===cq)score+=160;
+  else if(cq&&cp.startsWith(cq))score+=100;
+  else if(cq&&cp.includes(cq))score+=70;
+  // 일반 설명/부가문구에서만 우연히 걸린 항목은 질환 검색 결과에서 제외합니다.
+  if(strongHits===0&&score<28)return null;
+  return score;
+}
+function templateSearchFields(t){
+  return {
+    primary:[t.short,t.title,t.id].filter(Boolean).join(' '),
+    secondary:[t.category].filter(Boolean).join(' '),
+    description:t.description||'',
+    // 상세 질문/실수/추적항목은 검색 노이즈가 커서 질환 검색 대상에서 제외합니다.
+    extra:''
+  };
+}
+function templateSearchMatches(raw,{limit=24}={}){
+  const q=normalizeSearchText(raw);
+  if(!q)return [];
+  return templates.map(t=>{
+    const score=weightedDiseaseSearchScore(q,templateSearchFields(t));
+    return score==null?null:{t,score};
+  }).filter(Boolean)
+    .sort((a,b)=>b.score-a.score||a.t.short.localeCompare(b.t.short,'ko'))
+    .slice(0,Math.max(1,Number(limit)||24))
+    .map(x=>x.t);
+}
+function journeySearchFields(j){
+  const linked=templates.find(t=>t.id===j.sourceId)||null;
+  return {
+    primary:[j.name,linked?.short,linked?.title,j.sourceId].filter(Boolean).join(' '),
+    secondary:[j.category,linked?.category].filter(Boolean).join(' '),
+    description:[j.description,linked?.description].filter(Boolean).join(' '),
+    extra:''
+  };
+}
+function patientJourneySearchMatches(raw,category='all'){
+  const q=normalizeSearchText(raw);
+  let rows=patientJourneys.filter(j=>category==='all'||j.category===category);
+  if(!q)return rows;
+  return rows.map(j=>{
+    const score=weightedDiseaseSearchScore(q,journeySearchFields(j));
+    return score==null?null:{j,score};
+  }).filter(Boolean)
+    .sort((a,b)=>b.score-a.score||String(a.j.name||'').localeCompare(String(b.j.name||''),'ko'))
+    .map(x=>x.j);
 }
 function selectTemplateFromSearch(id){const t=templates.find(x=>x.id===id);if(!t)return;if(t.id!==currentTemplateId)switchCaseTemplate(t.id,{preserveIdentity:true,notify:true});else{if($('templateSearch'))$('templateSearch').value='';renderTemplateSearch();}}
 function renderTemplateSearch(){
@@ -6940,7 +7043,81 @@ function followupMessagingStages(){return followupSelectedStages().filter(day=>a
 function renderFollowupStageSettings(){const el=$('followupStageList');if(!el)return;const settings=followupSettings(),base=activePatientJourney?.stages?.length?activePatientJourney.stages:[{day:1,title:'초기 상태 확인',calendar:true,message:true},{day:3,title:'초기 반응 확인',calendar:true,message:true,survey:false},{day:7,title:'1주 추세 평가',calendar:true,message:true},{day:14,title:'장기관리 전환',calendar:true,message:true}];el.innerHTML=base.map(st=>{const d=Number(st.day),checked=settings.stages.includes(d),actions=`${st.calendar!==false?'<span class="followup-stage-action">캘린더</span>':''}${st.message!==false?'<span class="followup-stage-action">문자</span>':''}`;return `<label class="followup-stage-toggle"><input class="followup-stage-setting" type="checkbox" value="${d}" ${checked?'checked':''}><span>D+${d}<small>${escapeHtml(st.title||`D+${d} 확인`)}</small><span class="followup-stage-actions">${actions}</span></span></label>`;}).join('');el.querySelectorAll('.followup-stage-setting').forEach(x=>x.addEventListener('change',saveFollowupSettings));}
 async function loadPatientJourneys(showToast=false){if(!patientJourneyAllowed(false)||saasMode!=='auth'||!saasMe){patientJourneys=[];renderPatientJourneyBuilder();return;}patientJourneyLoading=true;renderPatientJourneyBuilder();try{const d=await saasRequest('/saas/patient-journeys');patientJourneys=d.journeys||[];const saved=sessionStorage.getItem(patientJourneySessionKey())||'';if(activePatientJourney){const fresh=patientJourneyById(activePatientJourney.id);if(fresh)activePatientJourney=fresh;else{activePatientJourney=null;activeJourneyStageSelection=[];}}else if(saved){const j=patientJourneyById(saved);if(j){activePatientJourney=j;activeJourneyStageSelection=(j.stages||[]).map(x=>Number(x.day)).filter(Boolean);}}if(!patientJourneySelectedId||!patientJourneyById(patientJourneySelectedId))patientJourneySelectedId=activePatientJourney?.id||patientJourneys[0]?.id||'';if(!activePatientJourney&&typeof followupGuideStep!=='undefined'&&followupGuideStep===2)syncPatientJourneyBrowserToCurrentCase(false);if(showToast)toast(`Patient Journey ${patientJourneys.length}개를 불러왔습니다.`);}catch(e){if(showToast)toast(e.message||'Journey를 불러오지 못했습니다.');}finally{patientJourneyLoading=false;}renderPatientJourneyBuilder();renderFollowupCenter();}
 function patientJourneyCategoryOptions(){return CATEGORY_CODES.filter(c=>patientJourneys.some(x=>(x.category||'기타')===c));}
-function renderPatientJourneyBuilder(){const lock=$('patientJourneyLock'),allowed=patientJourneyAllowed(false);if(lock){lock.classList.toggle('hidden',allowed);lock.textContent=allowed?'':`${saasMe?.entitlements?.plan?.displayName||'현재'} 플랜에서는 질환별 Patient Journey Builder를 사용할 수 없습니다.`;}const list=$('patientJourneyList'),detail=$('patientJourneyDetail'),cat=$('patientJourneyCategory'),banner=$('activeJourneyBanner');if(!list||!detail)return;['newPatientJourney','refreshPatientJourneys'].forEach(id=>{if($(id))$(id).disabled=!allowed});if(banner){banner.classList.toggle('hidden',!activePatientJourney);banner.innerHTML=activePatientJourney?`현재 케이스 적용: <b>${escapeHtml(activePatientJourney.name)}</b> · ${activeJourneyStageSelection.map(x=>'D+'+x).join(' · ')} <button id="clearActiveJourney" class="btn btn-secondary" type="button" style="margin-left:8px;padding:4px 7px">기본 후속관리로 전환</button>`:'';banner.querySelector?.('#clearActiveJourney')?.addEventListener('click',clearActivePatientJourney);}if(!allowed){list.innerHTML='<div class="journey-empty">현재 플랜에서는 사용할 수 없습니다.</div>';detail.innerHTML='<div class="journey-empty">PRO 이상에서 질환별 Journey Builder를 사용할 수 있습니다.</div>';return;}const cats=patientJourneyCategoryOptions(),currentCat=cat?.value||'all';if(cat){cat.innerHTML='<option value="all">전체</option>'+cats.map(x=>`<option value="${escapeHtml(x)}" ${currentCat===x?'selected':''}>${escapeHtml(categoryLabel(x))}</option>`).join('');if(!cats.includes(currentCat)&&currentCat!=='all')cat.value='all';}if(patientJourneyLoading){list.innerHTML='<div class="journey-empty">Journey를 불러오는 중입니다.</div>';return;}const q=String($('patientJourneySearch')?.value||'').trim().toLowerCase(),cv=$('patientJourneyCategory')?.value||'all',rows=patientJourneys.filter(j=>(cv==='all'||j.category===cv)&&(!q||`${j.name} ${j.category} ${j.description}`.toLowerCase().includes(q)));const countEl=$('patientJourneyCount');if(countEl){const systemCount=patientJourneys.filter(j=>j.isSystem).length,clinicCount=patientJourneys.length-systemCount;countEl.textContent=`전체 ${patientJourneys.length}개 · CARESTEP 기본 ${systemCount}개 · 병원 전용 ${clinicCount}개 · 자료실 카테고리 · Published 교육자료 → Journey 자동동기화`;}list.innerHTML=rows.length?rows.map(j=>`<div class="journey-card ${patientJourneySelectedId===j.id?'active':''}" data-journey-id="${escapeHtml(j.id)}"><b>${escapeHtml(j.name)}</b><small>${escapeHtml(j.description||'')}</small><div class="journey-card-tags"><span class="journey-tag ${j.isSystem?'system':''}">${j.isSystem?'CARESTEP 기본':'병원 전용'}</span><span class="journey-tag">${escapeHtml(categoryLabel(j.category||'기타'))}</span><span class="journey-tag">${(j.stages||[]).length}단계</span></div></div>`).join(''):uxEmptyState('조건에 맞는 Journey가 없습니다.','검색과 카테고리 필터를 초기화해 사용 가능한 Journey를 다시 확인하세요.','journey_reset','필터 초기화');bindUxEmptyActions(list);list.querySelectorAll('[data-journey-id]').forEach(x=>x.addEventListener('click',()=>{patientJourneySelectedId=x.dataset.journeyId;patientJourneyEditorDraft=null;renderPatientJourneyBuilder();}));const j=patientJourneyById(patientJourneySelectedId);if(!j){detail.innerHTML='<div class="journey-empty">Journey를 선택해주세요.</div>';return;}const canEdit=['owner','admin'].includes(saasMe?.role||'');detail.innerHTML=`<h4>${escapeHtml(j.name)}</h4><div class="journey-detail-desc">${escapeHtml(j.description||'설명 없음')}<br>${escapeHtml(categoryLabel(j.category||'기타'))} · ${escapeHtml(j.species||'dog,cat')} · v${Number(j.version)||1}</div><div class="journey-stage-preview">${(j.stages||[]).map(st=>`<div class="journey-stage-preview-row"><strong>D+${Number(st.day)}</strong><div><strong>${escapeHtml(st.title||'확인')}</strong><br><span>${escapeHtml(st.focus||'')}</span></div><div class="journey-card-tags">${st.calendar!==false?'<span class="journey-tag">캘린더</span>':''}${st.message!==false?'<span class="journey-tag">문자</span>':''}${st.survey===true?'<span class="journey-tag survey">설문</span>':''}</div></div>`).join('')}</div><div class="journey-actions"><button id="applyPatientJourney" class="btn btn-primary" type="button">현재 케이스에 적용</button>${canEdit?`<button id="clonePatientJourney" class="btn btn-secondary" type="button">병원용으로 복제</button>${!j.isSystem?'<button id="editPatientJourney" class="btn btn-secondary" type="button">편집</button><button id="deletePatientJourney" class="btn btn-secondary" type="button">삭제</button>':''}`:''}</div>`;$('applyPatientJourney')?.addEventListener('click',()=>applyPatientJourney(j.id));$('clonePatientJourney')?.addEventListener('click',()=>clonePatientJourney(j.id));$('editPatientJourney')?.addEventListener('click',()=>openPatientJourneyEditor(j));$('deletePatientJourney')?.addEventListener('click',()=>deletePatientJourney(j.id));if(patientJourneyEditorDraft)renderPatientJourneyEditor();}
+function renderPatientJourneyBuilder(){
+  const lock=$('patientJourneyLock'),allowed=patientJourneyAllowed(false);
+  if(lock){
+    lock.classList.toggle('hidden',allowed);
+    lock.textContent=allowed?'':`${saasMe?.entitlements?.plan?.displayName||'현재'} 플랜에서는 질환별 Patient Journey Builder를 사용할 수 없습니다.`;
+  }
+  const list=$('patientJourneyList'),detail=$('patientJourneyDetail'),cat=$('patientJourneyCategory'),banner=$('activeJourneyBanner');
+  if(!list||!detail)return;
+  ['newPatientJourney','refreshPatientJourneys'].forEach(id=>{if($(id))$(id).disabled=!allowed});
+  if(banner){
+    banner.classList.toggle('hidden',!activePatientJourney);
+    banner.innerHTML=activePatientJourney?`현재 케이스 적용: <b>${escapeHtml(activePatientJourney.name)}</b> · ${activeJourneyStageSelection.map(x=>'D+'+x).join(' · ')} <button id="clearActiveJourney" class="btn btn-secondary" type="button" style="margin-left:8px;padding:4px 7px">기본 후속관리로 전환</button>`:'';
+    banner.querySelector?.('#clearActiveJourney')?.addEventListener('click',clearActivePatientJourney);
+  }
+  if(!allowed){
+    list.innerHTML='<div class="journey-empty">현재 플랜에서는 사용할 수 없습니다.</div>';
+    detail.innerHTML='<div class="journey-empty">PRO 이상에서 질환별 Journey Builder를 사용할 수 있습니다.</div>';
+    return;
+  }
+  const cats=patientJourneyCategoryOptions(),currentCat=cat?.value||'all';
+  if(cat){
+    cat.innerHTML='<option value="all">전체</option>'+cats.map(x=>`<option value="${escapeHtml(x)}" ${currentCat===x?'selected':''}>${escapeHtml(categoryLabel(x))}</option>`).join('');
+    if(!cats.includes(currentCat)&&currentCat!=='all')cat.value='all';
+  }
+  if(patientJourneyLoading){
+    list.innerHTML='<div class="journey-empty">Journey를 불러오는 중입니다.</div>';
+    detail.innerHTML='<div class="journey-empty">검색 데이터를 불러오는 중입니다.</div>';
+    return;
+  }
+
+  const q=normalizeSearchText($('patientJourneySearch')?.value||'');
+  const cv=$('patientJourneyCategory')?.value||'all';
+  const rows=patientJourneySearchMatches(q,cv);
+
+  // 검색/필터 결과와 우측 상세가 서로 다른 Journey를 가리키지 않도록 항상 동기화합니다.
+  if(!rows.length){
+    list.innerHTML=uxEmptyState('조건에 맞는 Journey가 없습니다.','검색과 카테고리 필터를 초기화해 사용 가능한 Journey를 다시 확인하세요.','journey_reset','필터 초기화');
+    bindUxEmptyActions(list);
+    detail.innerHTML='<div class="journey-empty">현재 검색 조건에 맞는 Journey가 없습니다.</div>';
+    return;
+  }
+  if(!rows.some(j=>j.id===patientJourneySelectedId)){
+    patientJourneySelectedId=rows[0].id;
+    patientJourneyEditorDraft=null;
+  }
+
+  const countEl=$('patientJourneyCount');
+  if(countEl){
+    const systemCount=patientJourneys.filter(j=>j.isSystem).length,clinicCount=patientJourneys.length-systemCount;
+    countEl.textContent=q
+      ? `검색 결과 ${rows.length}개 · 전체 ${patientJourneys.length}개 · 질환명 우선 관련도 순`
+      : `전체 ${patientJourneys.length}개 · CARESTEP 기본 ${systemCount}개 · 병원 전용 ${clinicCount}개 · 자료실 카테고리 · Published 교육자료 → Journey 자동동기화`;
+  }
+
+  list.innerHTML=rows.map(j=>`<div class="journey-card ${patientJourneySelectedId===j.id?'active':''}" data-journey-id="${escapeHtml(j.id)}"><b>${escapeHtml(j.name)}</b><small>${escapeHtml(j.description||'')}</small><div class="journey-card-tags"><span class="journey-tag ${j.isSystem?'system':''}">${j.isSystem?'CARESTEP 기본':'병원 전용'}</span><span class="journey-tag">${escapeHtml(categoryLabel(j.category||'기타'))}</span><span class="journey-tag">${(j.stages||[]).length}단계</span></div></div>`).join('');
+  list.querySelectorAll('[data-journey-id]').forEach(x=>x.addEventListener('click',()=>{
+    patientJourneySelectedId=x.dataset.journeyId;
+    patientJourneyEditorDraft=null;
+    renderPatientJourneyBuilder();
+  }));
+
+  // 선택된 상세는 반드시 현재 검색 결과 rows 안에서만 가져옵니다.
+  const j=rows.find(x=>x.id===patientJourneySelectedId)||rows[0];
+  if(!j){
+    detail.innerHTML='<div class="journey-empty">Journey를 선택해주세요.</div>';
+    return;
+  }
+  const canEdit=['owner','admin'].includes(saasMe?.role||'');
+  detail.innerHTML=`<h4>${escapeHtml(j.name)}</h4><div class="journey-detail-desc">${escapeHtml(j.description||'설명 없음')}<br>${escapeHtml(categoryLabel(j.category||'기타'))} · ${escapeHtml(j.species||'dog,cat')} · v${Number(j.version)||1}</div><div class="journey-stage-preview">${(j.stages||[]).map(st=>`<div class="journey-stage-preview-row"><strong>D+${Number(st.day)}</strong><div><strong>${escapeHtml(st.title||'확인')}</strong><br><span>${escapeHtml(st.focus||'')}</span></div><div class="journey-card-tags">${st.calendar!==false?'<span class="journey-tag">캘린더</span>':''}${st.message!==false?'<span class="journey-tag">문자</span>':''}${st.survey===true?'<span class="journey-tag survey">설문</span>':''}</div></div>`).join('')}</div><div class="journey-actions"><button id="applyPatientJourney" class="btn btn-primary" type="button">현재 케이스에 적용</button>${canEdit?`<button id="clonePatientJourney" class="btn btn-secondary" type="button">병원용으로 복제</button>${!j.isSystem?'<button id="editPatientJourney" class="btn btn-secondary" type="button">편집</button><button id="deletePatientJourney" class="btn btn-secondary" type="button">삭제</button>':''}`:''}</div>`;
+  $('applyPatientJourney')?.addEventListener('click',()=>applyPatientJourney(j.id));
+  $('clonePatientJourney')?.addEventListener('click',()=>clonePatientJourney(j.id));
+  $('editPatientJourney')?.addEventListener('click',()=>openPatientJourneyEditor(j));
+  $('deletePatientJourney')?.addEventListener('click',()=>deletePatientJourney(j.id));
+  if(patientJourneyEditorDraft)renderPatientJourneyEditor();
+}
 function recommendedJourneyForCurrentTemplate(){return (patientJourneys||[]).find(j=>j.status==='active'&&j.sourceId===currentTemplateId&&j.isSystem)||(patientJourneys||[]).find(j=>j.status==='active'&&j.sourceId===currentTemplateId)||null;}
 function syncPatientJourneyBrowserToCurrentCase(force=false){
   const recommended=recommendedJourneyForCurrentTemplate();
