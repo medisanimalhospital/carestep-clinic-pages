@@ -4072,10 +4072,20 @@ function go(view){
 }
 
 function hospitalName(){ return hospital.name || '우리 병원'; }
+/* v9.0.2 HOTFIX 19 · RESOURCE CARD SEMANTICS
+   Resource cards render template.title as the heading and template.short as the subtitle.
+   template.description remains detailed content/search context, not the card subtitle. */
 /* v9.0.2 HOTFIX 18 · CANONICAL CONTENT TITLE
    template.title is the canonical disease/procedure title. template.short is auxiliary only. */
 function templateDisplayTitle(t={}){ return String(t?.title||t?.short||'자료').trim(); }
-function templateDisplayShort(t={}){ const title=templateDisplayTitle(t),short=String(t?.short||'').trim();return short&&short!==title?short:''; }
+function templateDisplayShort(t={}){
+  const title=templateDisplayTitle(t),short=String(t?.short||'').trim();
+  if(!short||short===title)return '';
+  // Legacy AI drafts sometimes stored a full explanatory sentence in `short`.
+  // Keep resource-card subtitles concise; canonical detail text belongs in description.
+  if(short.length>48||/(?:합니다|됩니다|있습니다|하세요|해주세요|중요합니다)[.!?]?$/u.test(short))return '';
+  return short;
+}
 function renderHospitalMeta(){
   $('hospitalBadge').textContent = hospital.name ? hospital.name : '병원정보 미등록';
   $('hospitalHero').textContent = hospitalName();
@@ -4088,7 +4098,7 @@ function cardTemplate(t){
   return `<article class="resource-card" data-title="${escapeHtml(t.title)}" data-category="${t.category}">
     <div class="resource-top"><span class="category">${escapeHtml(categoryLabel(t.category))}</span><span class="status-live">● 사용 가능</span></div>
     <h4>${escapeHtml(templateDisplayTitle(t))}</h4>
-    <p>${escapeHtml(t.description)}</p>
+    ${templateDisplayShort(t)?`<p>${escapeHtml(templateDisplayShort(t))}</p>`:''}
     <div class="resource-includes"><span>8–9P PDF</span><span>복약표</span><span>카톡·문자</span><span>D+1·3·7·14</span></div>
     <div class="card-actions"><button class="btn btn-primary open-builder library-primary-copy" data-id="${t.id}">이 자료로 만들기 →</button></div>
   </article>`;
