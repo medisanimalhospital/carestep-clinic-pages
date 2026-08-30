@@ -185,7 +185,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .med-page .pdf-callout{margin-bottom:12px}
 @media(max-width:1200px){.med-card-name-preview{max-width:200px}}
 @media(max-width:1000px){.med-card-grid{grid-template-columns:1fr 1fr}.medication-actions{align-items:flex-start;flex-direction:column}.medication-actions span{text-align:left}.med-card-name-preview{max-width:320px}}
-@media(max-width:620px){.med-card-grid{grid-template-columns:1fr}.med-field.span-2{grid-column:auto}.med-card-head{align-items:flex-start}.med-card-title{align-items:flex-start;flex-direction:column;gap:5px}.med-card-name-preview{max-width:220px}.med-time-entry{grid-template-columns:1fr}.med-time-add{width:100%}}
+@media(max-width:620px){.med-card-grid{grid-template-columns:1fr}.med-field.span-2{grid-column:auto}.med-card-head{align-items:flex-start}.med-card-title{align-items:flex-start;flex-direction:column;gap:5px}.med-card-name-preview{max-width:220px}.med-time-entry{grid-template-columns:1fr}.med-time-add{width:100%}.med-row-presets{grid-column:auto}.med-row-presets-label{width:100%}.med-row-preset{flex:1 1 calc(50% - 4px)}}
 
 
 /* v5.6 SMART DISCHARGE FLOW */
@@ -196,6 +196,7 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
 .wizard-nav{position:sticky;bottom:-1px;z-index:20;margin:14px -20px -20px;padding:12px 20px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid #e6ebf2;display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}.wizard-nav .btn:last-child{justify-self:end}.wizard-step-label{font-size:10px;color:#748095;font-weight:850;text-align:center;white-space:nowrap}
 .quick-draft{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;border:1px solid #dbe5f6;background:#f7faff;border-radius:12px;margin-bottom:10px}.quick-draft span{font-size:10px;color:#64718a;line-height:1.4}.quick-draft .btn{padding:8px 10px;font-size:10px;white-space:nowrap}
 .med-preset-bar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}.med-preset{border:1px solid #dbe3ef;background:#fff;border-radius:9px;padding:7px 9px;font-size:9.5px;font-weight:850;color:#4c5a72;cursor:pointer}.med-preset:hover{border-color:#1f5eff;color:#1f5eff;background:#f4f8ff}
+.med-row-presets{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:9px 10px;border:1px solid #e5eaf2;border-radius:10px;background:#f8faff}.med-row-presets-label{font-size:9px;font-weight:850;color:#66758d;margin-right:2px}.med-row-preset{height:29px;padding:0 9px;border:1px solid #d9e2ef;border-radius:8px;background:#fff;color:#44536b;font-size:9px;font-weight:850;cursor:pointer;white-space:nowrap}.med-row-preset:hover{border-color:#7fa4ff;background:#f1f6ff;color:#174fc7}.med-row-preset small{font-size:7.8px;font-weight:750;color:#8290a5;margin-left:3px}.med-row-preset:hover small{color:#5277cc}
 .recheck-panel{padding:14px;border:1px solid #dfe6f0;border-radius:14px;background:#fff}.recheck-big{display:grid;grid-template-columns:1fr 1fr;gap:9px}.recheck-help{margin-top:10px;padding:10px 11px;border:1px solid #dce6f7;background:#f5f8ff;border-radius:10px;font-size:10px;color:#5d6c85;line-height:1.55}
 .readiness-panel{border:1px solid #dfe6ef;border-radius:14px;padding:13px;background:#fbfcfe;margin:12px 0}.readiness-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}.readiness-head strong{font-size:12px}.readiness-score{padding:5px 8px;border-radius:999px;background:#eaf7f0;color:#147a53;font-size:9.5px;font-weight:900}.readiness-list{display:grid;gap:6px}.ready-item{display:grid;grid-template-columns:18px 1fr;gap:7px;align-items:start;font-size:10px;line-height:1.4;color:#56647b}.ready-dot{width:16px;height:16px;border-radius:999px;display:grid;place-items:center;font-size:9px;font-weight:900;background:#edf1f6;color:#7c8799}.ready-item.ok .ready-dot{background:#dff3e8;color:#147a53}.ready-item.warn .ready-dot{background:#fff0d9;color:#a46100}
 .package-panel{margin:12px 0;border:1px solid #cddbf4;background:#f5f8ff;border-radius:14px;padding:14px}.package-panel h4{margin:0 0 4px;font-size:13px}.package-panel>p{margin:0 0 10px;font-size:10px;color:#66748c;line-height:1.5}.package-options{display:grid;grid-template-columns:1fr 1fr;gap:7px}.package-option{display:flex;gap:8px;align-items:flex-start;padding:9px 10px;border:1px solid #dfe6f1;background:#fff;border-radius:10px;font-size:10px;color:#43516a}.package-option input{margin-top:2px}.package-option b{display:block;color:#263247;margin-bottom:2px}.package-option span{font-size:9px;color:#7b879a;line-height:1.35}.package-option.disabled{opacity:.5}.package-download{margin-top:10px;width:100%;padding:12px;border:0;border-radius:11px;background:#172033;color:#fff;font-size:11px;font-weight:900;cursor:pointer}.package-download:disabled{opacity:.5;cursor:not-allowed}.package-note{font-size:9px;color:#7a8598;margin-top:7px;line-height:1.45}
@@ -639,7 +640,8 @@ h1{font-size:34px;margin:0 0 10px;letter-spacing:-1.2px}.login-copy{color:var(--
               <div class="med-preset-bar">
                 <button class="med-preset" type="button" data-med-preset="qd">+ 하루 1회 · 08:00</button>
                 <button class="med-preset" type="button" data-med-preset="bid">+ 하루 2회 · 08/20시</button>
-                <button class="med-preset" type="button" data-med-preset="tid">+ 하루 3회 · 08/14/20시</button>
+                <button class="med-preset" type="button" data-med-preset="tid">+ 하루 3회 · 8시간 간격</button>
+                <button class="med-preset" type="button" data-med-preset="qid">+ 하루 4회 · 6시간 간격</button>
                 <button class="med-preset" type="button" data-med-preset="blank">+ 빈 약 카드</button>
               </div>
               <div class="medication-panel" style="margin-top:0">
@@ -3386,6 +3388,13 @@ function renderMedicationRows(){
       </div>
     </div>
     <div class="med-card-grid">
+      <div class="med-row-presets" aria-label="이 약 투약 횟수 빠른 설정">
+        <span class="med-row-presets-label">이 약 빠른 설정</span>
+        <button class="med-row-preset" type="button" data-row-med-preset="qd">하루 1회 <small>08:00</small></button>
+        <button class="med-row-preset" type="button" data-row-med-preset="bid">하루 2회 <small>08·20</small></button>
+        <button class="med-row-preset" type="button" data-row-med-preset="tid">하루 3회 <small>8시간 간격</small></button>
+        <button class="med-row-preset" type="button" data-row-med-preset="qid">하루 4회 <small>6시간 간격</small></button>
+      </div>
       <div class="med-field span-2"><label>약 이름 <small>처방 라벨과 동일하게</small></label><input class="input" data-med-field="name" autocomplete="off" maxlength="40" placeholder="예: 항생제 / 아목시실린" value="${escapeHtml(m.name||'')}" /></div>
       <div class="med-field"><label>1회 용량</label><input class="input" data-med-field="dose" autocomplete="off" maxlength="30" placeholder="예: 1/2정 · 0.8mL" value="${escapeHtml(m.dose||'')}" /></div>
       <div class="med-field"><label>투약 횟수</label><input class="input" data-med-field="frequency" autocomplete="off" maxlength="30" placeholder="예: 하루 2회" value="${escapeHtml(m.frequency||'')}" /></div>
@@ -6357,14 +6366,32 @@ function applyTemplateDraft(){
   if($('caseExtra') && !$('caseExtra').value.trim()){$('caseExtra').value='증상 변화는 같은 조건에서 사진·영상 또는 메모로 기록해 재진 시 보여주세요.';filled++;}
   readCaseInfoFromForm();renderCurrentOutput();updateReadiness();toast(filled?`${filled}개 빈칸에 초안을 넣었습니다. 담당 수의사가 확인·수정해주세요.`:'채울 빈칸이 없거나 사용할 초안이 없습니다.');
 }
+function medicationPreset(kind='blank'){
+  const map={
+    qd:{frequency:'하루 1회',times:'08:00'},
+    bid:{frequency:'하루 2회',times:'08:00, 20:00'},
+    tid:{frequency:'하루 3회',times:'00:00, 08:00, 16:00'},
+    qid:{frequency:'하루 4회',times:'00:00, 06:00, 12:00, 18:00'},
+    blank:{frequency:'',times:''}
+  };
+  return map[kind]||map.blank;
+}
+function applyMedicationPresetToRow(row,kind){
+  if(!row) return;
+  const preset=medicationPreset(kind);
+  const frequency=row.querySelector('[data-med-field="frequency"]');
+  if(frequency) frequency.value=preset.frequency;
+  setMedicationRowTimes(row,parseMedTimes(preset.times));
+  readMedicationRowsFromForm();updateMedicationPreview();updateReadiness();
+  if(['pdf','meds','medcheck','staff'].includes(currentOutput)) renderCurrentOutput();
+}
 function addPresetMedication(kind){
   readMedicationRowsFromForm();
   if(medications.length===1 && !String(medications[0].name||'').trim() && !String(medications[0].dose||'').trim() && !String(medications[0].frequency||'').trim() && !String(medications[0].times||'').trim()) medications=[];
   if(medications.length>=8){toast('복약 일정표는 최대 8종까지 입력할 수 있습니다.');return;}
-  const map={qd:{frequency:'하루 1회',times:'08:00'},bid:{frequency:'하루 2회',times:'08:00, 20:00'},tid:{frequency:'하루 3회',times:'08:00, 14:00, 20:00'},blank:{frequency:'',times:''}};
-  medications.push({...blankMedication(),...(map[kind]||map.blank)});
+  medications.push({...blankMedication(),...medicationPreset(kind)});
   renderMedicationRows();updateMedicationPreview();renderCurrentOutput();updateReadiness();
-  requestAnimationFrame(()=>document.querySelector(`#medicationRows .med-row[data-med-index="${medications.length-1}"]`)?.scrollIntoView({behavior:'smooth',block:'center'}));
+  requestAnimationFrame(()=>document.querySelector(`#medicationRows .med-row[data-med-index="${medications.length-1}"]`)?.scrollIntoView({behavior:'smooth',block:'start'}));
 }
 function medicationInputWarnings(){
   readMedicationRowsFromForm();
@@ -6965,7 +6992,7 @@ $('addMedication')?.addEventListener('click',()=>{
   readMedicationRowsFromForm();
   if(medications.length>=8){toast('복약 일정표는 최대 8종까지 입력할 수 있습니다.');return;}
   medications.push(blankMedication()); renderMedicationRows(); updateMedicationPreview(); renderCurrentOutput(); updateReadiness();
-  requestAnimationFrame(()=>document.querySelector(`#medicationRows .med-row[data-med-index="${medications.length-1}"]`)?.scrollIntoView({behavior:'smooth',block:'center'}));
+  requestAnimationFrame(()=>document.querySelector(`#medicationRows .med-row[data-med-index="${medications.length-1}"]`)?.scrollIntoView({behavior:'smooth',block:'start'}));
 });
 $('medicationRows')?.addEventListener('input',e=>{
   if(!e.target.matches('[data-med-field]')) return;
@@ -6989,12 +7016,20 @@ $('medicationRows')?.addEventListener('keydown',e=>{
 $('medicationRows')?.addEventListener('click',e=>{
   const row=e.target.closest('.med-row'); if(!row) return;
   const idx=Number(row.dataset.medIndex);
+  const rowPresetBtn=e.target.closest('[data-row-med-preset]');
   const addTimeBtn=e.target.closest('[data-add-time]');
   const quickTimeBtn=e.target.closest('[data-quick-time]');
   const removeTimeBtn=e.target.closest('[data-remove-time]');
   const duplicateBtn=e.target.closest('[data-med-duplicate]');
   const removeBtn=e.target.closest('[data-med-remove]');
 
+  if(rowPresetBtn){
+    const kind=rowPresetBtn.dataset.rowMedPreset||'blank';
+    applyMedicationPresetToRow(row,kind);
+    const label=kind==='tid'?'하루 3회 · 8시간 간격':kind==='qid'?'하루 4회 · 6시간 간격':kind==='bid'?'하루 2회':kind==='qd'?'하루 1회':'빠른 설정';
+    toast(`약 ${idx+1}에 ${label}을 적용했습니다.`);
+    return;
+  }
   if(addTimeBtn){
     const input=row.querySelector('[data-med-time-input]'); const time=input?.value||'';
     if(!time){toast('추가할 투약시간을 선택해주세요.');return;}
